@@ -6,11 +6,11 @@ const options = [
 
     children: [
       {
-        key: 'add',
+        key: 'add-user',
         label: 'Adicionar',
       },
       {
-        key: 'list',
+        key: 'list-user',
         label: 'Listar',
       },
     ],
@@ -32,116 +32,53 @@ const options = [
     ],
   },
   {
-    key: 'vehicle',
-    label: 'Veículo',
-    leftIcon: 'ion-android-car',
-
-    children: [
-      {
-        key: 'add',
-        label: 'Adicionar',
-      },
-      {
-        key: 'list',
-        label: 'Listar',
-      },
-    ],
-  },
-  {
-    key: 'trackers',
-    label: 'Rastreadores',
-    leftIcon: 'ion-android-desktop',
-
-    children: [
-      {
-        key: 'add',
-        label: 'Adicionar',
-      },
-      {
-        key: 'list',
-        label: 'Listar',
-      },
-    ],
-  },
-  {
-    key: 'chips',
-    label: 'Chips',
-    leftIcon: 'ion-ios-cog',
-
-    children: [
-      {
-        key: 'add',
-        label: 'Adicionar',
-      },
-      {
-        key: 'list',
-        label: 'Listar',
-      },
-    ],
-  },
-  {
-    key: 'budgets',
-    label: 'Orçamentos',
-    leftIcon: 'ion-podium',
-
-    children: [
-      {
-        key: 'add',
-        label: 'Adicionar',
-      },
-      {
-        key: 'list',
-        label: 'Listar',
-      },
-    ],
-  },
-  {
-    key: 'sales',
-    label: 'Vendas',
-    leftIcon: 'ion-cash',
-
-    children: [
-      {
-        key: 'add',
-        label: 'Adicionar',
-      },
-      {
-        key: 'list',
-        label: 'Listar',
-      },
-    ],
-  },
-  {
     key: 'plans',
     label: 'Planos',
     leftIcon: 'ion-android-document',
 
     children: [
       {
-        key: 'add',
+        key: 'add-plans',
         label: 'Adicionar',
       },
       {
-        key: 'list',
+        key: 'list-plans',
         label: 'Listar',
       },
     ],
   },
   {
-    key: 'contracts',
-    label: 'Contratos',
-    leftIcon: 'ion-folder',
+    key: 'bike',
+    label: 'Bicicleta',
+    leftIcon: 'ion-android-bicycle',
 
     children: [
       {
-        key: 'add',
+        key: 'add-bike',
         label: 'Adicionar',
       },
       {
-        key: 'list',
+        key: 'list-bike',
         label: 'Listar',
       },
     ],
   },
+  {
+    key: 'hangtags',
+    label: 'Etiqueta',
+    leftIcon: 'ion-ios-pricetag',
+
+    children: [
+      {
+        key: 'add-hangtags',
+        label: 'Adicionar',
+      },
+      {
+        key: 'list-hangtags',
+        label: 'Listar',
+      },
+    ],
+  },
+  
 ];
 export default options;

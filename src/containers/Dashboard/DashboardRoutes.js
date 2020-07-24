@@ -9,29 +9,65 @@ const routes = [
     exact: true,
   },
   {
-    path: 'add',
+    path: 'add-user',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Add')
+      import('@iso/containers/FirestoreCRUD/Article/User/Add-User')
     ),
   },
   {
-    path: 'list',
+    path: 'list-user',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Article')
+      import('@iso/containers/FirestoreCRUD/Article/User/List-User.js')
     ),
   },
-  // {
-  //   path: 'list-client',
-  //   component: lazy(() =>
-  //     import('@iso/containers/Client/list-client')
-  //   ),
-  // },
-  // {
-  //   path: 'add-client',
-  //   component: lazy(() =>
-  //     import('@iso/containers/Client/add')
-  //   ),
-  // },
+  {
+    path: 'add-client',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Client/Add-Client')
+    ),
+  },
+  {
+    path: 'list-client',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Client/List-Client.js')
+    ),
+  },
+  {
+    path: 'add-plans',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Plans/Add-Plans')
+    ),
+  },
+  {
+    path: 'list-plans',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Plans/List-Plans')
+    ),
+  },
+  {
+    path: 'add-bike',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Bike/Add-Bike')
+    ),
+  },
+  {
+    path: 'list-bike',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Bike/List-Bike')
+    ),
+  },
+  {
+    path: 'add-hangtags',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Hangtags/Add-Hangtags')
+    ),
+  },
+  {
+    path: 'list-hangtags',
+    component: lazy(() =>
+      import('@iso/containers/FirestoreCRUD/Article/Hangtags/List-Hangtags')
+    ),
+  },
  
  
 ];
