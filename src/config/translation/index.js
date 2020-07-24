@@ -1,4 +1,3 @@
-import Brlang from './entries/pt_BR';
 import Enlang from './entries/en-US';
 import Zhlang from './entries/zh-Hans-CN';
 import Salang from './entries/ar_SA';
@@ -8,7 +7,6 @@ import Frlang from './entries/fr_FR';
 import { addLocaleData } from 'react-intl';
 
 const AppLocale = {
-  br: Brlang,
   en: Enlang,
   zh: Zhlang,
   sa: Salang,
@@ -16,7 +14,6 @@ const AppLocale = {
   es: Eslang,
   fr: Frlang,
 };
-addLocaleData(AppLocale.br.data);
 addLocaleData(AppLocale.en.data);
 addLocaleData(AppLocale.zh.data);
 addLocaleData(AppLocale.sa.data);

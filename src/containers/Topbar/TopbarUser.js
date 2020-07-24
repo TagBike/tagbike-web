@@ -21,15 +21,6 @@ export default function TopbarUser() {
       <Link className="isoDropdownLink" to={'/dashboard/my-profile'}>
         <IntlMessages id="topbar.myprofile" />
       </Link>
-      <a className="isoDropdownLink" href="# ">
-        <IntlMessages id="themeSwitcher.settings" />
-      </a>
-      <a className="isoDropdownLink" href="# ">
-        <IntlMessages id="sidebar.feedback" />
-      </a>
-      <a className="isoDropdownLink" href="# ">
-        <IntlMessages id="topbar.help" />
-      </a>
       <div className="isoDropdownLink" onClick={() => dispatch(logout())}>
         <IntlMessages id="topbar.logout" />
       </div>

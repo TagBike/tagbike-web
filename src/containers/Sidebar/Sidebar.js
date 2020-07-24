@@ -33,6 +33,7 @@ export default function Sidebar() {
   const customizedTheme = useSelector(
     state => state.ThemeSwitcher.sidebarTheme
   );
+
   function handleClick(e) {
     dispatch(changeCurrent([e.key]));
     if (view === 'MobileView') {
@@ -104,10 +105,10 @@ export default function Sidebar() {
         style={styling}
       >
         <Logo collapsed={isCollapsed} />
-        <Scrollbars style={{ height: height - 60 }}>
+        <Scrollbars style={{ height: height - 70 }}>
           <Menu
             onClick={handleClick}
-            theme="light"
+            theme="dark"
             className="isoDashboardMenu"
             mode={mode}
             openKeys={isCollapsed ? [] : openKeys}
@@ -123,40 +124,6 @@ export default function Sidebar() {
               />
             ))}
             {/* Demo Menu */}
-            <SubMenu
-              key="sub1"
-              title={
-                <span className="isoMenuHolder" style={submenuColor}>
-                  <i className="ion-android-options" />
-                  <span className="nav-text">
-                    <IntlMessages id="sidebar.menuLevels" />
-                  </span>
-                </span>
-              }
-            >
-              <MenuItemGroup
-                key="g1"
-                title={<IntlMessages id="sidebar.item1" />}
-              >
-                <Menu.Item style={submenuStyle} key="1">
-                  <IntlMessages id="sidebar.option1" />
-                </Menu.Item>
-                <Menu.Item style={submenuStyle} key="2">
-                  <IntlMessages id="sidebar.option2" />
-                </Menu.Item>
-              </MenuItemGroup>
-              <MenuItemGroup
-                key="g2"
-                title={<IntlMessages id="sidebar.item2" />}
-              >
-                <Menu.Item style={submenuStyle} key="3">
-                  <IntlMessages id="sidebar.option3" />
-                </Menu.Item>
-                <Menu.Item style={submenuStyle} key="4">
-                  <IntlMessages id="sidebar.option4" />
-                </Menu.Item>
-              </MenuItemGroup>
-            </SubMenu>
           </Menu>
         </Scrollbars>
       </Sider>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import siteConfig from '@iso/config/site.config';
-import logo_icon from '@iso/assets/images/favicon.png';
 
 export default ({ collapsed }) => {
   return (
@@ -10,7 +9,7 @@ export default ({ collapsed }) => {
         <div>
           <h3>
             <Link to="/dashboard">
-              <img src={logo_icon} className="spot-logo spot-logo-icon" alt={siteConfig.siteName} />
+              <i className={siteConfig.siteIcon} />
             </Link>
           </h3>
         </div>

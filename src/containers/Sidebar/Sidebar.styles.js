@@ -3,7 +3,6 @@ import { palette } from 'styled-theme';
 import { transition, borderRadius } from '@iso/lib/helpers/style_utils';
 import WithDirection from '@iso/lib/helpers/rtl';
 
-
 const SidebarWrapper = styled.div`
   .isomorphicSidebar {
     z-index: 1000;
@@ -12,7 +11,7 @@ const SidebarWrapper = styled.div`
     flex: 0 0 280px;
 
     .scrollarea {
-      height: calc(100vh - 60px);
+      height: calc(100vh - 70px);
     }
 
     @media only screen and (max-width: 767px) {
@@ -30,7 +29,7 @@ const SidebarWrapper = styled.div`
     }
 
     .isoLogoWrapper {
-      height: 60px;
+      height: 70px;
       background: rgba(0, 0, 0, 0.3);
       margin: 0;
       padding: 0 10px;
@@ -42,7 +41,7 @@ const SidebarWrapper = styled.div`
         a {
           font-size: 21px;
           font-weight: 300;
-          line-height: 60px;
+          line-height: 70px;
           letter-spacing: 3px;
           text-transform: uppercase;
           color: ${palette('grayscale', 6)};
@@ -139,9 +138,9 @@ const SidebarWrapper = styled.div`
       }
     }
 
-    /*.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+    .ant-menu-dark .ant-menu-inline.ant-menu-sub {
       background: ${palette('secondary', 5)};
-    }*/
+    }
 
     .ant-menu-submenu-inline,
     .ant-menu-submenu-vertical {

@@ -194,7 +194,7 @@ const SignInStyleWrapper = styled.div`
       }
 
       .isoForgotPass {
-        font-size: 12px;
+        font-size: 15px;
         color: ${palette('text', 3)};
         margin-bottom: 10px;
         text-decoration: none;

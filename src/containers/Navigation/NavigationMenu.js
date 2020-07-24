@@ -8,7 +8,7 @@ export default function() {
   const [state, setState] = React.useState({
     current: '1',
     openKeys: [],
-    //theme: 'dark',
+    theme: 'dark',
     mode: 'inline',
   });
   const handleClick = e => {

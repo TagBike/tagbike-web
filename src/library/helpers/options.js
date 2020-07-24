@@ -89,7 +89,7 @@ const options = [
 
     children: [
       {
-        key: 'articles',
+        key: 'user',
         label: 'sidebar.firestorecrudarticle',
       },
       {

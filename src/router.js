@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import {
   Route,
   Redirect,
-  BrowserRouter as Router,
+  BrowserRouter as Router, 
   Switch,
 } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import { PUBLIC_ROUTE } from './route.constants';
 import Loader from '@iso/components/utility/loader';
 
 const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
-const Map = lazy(() => import('./containers/Dashboard/Map'));
 
 const publicRoutes = [
   {
@@ -90,12 +89,9 @@ export default function Routes() {
             <PrivateRoute path="/dashboard">
               <Dashboard />
             </PrivateRoute>
-            <PrivateRoute path="/map">
-              <Map />
-            </PrivateRoute>
           </Switch>
         </Router>
-      </Suspense>
+      </Suspense> 
     </ErrorBoundary>
   );
 }

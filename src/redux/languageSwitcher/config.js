@@ -1,6 +1,5 @@
 import language from '@iso/config/language.config';
 
-import brazilLang from '@iso/assets/images/flag/brazil.svg';
 import englishLang from '@iso/assets/images/flag/uk.svg';
 import chineseLang from '@iso/assets/images/flag/china.svg';
 import spanishLang from '@iso/assets/images/flag/spain.svg';
@@ -10,12 +9,6 @@ import italianLang from '@iso/assets/images/flag/italy.svg';
 const config = {
   defaultLanguage: language,
   options: [
-    {
-      languageId: 'portuguese',
-      locale: 'br',
-      text: 'Português Brasil',
-      icon: brazilLang,
-    },
     {
       languageId: 'english',
       locale: 'en',

@@ -1,10 +1,9 @@
 export default {
-  siteName: 'Tag Bike',
+  siteName: 'ISOMORPHIC',
   siteIcon: 'ion-flash',
-  footerText: `Tag Bike @ ${new Date().getFullYear()} Developed by Neco Lab`,
+  footerText: `Isomorphic @ ${new Date().getFullYear()} Created by RedQ, Inc`,
   enableAnimatedRoute: false,
-  apiUrl: 'http://prorrac.ddns.net',
-  apiPort: '80',
+  apiUrl: 'http://yoursite.com/api/',
   google: {
     analyticsKey: 'UA-xxxxxxxxx-1',
   },

@@ -54,7 +54,7 @@ export default function SignIn() {
               <div className="isoInputWrapper">
                 <Input
                   size="large"
-                  placeholder="Username"
+                  placeholder="Login"
                   autoComplete="true"
                 />
               </div>
@@ -63,7 +63,7 @@ export default function SignIn() {
                 <Input
                   size="large"
                   type="password"
-                  placeholder="Password"
+                  placeholder="Senha"
                   autoComplete="false"
                 />
               </div>
@@ -76,17 +76,11 @@ export default function SignIn() {
                   <IntlMessages id="page.signInButton" />
                 </Button>
               </div>
-
-              <p className="isoHelperText">
-                <IntlMessages id="page.signInPreview" />
-              </p>
             </form>
+  
             <div className="isoCenterComponent isoHelperWrapper">
               <Link to="/forgotpassword" className="isoForgotPass">
                 <IntlMessages id="page.signInForgotPass" />
-              </Link>
-              <Link to="/signup">
-                <IntlMessages id="page.signInCreateAccount" />
               </Link>
             </div>
           </div>
