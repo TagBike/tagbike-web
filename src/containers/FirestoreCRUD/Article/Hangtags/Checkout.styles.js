@@ -62,7 +62,7 @@ const WDCheckoutContents = styled.div`
 `;
 
 const WDBillingFormWrapper = styled.div`
-  width: 60%;
+  width: 100%;
   padding: ${props =>
     props['data-rtl'] === 'rtl' ? '0 30px 0 20px' : '0 20px 0 30px'};
   display: flex;

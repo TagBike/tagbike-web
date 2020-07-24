@@ -1,20 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import articleActions from '@iso/redux/articles/actions';
-import Input, { Textarea } from '@iso/components/uielements/input';
-import Select, {
-  SelectOption as Option,
-} from '@iso/components/uielements/select';
-import Modal from '@iso/components/Feedback/Modal';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
 import Box from '@iso/components/utility/box';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
-  ActionBtn,
-  Fieldset,
-  Form,
-  Label,
   TitleWrapper,
   ButtonHolders,
   ActionWrapper,
@@ -59,7 +50,14 @@ export default function Articles() {
     dispatch(update(article));
   };
 
-  const dataSource = [];
+  const dataSource = [
+    'nome' ,
+    'cpf',
+    'email',
+    'telefone',
+    'status'
+  ];
+
   Object.keys(articles).map((article, index) => {
     return dataSource.push({
       ...articles[article],
@@ -67,26 +65,23 @@ export default function Articles() {
     });
   });
 
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {},
-  };
 
   const columns = [
     {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
+      title: 'Nome',
+      dataIndex: 'name',
+      key: 'name',
       width: '200px',
       sorter: (a, b) => {
-        if (a.title < b.title) return -1;
-        if (a.title > b.title) return 1;
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
         return 0;
       },
       render: (text, row) => {
         const trimByWord = sentence => {
           let result = sentence;
-          let resultArray = result.split(' ');
-          if (resultArray.length > 7) {
+          let resultArray = result;
+          if (resultArray > 7) {
             resultArray = resultArray.slice(0, 7);
             result = resultArray.join(' ') + '...';
           }
@@ -97,20 +92,20 @@ export default function Articles() {
       },
     },
     {
-      title: 'Description',
-      dataIndex: 'description',
-      key: 'description',
+      title: 'CPF',
+      dataIndex: 'cpf',
+      key: 'cpf',
       width: '360px',
       sorter: (a, b) => {
-        if (a.description < b.description) return -1;
-        if (a.description > b.description) return 1;
+        if (a.cpf < b.cpf) return -1;
+        if (a.cpf > b.cpf) return 1;
         return 0;
       },
       render: (text, row) => {
         const trimByWord = sentence => {
           let result = sentence;
-          let resultArray = result.split(' ');
-          if (resultArray.length > 20) {
+          let resultArray = result;
+          if (resultArray> 20) {
             resultArray = resultArray.slice(0, 20);
             result = resultArray.join(' ') + '...';
           }
@@ -121,20 +116,20 @@ export default function Articles() {
       },
     },
     {
-      title: 'Excerpt',
-      dataIndex: 'excerpt',
-      key: 'excerpt',
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
       width: '220px',
       sorter: (a, b) => {
-        if (a.excerpt < b.excerpt) return -1;
-        if (a.excerpt > b.excerpt) return 1;
+        if (a.email < b.email) return -1;
+        if (a.email > b.email) return 1;
         return 0;
       },
       render: (text, row) => {
         const trimByWord = sentence => {
           let result = sentence;
-          let resultArray = result.split(' ');
-          if (resultArray.length > 8) {
+          let resultArray = result;
+          if (resultArray > 8) {
             resultArray = resultArray.slice(0, 8);
             result = resultArray.join(' ') + '...';
           }
@@ -145,13 +140,13 @@ export default function Articles() {
       },
     },
     {
-      title: 'Slugs',
-      dataIndex: 'slug',
+      title: 'Telefone',
+      dataIndex: 'telefone',
       width: '170px',
-      key: 'slug',
+      key: 'telefone',
       sorter: (a, b) => {
-        if (a.slug < b.slug) return -1;
-        if (a.slug > b.slug) return 1;
+        if (a.telefone < b.telefone) return -1;
+        if (a.telefone > b.telefone) return 1;
         return 0;
       },
     },
@@ -177,25 +172,25 @@ export default function Articles() {
       },
     },
     {
-      title: 'Actions',
+      title: 'Ações',
       key: 'action',
       width: '60px',
       className: 'noWrapCell',
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="# ">
+            <a onClick={() => handleModal(row)} href="edit-hangtags">
               <i className="ion-android-create" />
             </a>
 
             <Popconfirms
-              title="Are you sure to delete this article？"
-              okText="Yes"
-              cancelText="No"
+              title="Deseja Excluir essa Etiqueta?"
+              okText="Sim"
+              cancelText="Não"
               placement="topRight"
               onConfirm={() => handleRecord('delete', row)}
             >
-              <a className="deleteBtn" href="# ">
+              <a className="deleteBtn" href="#">
                 <i className="ion-android-delete" />
               </a>
             </Popconfirms>
@@ -205,100 +200,25 @@ export default function Articles() {
     },
   ];
 
+
   return (
     <LayoutContentWrapper>
       <Box>
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TitleWrapper>
-            <ComponentTitle>Articles</ComponentTitle>
-
-            <ButtonHolders>
-              <ActionBtn type="danger" onClick={resetRecords}>
-                Reset record
-              </ActionBtn>
-
-              <ActionBtn type="primary" onClick={() => handleModal(null)}>
-                Add new record
-              </ActionBtn>
-            </ButtonHolders>
+            <ComponentTitle>Lista de Etiquetas</ComponentTitle>
           </TitleWrapper>
 
-          <Modal
-            visible={modalActive}
-            onClose={() => dispatch(toggleModal(null))}
-            title={article.key ? 'Update Article' : 'Add New Article'}
-            okText={article.key ? 'Update Article' : 'Add Article'}
-            onOk={() => handleRecord('insert', article)}
-            onCancel={() => dispatch(toggleModal(null))}
-          >
-            <Form>
-              <Fieldset>
-                <Label>Title</Label>
-                <Input
-                  label="Title"
-                  placeholder="Enter Title"
-                  value={article.title}
-                  onChange={e => onRecordChange(e, 'title')}
-                />
-              </Fieldset>
-
-              <Fieldset>
-                <Label>Description</Label>
-                <Textarea
-                  label="Description"
-                  placeholder="Enter Description"
-                  rows={5}
-                  value={article.description}
-                  onChange={e => onRecordChange(e, 'description')}
-                />
-              </Fieldset>
-
-              <Fieldset>
-                <Label>Excerpt</Label>
-                <Textarea
-                  label="Excerpt"
-                  rows={5}
-                  placeholder="Enter excerpt"
-                  value={article.excerpt}
-                  onChange={e => onRecordChange(e, 'excerpt')}
-                />
-              </Fieldset>
-
-              <Fieldset>
-                <Label>Slug</Label>
-
-                <Input
-                  label="Slug"
-                  placeholder="Enter Slugs"
-                  value={article.slug}
-                  onChange={e => onRecordChange(e, 'slug')}
-                />
-              </Fieldset>
-
-              <Fieldset>
-                <Label>Status</Label>
-                <Select
-                  defaultValue={article.status}
-                  placeholder="Enter Status"
-                  onChange={value => onSelectChange('status', value)}
-                  style={{ width: '170px' }}
-                >
-                  <Option value="draft">Draft</Option>
-                  <Option value="publish">Publish</Option>
-                </Select>
-              </Fieldset>
-            </Form>
-          </Modal>
+        
           <TableWrapper
             rowKey="key"
-            rowSelection={rowSelection}
             columns={columns}
             bordered={true}
             dataSource={dataSource}
             loading={isLoading}
             className="isoSimpleTable"
             pagination={{
-              // defaultPageSize: 1,
+              defaultPageSize: 10,
               hideOnSinglePage: true,
               total: dataSource.length,
               showTotal: (total, range) => {

@@ -1,7 +1,7 @@
 export default {
-  siteName: 'ISOMORPHIC',
+  siteName: 'Bike Portal',
   siteIcon: 'ion-flash',
-  footerText: `Isomorphic @ ${new Date().getFullYear()} Created by RedQ, Inc`,
+  footerText: `Bike Portal @ ${new Date().getFullYear()} Created by RedQ, Inc`,
   enableAnimatedRoute: false,
   apiUrl: 'http://yoursite.com/api/',
   google: {

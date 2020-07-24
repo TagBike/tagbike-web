@@ -13,7 +13,7 @@ import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { direction } from '@iso/lib/helpers/rtl';
-import BillingForm from './BillingForm';
+import BillingForm from './EditForm';
 
 const Option = SelectOption;
 
@@ -53,7 +53,7 @@ export default function() {
   return (
     <LayoutWrapper>
       <PageHeader>
-        <IntlMessages id="forms.input.header" />
+        <IntlMessages id="Editar Bicicleta" />
       </PageHeader>
       
       <Row style={rowStyle} gutter={gutter} justify="start">
