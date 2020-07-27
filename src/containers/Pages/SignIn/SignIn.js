@@ -1,61 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import Input from '@iso/components/uielements/input';
 import Checkbox from '@iso/components/uielements/checkbox';
-import Button from '@iso/components/uielements/button';
 import IntlMessages from '@iso/components/utility/intlMessages';
-import authAction from '@iso/redux/auth/actions';
-import appAction from '@iso/redux/app/actions';
 import SignInStyleWrapper from './SignIn.styles';
+import UseApi from '../../../helpers/BikeApi';
+import {doLogin} from '../../../helpers/AuthHandler';
+import {Button} from '@iso/components/utility/Buttons';
 
-const { login } = authAction;
-const { clearMenu } = appAction;
+export default function() {
+  const history = useHistory();
 
-export default function SignIn() {
-  let history = useHistory();
-  let location = useLocation();
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.Auth.idToken);
+  const api = UseApi();
 
-  const [redirectToReferrer, setRedirectToReferrer] = React.useState(false);
-  React.useEffect(() => {
-    if (isLoggedIn) {
-      setRedirectToReferrer(true);
-    }
-  }, [isLoggedIn]);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [remeberPassword, setRememberPassword] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [error, setError] = useState('');
 
-  function handleLogin(e, token = false) {
+  const handleSubmit = async (e) =>  {
     e.preventDefault();
-    if (token) {
-      dispatch(login(token));
-    } else {
-      dispatch(login());
-    }
-    dispatch(clearMenu());
-    history.push('/dashboard');
-  }
-  let { from } = location.state || { from: { pathname: '/dashboard' } };
+    setDisabled(true);
+    setError('');
 
-  if (redirectToReferrer) {
-    return <Redirect to={from} />;
-  }
+    const json = await api.login(email, password);
+
+    console.log(json);
+
+    if(json.error) {
+        setError(json.error);
+    } else {
+        doLogin(json.token, remeberPassword);
+        history.push('/dashboard');
+    }
+
+    setDisabled(false);
+}
+
   return (
     <SignInStyleWrapper className="isoSignInPage">
       <div className="isoLoginContentWrapper">
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
-            <Link to="/dashboard">
-              <IntlMessages id="page.signInTitle" />
+            <Link>
+              <IntlMessages id="Bike Portal" />
             </Link>
           </div>
           <div className="isoSignInForm">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="isoInputWrapper">
                 <Input
                   size="large"
                   placeholder="Login"
-                  autoComplete="true"
+                  type="text" 
+                  required 
+                  value={email} 
+                  onChange={e=>setEmail(e.target.value)} 
+                  disabled={disabled}
                 />
               </div>
 
@@ -64,17 +66,23 @@ export default function SignIn() {
                   size="large"
                   type="password"
                   placeholder="Senha"
-                  autoComplete="false"
+                  autoComplete="false" 
+                  required 
+                  value={password} 
+                  onChange={e=>setPassword(e.target.value)} 
+                  disabled={disabled}
                 />
               </div>
 
               <div className="isoInputWrapper isoLeftRightComponent">
-                <Checkbox>
-                  <IntlMessages id="page.signInRememberMe" />
-                </Checkbox>
-                <Button type="primary" onClick={handleLogin}>
-                  <IntlMessages id="page.signInButton" />
-                </Button>
+                <Checkbox 
+                checked={remeberPassword} 
+                onChange={()=>setRememberPassword(!remeberPassword)} 
+                disabled={disabled}
+                >
+                  <IntlMessages id="Lembrar Senha" />
+                </Checkbox >
+                <Button type="submit" primary>Entrar</Button>
               </div>
             </form>
   

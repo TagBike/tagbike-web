@@ -5,7 +5,7 @@ import {
   BrowserRouter as Router, 
   Switch,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {isLogged, doLogout} from '../src/helpers/AuthHandler';
 
 import ErrorBoundary from './ErrorBoundary';
 import { PUBLIC_ROUTE } from './route.constants';
@@ -55,13 +55,18 @@ const publicRoutes = [
   },
 ];
 function PrivateRoute({ children, ...rest }) {
-  const isLoggedIn = useSelector(state => state.Auth.idToken);
+  let logged = isLogged();
+
+    const handleLogout = () => {
+        doLogout();
+        window.location.href = '/';
+    }
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        isLoggedIn ? (
+      isLogged ? (
           children
         ) : (
           <Redirect
