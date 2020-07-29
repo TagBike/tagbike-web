@@ -206,7 +206,7 @@ export default function Articles() {
       <Box>
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TitleWrapper>
-            <ComponentTitle>Lista de Bicicletas</ComponentTitle>
+            <ComponentTitle>Bicicletas</ComponentTitle>
           </TitleWrapper>
 
         

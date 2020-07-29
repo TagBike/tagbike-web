@@ -117,7 +117,7 @@ export default function() {
         toast.success('Usuário adicionador com sucesso!');
 
         setTimeout(() => {
-          history.push(`list-user`);
+          history.push(`users`);
           }, 6000)
         
  }

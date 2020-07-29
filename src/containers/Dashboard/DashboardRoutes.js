@@ -17,9 +17,9 @@ const routes = [
     ),
   },
   {
-    path: 'list-user',
+    path: 'users',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/List-User.js')
+      import('@iso/containers/FirestoreCRUD/Article/User/User.js')
     ),
   },
   {
@@ -35,7 +35,7 @@ const routes = [
     ),
   },
   {
-    path: 'list-client',
+    path: 'customers',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Client/List-Client.js')
     ),
@@ -53,7 +53,7 @@ const routes = [
     ),
   },
   {
-    path: 'list-plans',
+    path: 'plans',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Plans/List-Plans')
     ),
@@ -71,7 +71,7 @@ const routes = [
     ),
   },
   {
-    path: 'list-bike',
+    path: 'bikes',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Bike/List-Bike')
     ),
@@ -83,21 +83,21 @@ const routes = [
     ),
   },
   {
-    path: 'add-hangtags',
+    path: 'add-tags',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Hangtags/Add-Hangtags')
+      import('@iso/containers/FirestoreCRUD/Article/Tags/Add')
     ),
   },
   {
-    path: 'list-hangtags',
+    path: 'tags',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Hangtags/List-Hangtags')
+      import('@iso/containers/FirestoreCRUD/Article/Tags/Tags')
     ),
   },
   {
-    path: 'edit-hangtags',
+    path: 'edit-tags',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Hangtags/Edit-Hangtags')
+      import('@iso/containers/FirestoreCRUD/Article/Tags/Edit')
     ),
   }, 
 ];

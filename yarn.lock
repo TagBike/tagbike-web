@@ -869,6 +869,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.8.7":
+  version "7.10.5"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.10.5.tgz#303d8bd440ecd5a491eae6117fd3367698674c5c"
+  integrity sha512-otddXKhdNn7d0ptoFRHtMLa8LqDxLYwTjB4nYgM1yy5N6gU/MUf8zqyyLltCH3yAVitBzmwK4us+DD0l/MauAg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.4.0", "@babel/template@^7.7.4":
   version "7.7.4"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.7.4.tgz#428a7d9eecffe27deac0a98e23bf8e3675d2a77b"
@@ -4670,6 +4677,14 @@ dom-helpers@^3.4.0:
   dependencies:
     "@babel/runtime" "^7.1.2"
 
+dom-helpers@^5.0.1:
+  version "5.1.4"
+  resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.1.4.tgz#4609680ab5c79a45f2531441f1949b79d6587f4b"
+  integrity sha512-TjMyeVUvNEnOnhzs6uAn9Ya47GmMo3qq7m+Lr/3ON0Rs5kHvb8I+SQYjLUSYn7qhEm0QjW0yrBkvz9yOrwwz1A==
+  dependencies:
+    "@babel/runtime" "^7.8.7"
+    csstype "^2.6.7"
+
 dom-helpers@^5.1.0:
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/dom-helpers/-/dom-helpers-5.1.3.tgz#7233248eb3a2d1f74aafca31e52c5299cc8ce821"
@@ -7580,7 +7595,7 @@ js-base64@^2.1.8, js-base64@^2.4.9:
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.1.tgz#1efa39ef2c5f7980bb1784ade4a8af2de3291121"
   integrity sha512-M7kLczedRMYX4L8Mdh4MzyAMM9O5osx+4FcOQuTvr3A9F2D9S5JXheN0ewNbrvK2UatkTRhL5ejGmGSjNMiZuw==
 
-js-cookie@^2.2.0:
+js-cookie@^2.2.0, js-cookie@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-2.2.1.tgz#69e106dc5d5806894562902aa5baec3744e9b2b8"
   integrity sha512-HvdH2LzI/EAZcUwA8+0nKNtWHqS+ZmijLA30RwZA0bo7ToCckjK5MkGhjED9KoRcXO6BaGI3I9UIzSA1FKFPOQ==
@@ -10616,6 +10631,11 @@ qs@^6.5.1, qs@^6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.1.tgz#20082c65cb78223635ab1a9eaca8875a29bf8ec9"
   integrity sha512-Cxm7/SS/y/Z3MHWSxXb8lIFqgqBowP5JMlTUFyJN88y0SGQhVmZnqFK/PeuMX9LzUyWsqqhNxIyg0jlzq946yA==
 
+qs@^6.9.4:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
+  integrity sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ==
+
 qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
@@ -11443,6 +11463,13 @@ react-flip-move@^3.0.3:
   resolved "https://registry.yarnpkg.com/react-flip-move/-/react-flip-move-3.0.4.tgz#261f66101fbc305f9b7b28959c5cf8236413ca74"
   integrity sha512-HyUVv9g3t/BS7Yz9HgrtYSWyRNdR2F81nkj+C5iRY675AwlqCLB5JU9mnZWg0cdVz7IM4iquoyZx70vzZv3Z8Q==
 
+react-fontawesome@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/react-fontawesome/-/react-fontawesome-1.7.1.tgz#f74f5a338fef3ee3b379820109c1cba47290f035"
+  integrity sha512-kottReWW1I9Uupub6A5YX4VK7qfpFnEjAcm5zB4Aepst7iofONT27GJYdTcRsj7q5uQu9PXBL7GsxAFKANNUVg==
+  dependencies:
+    prop-types "^15.5.6"
+
 react-google-charts@^3.0.15:
   version "3.0.15"
   resolved "https://registry.yarnpkg.com/react-google-charts/-/react-google-charts-3.0.15.tgz#30759a470f48336e744fd383d054122b039a1ff2"
@@ -11820,6 +11847,15 @@ react-throttle@^0.3.0:
     react-addons-test-utils "^15.0.2"
     react-dom "^15.0.2"
 
+react-toastify@^6.0.8:
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.8.tgz#84625d81d0fd01902a7f4c6f317eb074cb3bba67"
+  integrity sha512-NSqCNwv+C4IfR+c92PFZiNyeBwOJvigrP2bcRi2f6Hg3WqcHhEHOknbSQOs9QDFuqUjmK3SOrdvScQ3z63ifXg==
+  dependencies:
+    classnames "^2.2.6"
+    prop-types "^15.7.2"
+    react-transition-group "^4.4.1"
+
 react-transition-group@^2.2.1, react-transition-group@^2.5.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
@@ -11829,6 +11865,16 @@ react-transition-group@^2.2.1, react-transition-group@^2.5.0:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
+
+react-transition-group@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
+  integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
 
 react-trend@^1.2.5:
   version "1.2.5"
@@ -12203,6 +12249,11 @@ regenerator-runtime@^0.13.2, regenerator-runtime@^0.13.3:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
   integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+
+regenerator-runtime@^0.13.4:
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
+  integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"

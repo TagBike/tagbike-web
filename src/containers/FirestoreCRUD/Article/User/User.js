@@ -179,12 +179,12 @@ export default function Articles() {
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="edit-hangtags">
+            <a onClick={() => handleModal(row)} href="edit-user">
               <i className="ion-android-create" />
             </a>
 
             <Popconfirms
-              title="Deseja Excluir essa Etiqueta?"
+              title="Deseja Excluir esse Usuário？"
               okText="Sim"
               cancelText="Não"
               placement="topRight"
@@ -206,7 +206,7 @@ export default function Articles() {
       <Box>
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TitleWrapper>
-            <ComponentTitle>Lista de Etiquetas</ComponentTitle>
+            <ComponentTitle>Usuários</ComponentTitle>
           </TitleWrapper>
 
         
