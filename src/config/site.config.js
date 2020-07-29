@@ -1,7 +1,7 @@
 export default {
-  siteName: 'Bike Portal',
+  siteName: 'TagBike Portal',
   siteIcon: 'ion-flash',
-  footerText: `Bike Portal @ ${new Date().getFullYear()} Created by RedQ, Inc`,
+  footerText: `TagBike Portal @ ${new Date().getFullYear()} Created by Neco Lab`,
   enableAnimatedRoute: false,
   apiUrl: 'http://yoursite.com/api/',
   google: {
