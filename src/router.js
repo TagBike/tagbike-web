@@ -15,11 +15,6 @@ const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
 
 const publicRoutes = [
   {
-    path: PUBLIC_ROUTE.LANDING,
-    exact: true,
-    component: lazy(() => import('@iso/containers/Pages/SignIn/SignIn')),
-  },
-  {
     path: PUBLIC_ROUTE.PAGE_404,
     component: lazy(() => import('@iso/containers/Pages/404/404')),
   },
@@ -65,8 +60,9 @@ function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) =>
-      isLogged ? (
+      render={({ location }) => {
+      console.log('Location',location);
+        return isLogged ? (
           children
         ) : (
           <Redirect
@@ -76,7 +72,7 @@ function PrivateRoute({ children, ...rest }) {
             }}
           />
         )
-      }
+      }}
     />
   );
 }
@@ -91,7 +87,7 @@ export default function Routes() {
                 <route.component />
               </Route>
             ))}
-            <PrivateRoute path="/dashboard">
+            <PrivateRoute path="/">
               <Dashboard />
             </PrivateRoute>
           </Switch>

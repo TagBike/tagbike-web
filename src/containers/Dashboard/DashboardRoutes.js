@@ -4,16 +4,19 @@ import Loader from '@iso/components/utility/loader';
 
 const routes = [
 
-  
   {
     path: '',
     component: lazy(() => import('@iso/containers/Widgets/Widgets')),
-    exact: true,
+    exact: true
   },
   {
-    path: 'add-user',
+    path: 'dashboard',
+    component: lazy(() => import('@iso/containers/Widgets/Widgets')),
+  },
+  {
+    path: 'users/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/Add-User')
+      import('@iso/containers/FirestoreCRUD/Article/User/Add')
     ),
   },
   {
@@ -23,67 +26,67 @@ const routes = [
     ),
   },
   {
-    path: 'edit-user',
+    path: 'users/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/Edit-User.js')
+      import('@iso/containers/FirestoreCRUD/Article/User/Edit.js')
     ),
   },
   {
-    path: 'add-client',
+    path: 'customers/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Client/Add-Client')
+      import('@iso/containers/FirestoreCRUD/Article/Customer/Add')
     ),
   },
   {
     path: 'customers',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Client/List-Client.js')
+      import('@iso/containers/FirestoreCRUD/Article/Customer/Customer.js')
     ),
   },
   {
-    path: 'edit-client',
+    path: 'customers/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Client/Edit-Client.js')
+      import('@iso/containers/FirestoreCRUD/Article/Customer/Edit.js')
     ),
   },
   {
-    path: 'add-plans',
+    path: 'plans/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/Add-Plans')
+      import('@iso/containers/FirestoreCRUD/Article/Plans/Add')
     ),
   },
   {
     path: 'plans',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/List-Plans')
+      import('@iso/containers/FirestoreCRUD/Article/Plans/Plans')
     ),
   },
   {
-    path: 'edit-plan',
+    path: 'plans/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/Edit-Plans')
+      import('@iso/containers/FirestoreCRUD/Article/Plans/Edit')
     ),
   },
   {
-    path: 'add-bike',
+    path: 'add/bikes',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/Add-Bike')
+      import('@iso/containers/FirestoreCRUD/Article/Bike/Add')
     ),
   },
   {
     path: 'bikes',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/List-Bike')
+      import('@iso/containers/FirestoreCRUD/Article/Bike/Bike')
     ),
   },
   {
-    path: 'edit-bike',
+    path: 'bikes/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/Edit-Bike')
+      import('@iso/containers/FirestoreCRUD/Article/Bike/Edit')
     ),
   },
   {
-    path: 'add-tags',
+    path: 'tags/add',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Tags/Add')
     ),
@@ -95,7 +98,7 @@ const routes = [
     ),
   },
   {
-    path: 'edit-tags',
+    path: 'tags/edit',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Tags/Edit')
     ),
@@ -107,8 +110,9 @@ export default function AppRouter() {
   return (
     <Suspense fallback={<Loader />}>
       <Switch>
-        {routes.map((route, idx) => (
-          <Route exact={route.exact} key={idx} path={`${url}/${route.path}`}>
+        {
+        routes.map((route, idx) => (
+          <Route exact={route.exact} key={idx} path={`${url}${route.path}`}>
             <route.component />
           </Route>
         ))}
