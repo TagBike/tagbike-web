@@ -3,7 +3,8 @@ import actions, { getView } from './actions';
 import { isServer } from '@iso/lib/helpers/isServer';
 const preKeys = getDefaultPath();
 const initState = {
-  collapsed: !isServer && window.innerWidth > 1220 ? false : true,
+  //collapsed: !isServer && window.innerWidth > 1220 ? false : true,
+  collapsed: true,
   view: !isServer && getView(window.innerWidth),
   height: !isServer && window.innerHeight,
   openDrawer: false,

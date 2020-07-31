@@ -179,7 +179,7 @@ export default function Articles() {
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="edit-bike">
+            <a onClick={() => handleModal(row)} href="/bikes/edit">
               <i className="ion-android-create" />
             </a>
 

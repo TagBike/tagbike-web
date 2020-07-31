@@ -48,24 +48,28 @@ const routes = [
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Customer/Edit.js')
     ),
+    exact:true
   },
   {
     path: 'plans/add',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Plans/Add')
     ),
+    exact:true
   },
   {
     path: 'plans',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Plans/Plans')
     ),
+    exact:true
   },
   {
     path: 'plans/edit',
     component: lazy(() =>
       import('@iso/containers/FirestoreCRUD/Article/Plans/Edit')
     ),
+    exact:true
   },
   {
     path: 'add/bikes',

@@ -60,9 +60,8 @@ function PrivateRoute({ children, ...rest }) {
   return (
     <Route
       {...rest}
-      render={({ location }) => {
-      console.log('Location',location);
-        return isLogged ? (
+      render={({ location }) => 
+        isLogged ? (
           children
         ) : (
           <Redirect
@@ -72,7 +71,7 @@ function PrivateRoute({ children, ...rest }) {
             }}
           />
         )
-      }}
+      }
     />
   );
 }
@@ -90,6 +89,7 @@ export default function Routes() {
             <PrivateRoute path="/">
               <Dashboard />
             </PrivateRoute>
+            <Redirect to="/404" />
           </Switch>
         </Router>
       </Suspense> 

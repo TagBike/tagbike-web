@@ -100,15 +100,16 @@ export default function Sidebar() {
         collapsed={isCollapsed}
         width={240}
         className="isomorphicSidebar"
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        //onMouseEnter={onMouseEnter}
+        //onMouseLeave={onMouseLeave}
+        theme="light"
         style={styling}
       >
         <Logo collapsed={isCollapsed} />
         <Scrollbars style={{ height: height - 70 }}>
           <Menu
             onClick={handleClick}
-            theme="dark"
+            theme="light"
             className="isoDashboardMenu"
             mode={mode}
             openKeys={isCollapsed ? [] : openKeys}
@@ -119,7 +120,7 @@ export default function Sidebar() {
               <SidebarMenu
                 key={singleOption.key}
                 submenuStyle={submenuStyle}
-                submenuColor={submenuColor}
+                //submenuColor={submenuColor}
                 singleOption={singleOption}
               />
             ))}

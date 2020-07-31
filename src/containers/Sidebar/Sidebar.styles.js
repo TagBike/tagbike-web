@@ -6,7 +6,7 @@ import WithDirection from '@iso/lib/helpers/rtl';
 const SidebarWrapper = styled.div`
   .isomorphicSidebar {
     z-index: 1000;
-    background: ${palette('secondary', 0)};
+    /*background: ${palette('secondary', 0)};*/
     width: 280px;
     flex: 0 0 280px;
 
@@ -132,7 +132,7 @@ const SidebarWrapper = styled.div`
         &:hover {
           i,
           .nav-text {
-            color: #ffffff;
+            /*color: #ffffff;**/
           }
         }
       }
@@ -188,7 +188,7 @@ const SidebarWrapper = styled.div`
           .ant-menu-submenu-arrow {
             &:before,
             &:after {
-              color: #ffffff;
+              /*color: #ffffff;*/
             }
           }
         }
@@ -209,7 +209,7 @@ const SidebarWrapper = styled.div`
 
           &:hover {
             a {
-              color: #ffffff !important;
+              /*color: #ffffff !important;*/
             }
           }
         }
