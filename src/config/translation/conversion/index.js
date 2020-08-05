@@ -1,9 +1,10 @@
-import ch from './raw/chenese.js';
+import ch from './raw/chinese.js';
 import fr from './raw/fr.js';
 import ital from './raw/ital.js';
 import span from './raw/span.js';
 import arab from './raw/arab.js';
 import english from './raw/eng.js';
+import br from './raw/br.js';
 
 export function getKeys(object) {
   let keys = [];

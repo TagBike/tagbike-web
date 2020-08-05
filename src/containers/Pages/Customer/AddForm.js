@@ -93,11 +93,6 @@ export default function() {
             <Input type="text" name="cidade" size="large" placeholder="Informe a Cidade." />
           </InputBoxWrapper>
         </div>
-
-        <div className="isoOrderTableFooter">
-          {/* <Button disabled={disabled} style={{ marginRight: 20 }} class="ui primary button">Salvar</Button> */}
-          <button disabled={disabled}>Salvar</button>
-        </div>
       </form> 
     </BillingFormWrapper>
   );

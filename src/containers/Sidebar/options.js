@@ -20,7 +20,7 @@ const options = [
   {
     key: 'tags',
     label: 'Etiquetas',
-    leftIcon: 'ion-ios-pricetag',
+    leftIcon: 'ion-ios-barcode',
   },
   {
     key: 'users',

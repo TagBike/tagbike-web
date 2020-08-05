@@ -16,95 +16,95 @@ const routes = [
   {
     path: 'users/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/Add')
+      import('@iso/containers/Pages/User/Add')
     ),
   },
   {
     path: 'users',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/User.js')
+      import('@iso/containers/Pages/User/User.js')
     ),
   },
   {
     path: 'users/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/User/Edit.js')
+      import('@iso/containers/Pages/User/Edit.js')
     ),
   },
   {
     path: 'customers/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Customer/Add')
+      import('@iso/containers/Pages/Customer/Add')
     ),
   },
   {
     path: 'customers',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Customer/Customer.js')
+      import('@iso/containers/Pages/Customer/Customer.js')
     ),
   },
   {
     path: 'customers/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Customer/Edit.js')
+      import('@iso/containers/Pages/Customer/Edit.js')
     ),
     exact:true
   },
   {
     path: 'plans/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/Add')
+      import('@iso/containers/Pages/Plans/Add')
     ),
     exact:true
   },
   {
     path: 'plans',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/Plans')
+      import('@iso/containers/Pages/Plans/Plans')
     ),
     exact:true
   },
   {
     path: 'plans/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Plans/Edit')
+      import('@iso/containers/Pages/Plans/Edit')
     ),
     exact:true
   },
   {
     path: 'add/bikes',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/Add')
+      import('@iso/containers/Pages/Bike/Add')
     ),
   },
   {
     path: 'bikes',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/Bike')
+      import('@iso/containers/Pages/Bike/Bike')
     ),
   },
   {
     path: 'bikes/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Bike/Edit')
+      import('@iso/containers/Pages/Bike/Edit')
     ),
   },
   {
     path: 'tags/add',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Tags/Add')
+      import('@iso/containers/Pages/Tags/Add')
     ),
   },
   {
     path: 'tags',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Tags/Tags')
+      import('@iso/containers/Pages/Tags/Tags')
     ),
   },
   {
     path: 'tags/edit',
     component: lazy(() =>
-      import('@iso/containers/FirestoreCRUD/Article/Tags/Edit')
+      import('@iso/containers/Pages/Tags/Edit')
     ),
   }, 
 ];

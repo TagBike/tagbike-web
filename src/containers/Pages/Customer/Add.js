@@ -13,7 +13,7 @@ import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { direction } from '@iso/lib/helpers/rtl';
-import BillingForm from './AddForm';
+import AddForm from './AddForm';
 
 const Option = SelectOption;
 
@@ -31,6 +31,14 @@ const selectAfter = (
     <Option value=".org">.org</Option>
   </Select>
 );
+
+const actions = [
+  false,
+    <Button>
+      <i className="ion-android-add" /> 
+      Adicionar
+    </Button>
+];
 
 export default function() {
   const [dataSource, setDataSource] = React.useState([]);
@@ -58,10 +66,10 @@ export default function() {
       
       <Row style={rowStyle} gutter={gutter} justify="start">
         <Col md={24} sm={24} xs={24} style={colStyle}>
-          <Box>
+          <Box actions={actions}>
             <ContentHolder>
             <div className="isoBillingSection">
-              <BillingForm />
+              <AddForm />
             </div>
             </ContentHolder>
           </Box>

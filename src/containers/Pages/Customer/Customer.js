@@ -1,9 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import articleActions from '@iso/redux/articles/actions';
+import { Link } from 'react-router-dom';
+import customersActions from '@iso/redux/customers/actions';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
+import PageHeader from '@iso/components/utility/pageHeader';
 import Box from '@iso/components/utility/box';
+import Breadcrumb from '@iso/components/uielements/breadcrumb';
+import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import ContentHolder from '@iso/components/utility/contentHolder';
+import IntlMessages from '@iso/components/utility/intlMessages';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
   TitleWrapper,
@@ -12,42 +17,53 @@ import {
   ComponentTitle,
   TableWrapper,
   StatusTag,
-} from './Article.styles';
+} from './Customer.styles';
 const {
   loadFromFireStore,
   resetFireStoreDocuments,
   saveIntoFireStore,
   toggleModal,
   update,
-} = articleActions;
-export default function Articles() {
-  const { articles, article, modalActive, isLoading } = useSelector(
-    state => state.Articles
+} = customersActions;
+
+const Actions = props => (
+  <ButtonGroup>
+    <Link to="/customers/add">
+      <Button shape="circle">
+        <i className="ion-android-add" />
+      </Button>
+    </Link>
+  </ButtonGroup>
+);
+
+export default function Customer() {
+  const { customers, customer, modalActive, isLoading } = useSelector(
+    state => state.Customers
   );
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadFromFireStore());
   }, [dispatch]);
-  const handleRecord = (actionName, article) => {
-    if (article.key && actionName !== 'delete') actionName = 'update';
-    dispatch(saveIntoFireStore(article, actionName));
+  const handleRecord = (actionName, customer) => {
+    if (customer.key && actionName !== 'delete') actionName = 'update';
+    dispatch(saveIntoFireStore(customer, actionName));
   };
   const resetRecords = () => {
     dispatch(resetFireStoreDocuments());
   };
 
-  const handleModal = (article = null) => {
-    dispatch(toggleModal(article));
+  const handleModal = (customer = null) => {
+    dispatch(toggleModal(customer));
   };
 
   const onRecordChange = (event, key) => {
-    if (key) article[key] = event.target.value;
-    dispatch(update(article));
+    if (key) customer[key] = event.target.value;
+    dispatch(update(customer));
   };
 
   const onSelectChange = (key, value) => {
-    if (key) article[key] = value;
-    dispatch(update(article));
+    if (key) customer[key] = value;
+    dispatch(update(customer));
   };
 
   const dataSource = [
@@ -58,10 +74,10 @@ export default function Articles() {
     'status'
   ];
 
-  Object.keys(articles).map((article, index) => {
+  Object.keys(customers).map((customer, index) => {
     return dataSource.push({
-      ...articles[article],
-      key: article,
+      ...customers[customer],
+      key: customer,
     });
   });
 
@@ -203,31 +219,41 @@ export default function Articles() {
 
   return (
     <LayoutContentWrapper>
-      <Box>
-        <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
-          <TitleWrapper>
-            <ComponentTitle>Clientes</ComponentTitle>
-          </TitleWrapper>
-
-        
-          <TableWrapper
-            rowKey="key"
-            columns={columns}
-            bordered={true}
-            dataSource={dataSource}
-            loading={isLoading}
-            className="isoSimpleTable"
-            pagination={{
-              defaultPageSize: 10,
-              hideOnSinglePage: true,
-              total: dataSource.length,
-              showTotal: (total, range) => {
-                return `Showing ${range[0]}-${range[1]} of ${
-                  dataSource.length
-                } Results`;
-              },
-            }}
-          />
+      {/*<Breadcrumb>
+        <Breadcrumb.Item>
+          <Button as="a" type="link"><i className="ion-android-home" /></Button>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Button as="a" type="link"><IntlMessages id="Clientes" /></Button>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <IntlMessages id="Adicionar" />
+        </Breadcrumb.Item>
+      </Breadcrumb>*/}
+      <PageHeader>
+        <IntlMessages id="Clientes" />
+      </PageHeader>
+      {/*<Box title={<IntlMessages id="sidebar.customers" />}>*/}
+      <Box extra={<Actions />}>
+        <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>          
+            <TableWrapper
+              rowKey="key"
+              columns={columns}
+              bordered={true}
+              dataSource={dataSource}
+              loading={isLoading}
+              className="isoSimpleTable"
+              pagination={{
+                defaultPageSize: 10,
+                hideOnSinglePage: true,
+                total: dataSource.length,
+                showTotal: (total, range) => {
+                  return `Showing ${range[0]}-${range[1]} of ${
+                    dataSource.length
+                  } Results`;
+                },
+              }}
+            />
         </ContentHolder>
       </Box>
     </LayoutContentWrapper>

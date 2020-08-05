@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
 import Buttons from '@iso/components/uielements/button';
-import Table from '../../../Tables/AntTables/AntTables.styles';
+import Table from '../../Tables/AntTables/AntTables.styles';
 
 const TableWrapper = styled(Table)`
   .ant-table-bordered .ant-table-thead > tr > th,
