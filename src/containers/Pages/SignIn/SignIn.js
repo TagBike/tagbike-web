@@ -7,6 +7,7 @@ import SignInStyleWrapper from './SignIn.styles';
 import UseApi from '../../../helpers/BikeApi';
 import {doLogin} from '../../../helpers/AuthHandler';
 import {Button} from '@iso/components/utility/Buttons';
+import {ErrorMessage} from '../../../components/MainComponents';
 
 export default function() {
   const history = useHistory();
@@ -28,11 +29,12 @@ export default function() {
 
     console.log(json);
 
-    if(json.error) {
-        setError(json.error);
-    } else {
-        doLogin(json.token, remeberPassword);
+    if(json.error === "") {
+      doLogin(json.token, remeberPassword);
         history.push('/dashboard');
+        
+    } else {
+      setError(json.error);
     }
 
     setDisabled(false);
@@ -48,6 +50,9 @@ export default function() {
             </Link>
           </div>
           <div className="isoSignInForm">
+                {error &&
+                    <ErrorMessage>{error}</ErrorMessage>
+                }
             <form onSubmit={handleSubmit}>
               <div className="isoInputWrapper">
                 <Input

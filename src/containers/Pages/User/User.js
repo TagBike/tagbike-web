@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import articleActions from '@iso/redux/articles/actions';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
+import PageHeader from '@iso/components/utility/pageHeader';
+import IntlMessages from '@iso/components/utility/intlMessages';
 import Box from '@iso/components/utility/box';
+import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
+import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
   TitleWrapper,
@@ -13,6 +17,10 @@ import {
   TableWrapper,
   StatusTag,
 } from './Article.styles';
+import UseApi from '../../../helpers/BikeApi';
+
+const api = UseApi();
+
 const {
   loadFromFireStore,
   resetFireStoreDocuments,
@@ -20,6 +28,17 @@ const {
   toggleModal,
   update,
 } = articleActions;
+
+const Actions = props => (
+  <ButtonGroup>
+    <Link to="/customers/Add">
+      <Button shape="circle">
+        <i className="ion-android-add" />
+      </Button>
+    </Link>
+  </ButtonGroup>
+);
+
 export default function Articles() {
   const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
@@ -50,93 +69,65 @@ export default function Articles() {
     dispatch(update(article));
   };
 
-  const dataSource = [
-    'nome' ,
-    'cpf',
-    'email',
-    'telefone',
-    'status'
-  ];
 
-  Object.keys(articles).map((article, index) => {
-    return dataSource.push({
-      ...articles[article],
-      key: article,
-    });
-  });
+const [stateList, setStateList] = useState([]);
+
+useEffect(() => {
+  const getListUser = async () => {
+      const users = await api.getListUser();
+        setStateList(users);
+  }
+
+  getListUser();
+}, []);
+
+
+const dataSource = stateList.map( (item) => (  
+    {
+      name : item.name,
+      email : item.email,
+      cpf : item.cpf,
+      telefone : item.cellphone
+    }
+  ));
+
 
 
   const columns = [
     {
       title: 'Nome',
       dataIndex: 'name',
+      width: '170px',
       key: 'name',
-      width: '200px',
+      width: '25%',
       sorter: (a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
         return 0;
       },
-      render: (text, row) => {
-        const trimByWord = sentence => {
-          let result = sentence;
-          let resultArray = result;
-          if (resultArray > 7) {
-            resultArray = resultArray.slice(0, 7);
-            result = resultArray.join(' ') + '...';
-          }
-          return result;
-        };
-
-        return trimByWord(row.title);
-      },
-    },
-    {
-      title: 'CPF',
-      dataIndex: 'cpf',
-      key: 'cpf',
-      width: '360px',
-      sorter: (a, b) => {
-        if (a.cpf < b.cpf) return -1;
-        if (a.cpf > b.cpf) return 1;
-        return 0;
-      },
-      render: (text, row) => {
-        const trimByWord = sentence => {
-          let result = sentence;
-          let resultArray = result;
-          if (resultArray> 20) {
-            resultArray = resultArray.slice(0, 20);
-            result = resultArray.join(' ') + '...';
-          }
-          return result;
-        };
-
-        return trimByWord(row.description);
-      },
     },
     {
       title: 'Email',
       dataIndex: 'email',
+      width: '170px',
       key: 'email',
-      width: '220px',
+      width: '25%',
       sorter: (a, b) => {
         if (a.email < b.email) return -1;
         if (a.email > b.email) return 1;
         return 0;
       },
-      render: (text, row) => {
-        const trimByWord = sentence => {
-          let result = sentence;
-          let resultArray = result;
-          if (resultArray > 8) {
-            resultArray = resultArray.slice(0, 8);
-            result = resultArray.join(' ') + '...';
-          }
-          return result;
-        };
-
-        return trimByWord(row.excerpt);
+    },
+    {
+      title: 'Cpf',
+      dataIndex: 'cpf',
+      width: '170px',
+      key: 'cpf',
+      width: '20%',
+      sorter: (a, b) => {
+        if (a.cpf < b.cpf) return -1;
+        if (a.cpf > b.cpf) return 1;
+        return 0;
       },
     },
     {
@@ -200,16 +191,13 @@ export default function Articles() {
     },
   ];
 
-
   return (
     <LayoutContentWrapper>
-      <Box>
+      <PageHeader>
+        <IntlMessages id="Usuários" />
+      </PageHeader>
+      <Box extra={<Actions />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
-          <TitleWrapper>
-            <ComponentTitle>Usuários</ComponentTitle>
-          </TitleWrapper>
-
-        
           <TableWrapper
             rowKey="key"
             columns={columns}

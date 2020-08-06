@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import qs from 'qs';
 
 
-const BASEAPI = 'http://alunos.b7web.com.br:501';
+const BASEAPI = 'http://127.0.0.1:8000/api';
 
 const apiFetchFile = async (endPoint, body) =>  {
     
@@ -80,9 +80,11 @@ const apiFetchGet = async (endPoint, body = []) =>  {
 
 const BikeApi = {
 
+    // rotas de usuário
+    // Login
     login:async (email, password) => {
         const json = await apiFetchPost(
-            '/user/signin',
+            '/auth/login',
             {email, password}
         );
 
@@ -97,45 +99,25 @@ const BikeApi = {
         return json;
     },
 
-    getStates:async () => {
+    //Listar Usuários
+    getListUser: async () => {
         const json = await apiFetchGet(
-            '/states'
+            '/user'
         );
 
-        return json.states;
-    },
-
-    getCategories:async () => {
-        const json = await apiFetchGet(
-            '/categories'
-        );
-
-        return json.categories;
-    },
-
-    getAds:async (options) => {
-        const json = await apiFetchGet(
-            '/ad/list',
-            options
-        );
         return json;
     },
+
+    //rotas de clientes
     
-    getAd:async (id, other = false) => {
+    //listar clientes
+    getListClient: async () => {
         const json = await apiFetchGet(
-            '/ad/item',
-            {id, other}
+            '/client'
         );
+
         return json;
     },
-
-    addAd:async (fData) => {
-        const json = await apiFetchFile(
-            '/ad/add',
-            fData
-        );
-        return json;
-    }
     
 };
 

@@ -6,8 +6,14 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import userpic from '@iso/assets/images/user1.png';
 import authAction from '@iso/redux/auth/actions';
 import TopbarDropdownWrapper from './TopbarDropdown.styles';
+import {doLogout} from '../../helpers/AuthHandler';
 
 const { logout } = authAction;
+
+const handleLogout = () => {
+  doLogout();
+  window.location.href = '/';
+}
 
 export default function TopbarUser() {
   const [visible, setVisibility] = React.useState(false);
@@ -21,8 +27,8 @@ export default function TopbarUser() {
       <Link className="isoDropdownLink" to={'/dashboard/my-profile'}>
         <IntlMessages id="topbar.myprofile" />
       </Link>
-      <div className="isoDropdownLink" onClick={() => dispatch(logout())}>
-        <IntlMessages id="topbar.logout" />
+      <div className="isoDropdownLink" onClick={handleLogout}>
+        <IntlMessages id="Sair" />
       </div>
     </TopbarDropdownWrapper>
   );

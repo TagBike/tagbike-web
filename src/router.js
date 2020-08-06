@@ -15,6 +15,11 @@ const Dashboard = lazy(() => import('./containers/Dashboard/Dashboard'));
 
 const publicRoutes = [
   {
+    path: PUBLIC_ROUTE.LANDING,
+    exact: true,
+    component: lazy(() => import('@iso/containers/Pages/SignIn/SignIn')),
+  },
+  {
     path: PUBLIC_ROUTE.PAGE_404,
     component: lazy(() => import('@iso/containers/Pages/404/404')),
   },
@@ -54,16 +59,16 @@ function PrivateRoute({ children, ...rest }) {
 
     const handleLogout = () => {
         doLogout();
-        window.location.href = '/';
+        window.location.href = '/auth/logout';
     }
 
   return (
     <Route
       {...rest}
-      render={({ location }) => 
-        isLogged ? (
-          children
-        ) : (
+      render={({ location }) =>
+      logged ? (
+        children
+      ) : (
           <Redirect
             to={{
               pathname: '/signin',
@@ -86,7 +91,7 @@ export default function Routes() {
                 <route.component />
               </Route>
             ))}
-            <PrivateRoute path="/">
+            <PrivateRoute path="/dashboard">
               <Dashboard />
             </PrivateRoute>
             <Redirect to="/404" />
