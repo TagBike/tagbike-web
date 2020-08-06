@@ -40,6 +40,8 @@ const actions = [
     </Button>
 ];
 
+
+
 export default function() {
   const [dataSource, setDataSource] = React.useState([]);
 
@@ -66,7 +68,7 @@ export default function() {
       
       <Row style={rowStyle} gutter={gutter} justify="start">
         <Col md={24} sm={24} xs={24} style={colStyle}>
-          <Box actions={actions}>
+          <Box >
             <ContentHolder>
             <div className="isoBillingSection">
               <AddForm />

@@ -1,16 +1,15 @@
-import React , {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import customersActions from '@iso/redux/customers/actions';
+import articleActions from '@iso/redux/articles/actions';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
 import PageHeader from '@iso/components/utility/pageHeader';
-import Box from '@iso/components/utility/box';
-import Breadcrumb from '@iso/components/uielements/breadcrumb';
-import Button, { ButtonGroup } from '@iso/components/uielements/button';
-import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
+import Box from '@iso/components/utility/box';
+import { Link } from 'react-router-dom';
+import ContentHolder from '@iso/components/utility/contentHolder';
+import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
-import {
+import { 
   TitleWrapper,
   ButtonHolders,
   ActionWrapper,
@@ -28,11 +27,11 @@ const {
   saveIntoFireStore,
   toggleModal,
   update,
-} = customersActions;
+} = articleActions;
 
 const Actions = props => (
   <ButtonGroup>
-    <Link to="/customers/Add">
+    <Link to="./customers/Add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
@@ -40,63 +39,58 @@ const Actions = props => (
   </ButtonGroup>
 );
 
-export default function Customer() {
-  const { customers, customer, modalActive, isLoading } = useSelector(
-    state => state.Customers
+export default function Articles() {
+  const { articles, article, modalActive, isLoading } = useSelector(
+    state => state.Articles
   );
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadFromFireStore());
   }, [dispatch]);
-  const handleRecord = (actionName, customer) => {
-    if (customer.key && actionName !== 'delete') actionName = 'update';
-    dispatch(saveIntoFireStore(customer, actionName));
+  const handleRecord = (actionName, article) => {
+    if (article.key && actionName !== 'delete') actionName = 'update';
+    dispatch(saveIntoFireStore(article, actionName));
   };
   const resetRecords = () => {
     dispatch(resetFireStoreDocuments());
   };
 
-  const handleModal = (customer = null) => {
-    dispatch(toggleModal(customer));
+  const handleModal = (article = null) => {
+    dispatch(toggleModal(article));
   };
 
   const onRecordChange = (event, key) => {
-    if (key) customer[key] = event.target.value;
-    dispatch(update(customer));
+    if (key) article[key] = event.target.value;
+    dispatch(update(article));
   };
 
   const onSelectChange = (key, value) => {
-    if (key) customer[key] = value;
-    dispatch(update(customer));
+    if (key) article[key] = value;
+    dispatch(update(article));
   };
 
-  const [stateList, setStateList] = useState([]);
 
-  useEffect(() => {
-    const getListClient = async () => {
-        const customers = await api.getListClient();
-          setStateList(customers);
+const [stateList, setStateList] = useState([]);
+
+useEffect(() => {
+  const getListClient = async () => {
+      const clients = await api.getListClient();
+        setStateList(clients);
+  }
+
+  getListClient();
+}, []);
+
+
+const dataSource = stateList.map( (item) => (  
+    {
+      name : item.name,
+      email : item.email,
+      cpf : item.cpf,
+      telefone : item.phone
     }
-  
-    getListClient();
-  }, []);
-  
-  
-  const dataSource = stateList.map( (item) => (  
-      {
-        name : item.name,
-        email : item.email,
-        cpf : item.cpf,
-        telefone : item.phone
-      }
-    ));
+  ));
 
-  Object.keys(customers).map((customer, index) => {
-    return dataSource.push({
-      ...customers[customer],
-      key: customer,
-    });
-  });
 
 
   const columns = [
@@ -176,12 +170,12 @@ export default function Customer() {
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="/customers/edit">
+            <a onClick={() => handleModal(row)} href="edit">
               <i className="ion-android-create" />
             </a>
 
             <Popconfirms
-              title="Deseja Excluir esse Cliente？"
+              title="Deseja Excluir esse Usuário？"
               okText="Sim"
               cancelText="Não"
               placement="topRight"
@@ -197,44 +191,31 @@ export default function Customer() {
     },
   ];
 
-
   return (
     <LayoutContentWrapper>
-      {/*<Breadcrumb>
-        <Breadcrumb.Item>
-          <Button as="a" type="link"><i className="ion-android-home" /></Button>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Button as="a" type="link"><IntlMessages id="Clientes" /></Button>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <IntlMessages id="Adicionar" />
-        </Breadcrumb.Item>
-      </Breadcrumb>*/}
       <PageHeader>
         <IntlMessages id="Clientes" />
       </PageHeader>
-      {/*<Box title={<IntlMessages id="sidebar.customers" />}>*/}
-      <Box extra={<Actions />}>
-        <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>         
-            <TableWrapper
-              rowKey="key"
-              columns={columns}
-              bordered={true}
-              dataSource={dataSource}
-              loading={isLoading}
-              className="isoSimpleTable"
-              pagination={{
-                defaultPageSize: 10,
-                hideOnSinglePage: true,
-                total: dataSource.length,
-                showTotal: (total, range) => {
-                  return `Showing ${range[0]}-${range[1]} of ${
-                    dataSource.length
-                  } Results`;
-                },
-              }}
-            />
+      <Box extra={<Actions />} >
+        <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
+          <TableWrapper
+            rowKey="key"
+            columns={columns}
+            bordered={true}
+            dataSource={dataSource}
+            loading={isLoading}
+            className="isoSimpleTable"
+            pagination={{
+              defaultPageSize: 10,
+              hideOnSinglePage: true,
+              total: dataSource.length,
+              showTotal: (total, range) => {
+                return `Showing ${range[0]}-${range[1]} of ${
+                  dataSource.length
+                } Results`;
+              },
+            }}
+          />
         </ContentHolder>
       </Box>
     </LayoutContentWrapper>

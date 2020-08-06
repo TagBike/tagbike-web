@@ -119,6 +119,18 @@ const BikeApi = {
         return json;
     },
 
+    //cadastro cliente
+    createClient:async (name, cpf,  email, password, cep, uf,
+            city, neighborhood, address, number, complement, phone,
+            cellphone, birthday) => {
+        const json = await apiFetchPost(
+            '/client/create',
+            {name, cpf, email, password, cep, uf, city, neighborhood, 
+                address, number, complement, phone, cellphone, birthday}
+        );
+        return json;
+    },
+
 
     //rotas de bike
     
