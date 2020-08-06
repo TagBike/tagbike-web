@@ -118,6 +118,42 @@ const BikeApi = {
 
         return json;
     },
+
+
+    //rotas de bike
+    
+    //listar bikes
+    getListBike: async () => {
+        const json = await apiFetchGet(
+            '/bike'
+        );
+
+        return json;
+    },
+
+
+    //rotas de etiqueta
+    
+    //listar bikes
+    getListTag: async () => {
+        const json = await apiFetchGet(
+            '/tag'
+        );
+
+        return json;
+    },
+
+
+    //rotas de planos
+    
+    //listar bikes
+    getListPlan: async () => {
+        const json = await apiFetchGet(
+            '/plan'
+        );
+
+        return json;
+    },
     
 };
 

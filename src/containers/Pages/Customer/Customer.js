@@ -74,8 +74,8 @@ export default function Customer() {
 
   useEffect(() => {
     const getListClient = async () => {
-        const users = await api.getListClient();
-          setStateList(users);
+        const customers = await api.getListClient();
+          setStateList(customers);
     }
   
     getListClient();
