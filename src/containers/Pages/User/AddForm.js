@@ -7,12 +7,13 @@ import { direction } from '@iso/lib/helpers/rtl';
 import {useHistory} from 'react-router-dom';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Password from 'antd/lib/input/Password';
+import UseApi from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
 
 export default function() {
 
+  const api = UseApi();
   const history = useHistory();
 
   const margin = {
@@ -25,17 +26,13 @@ export default function() {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [uf, setUf] = useState('');
+    const [city, setCity] = useState('');
+    const [cellphone, setCellphone] = useState('');
     const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [login, setLogin] = useState('');
-    const [senha, setSenha] = useState('');
+    const [birthday, setBirthday] = useState('');
+    const [sexy, setSexy] = useState('');
 
     const handleSubmit = async (e) =>  {
         e.preventDefault();
@@ -45,68 +42,45 @@ export default function() {
 
         if (errors.length === 0) {
 
-          const fData = new FormData();
-          fData.append('name', name);
-          fData.append('email', email);
-          fData.append('cpf', cpf);
-          fData.append('rg', rg);
-          fData.append('telefone', telefone);
-          fData.append('whatsApp', whatsApp);
-          fData.append('logradouro', logradouro);
-          fData.append('numero', numero);
-          fData.append('bairro', bairro);
-          fData.append('cep', cep);
-          fData.append('cidade', cidade);
-          fData.append('login', login);
-          fData.append('senha', senha);
-
           if (name == '') {
             errors.push(toast.error('Por favor preenchar o campo nome!'));
           }
           if (email == '') {
             errors.push(toast.error('Por favor preenchar o campo email!'));
           }
-          if (cpf == '') {
-            errors.push(toast.error('Por favor preenchar o campo CPF!'));
-          }
-          if (rg == '') {
-            errors.push(toast.error('Por favor preenchar o campo RG!'));
-          }
-          if (telefone == '') {
-            errors.push(toast.error('Por favor preenchar o campo telefone!'));
-          }
-          if (whatsApp == '') {
-            errors.push(toast.error('Por favor preenchar o campo whatsapp!'));
-          }
-          if (logradouro == '') {
-            errors.push(toast.error('Por favor preenchar o campo logradouro!'));
-          }
-          if (numero == '') {
-            errors.push(toast.error('Por favor preenchar o campo número!'));
-          }
-          if (bairro == '') {
-            errors.push(toast.error('Por favor preenchar o campo bairro!'));
-          }
-          if (cep == '') {
-            errors.push(toast.error('Por favor preenchar o campo CEP!'));
-          }
-          if (cidade == '') {
-            errors.push(toast.error('Por favor preenchar o campo cidade!'));
-          }
-          if (login == '') {
-            errors.push(toast.error('Por favor preenchar o campo loogin!'));
-          }
-          if (senha == '') {
+          if (password == '') {
             errors.push(toast.error('Por favor preenchar o campo senha!'));
           }
+          if (uf == '') {
+            errors.push(toast.error('Por favor preenchar o campo estado!'));
+          }
+          if (city == '') {
+            errors.push(toast.error('Por favor preenchar o campo cidade!'));
+          }
+          if (cellphone == '') {
+            errors.push(toast.error('Por favor preenchar o campo celular!'));
+          }
+          if (cpf == '') {
+            errors.push(toast.error('Por favor preenchar o campo cpf!'));
+          }
+          if (birthday == '') {
+            errors.push(toast.error('Por favor preenchar o campo data de aniversario!'));
+          }
+          if (sexy == '') {
+            errors.push(toast.error('Por favor preenchar o campo Sexo!'));
+          }
 
-          const json = fData;
+          const json = await api.createUser(name, email, password, uf, city, cellphone, cpf, birthday, sexy);
 
-           if (!json.error) {
-              history.push();
+           if (json.error == '' ) {
+              console.log('ERROR'+json)
               return;
           } else {
-              setError(json.error);
+            toast.success('Usuário adicionador com sucesso!');
+
+            setTimeout(() => {
+              window.location.href = './';
+              }, 3000)
            }
           
         } else {
@@ -114,11 +88,7 @@ export default function() {
         }
 
         setDisabled(false);
-        toast.success('Usuário adicionador com sucesso!');
 
-        setTimeout(() => {
-          history.push(`users`);
-          }, 6000)
         
  }
 
@@ -141,62 +111,72 @@ export default function() {
         </div>
         <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
-            <label>CPF</label>
-            <Input type="text" value={cpf} onChange={(e)=>setCpf(e.target.value)} size="large" placeholder="Informe o CPF." />
+            <label>Senha</label>
+            <Input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} size="large" placeholder="Informe o CPF." />
           </InputBoxWrapper>
           <InputBoxWrapper className="isoInputBox">
-            <label>RG</label>
-            <Input type="text" value={rg} onChange={(e)=>setRg(e.target.value)} size="large" placeholder="Informe o RG." />
+            <label>Estado</label>
+            <Select value={uf}  onChange={e=>setUf(e.target.value)} size="large" placeholder="Selecione o Tipo do freio">
+            <option value="AC">Acre</option>
+            <option value="AL">Alagoas</option>
+            <option value="AP">Amapá</option>
+            <option value="AM">Amazonas</option>
+            <option value="BA">Bahia</option>
+            <option value="CE">Ceará</option>
+            <option value="DF">Distrito Federal</option>
+            <option value="ES">Espírito Santo</option>
+            <option value="GO">Goiás</option>
+            <option value="MA">Maranhão</option>
+            <option value="MT">Mato Grosso</option>
+            <option value="MS">Mato Grosso do Sul</option>
+            <option value="MG">Minas Gerais</option>
+            <option value="PA">Pará</option>
+            <option value="PB">Paraíba</option>
+            <option value="PR">Paraná</option>
+            <option value="PE">Pernambuco</option>
+            <option value="PI">Piauí</option>
+            <option value="RJ">Rio de Janeiro</option>
+            <option value="RN">Rio Grande do Norte</option>
+            <option value="RS">Rio Grande do Sul</option>
+            <option value="RO">Rondônia</option>
+            <option value="RR">Roraima</option>
+            <option value="SC">Santa Catarina</option>
+            <option value="SP">São Paulo</option>
+            <option value="SE">Sergipe</option>
+            <option value="TO">Tocantins</option>
+            <option value="EX">Estrangeiro</option>
+            </Select>
           </InputBoxWrapper>
         </div>
         <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Telefone</label>
-            <Input type="text"  value={telefone} onChange={(e)=>setTelefone(e.target.value)} size="large" placeholder="Informe o Telefone." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>WhatsApp</label>
-            <Input type="text"  value={whatsApp} onChange={(e)=>setWhatsApp(e.target.value)} size="large" placeholder="Informe o WhatsApp." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Logradouro</label>
-            <Input type="text" value={logradouro} onChange={(e)=>setLogradouro(e.target.value)} size="large" placeholder="Informe o Logradouro." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Número</label>
-            <Input type="text" value={numero} onChange={(e)=>setNumero(e.target.value)} size="large" placeholder="Informe o Número." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Bairro</label>
-            <Input type="text" value={bairro} onChange={(e)=>setBairro(e.target.value)} size="large" placeholder="Informe o Bairro." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>CEP</label>
-            <Input type="text" value={cep} onChange={(e)=>setCep(e.target.value)} size="large" placeholder="Informe o CEP." />
-          </InputBoxWrapper>
           <InputBoxWrapper className="isoInputBox">
             <label>Cidade</label>
-            <Input type="text" value={cidade} onChange={(e)=>setCidade(e.target.value)} size="large" placeholder="Informe a Cidade." />
+            <Input type="text"  value={city} onChange={(e)=>setCity(e.target.value)} size="large" placeholder="Informe o Telefone." />
+          </InputBoxWrapper>
+          <InputBoxWrapper className="isoInputBox">
+            <label>Celular</label>
+            <Input type="text"  value={cellphone} onChange={(e)=>setCellphone(e.target.value)} size="large" placeholder="Informe o WhatsApp." />
           </InputBoxWrapper>
         </div>
 
-        <div className="isoInputFieldset"> 
+        <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
-            <label>Login</label>
-            <Input type="text" value={login} onChange={(e)=>setLogin(e.target.value)} size="large" placeholder="Informe o Login." />
+            <label>CPF</label>
+            <Input type="text" value={cpf} onChange={(e)=>setCpf(e.target.value)} size="large" placeholder="Informe o Logradouro." />
+          </InputBoxWrapper>
+        </div>
+
+        <div className="isoInputFieldset">
+          <InputBoxWrapper className="isoInputBox">
+            <label>Data de aniversario</label>
+            <Input type="date" value={birthday} onChange={(e)=>setBirthday(e.target.value)} size="large" placeholder="Informe o Número." />
           </InputBoxWrapper>
           <InputBoxWrapper className="isoInputBox">
-            <label>Senha</label>
-            <Input type="password" value={senha} onChange={(e)=>setSenha(e.target.value)} size="large" placeholder="Informe a Senha." />
+            <label>Sexo</label>
+            <Select value={sexy} onChange={(e)=>setSexy(e.target.value)} size="large" placeholder="Selecione o sexo">
+            <option value="0">Masculino</option>
+            <option value="1">Feminino</option>
+          </Select>
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">

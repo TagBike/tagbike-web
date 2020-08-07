@@ -1,18 +1,23 @@
 import React, {useState} from 'react';
 import Input from '@iso/components/uielements/input';
-import Button from '@iso/components/uielements/button';
+import {Button} from '@iso/components/utility/Buttons';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
-import Box from '@iso/components/utility/box';
+import { direction } from '@iso/lib/helpers/rtl';
 import UseApi from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
-const api = UseApi();
 
 export default function() {
+  const api = UseApi();
+
+  const margin = {
+    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
+  };
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
+  const [error, setError] = useState('');
 
     const [name, setName] = useState('');
     const [cpf, setCpf] = useState('');
@@ -30,33 +35,17 @@ export default function() {
     const [birthday, setBirthday] = useState('');
 
     const handleSubmit = async (e) =>  {
-      e.preventDefault();
-      setDisabled(true);
+        e.preventDefault();
+        setDisabled(true);
 
-        const fData = new FormData();
-          fData.append('name', name);
-          fData.append('cpf', cpf);
-          fData.append('email', email);
-          fData.append('password', password);
-          fData.append('cep', cep);
-          fData.append('uf', uf);
-          fData.append('city', city);
-          fData.append('neighborhood', neighborhood);
-          fData.append('address', address);
-          fData.append('number', number);
-          fData.append('complement', complement);
-          fData.append('phone', phone);
-          fData.append('cellphone', cellphone);
-          fData.append('birthday', birthday);
+        const json = await api.createClient(name, cpf, email, password, cep, uf, city, neighborhood, 
+        address, number, complement, phone, cellphone, birthday);
 
-          const json = await api.createClient(fData);
-
-          console.log(json); 
-
-      if(json.error) {
-          console.log('deu erro')
+      if(json.error == '') {
+        console.log('ERROR'+json)
       } else {
-          window.location.href = './customers';
+        window.location.href = './customers';
+          
       }
 
       setDisabled(false);
@@ -138,7 +127,8 @@ export default function() {
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">
-            <Button  type="submit" primary>Salvar</Button>
+            <Button  style={margin} type="submit" primary>Salvar</Button>
+            <Button type="reset">Cancelar</Button>
         </div>
       </form> 
     </BillingFormWrapper>

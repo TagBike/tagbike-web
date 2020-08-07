@@ -91,14 +91,6 @@ const BikeApi = {
         return json;
     },
 
-    register:async (name, stateLoc,  email, password) => {
-        const json = await apiFetchPost(
-            '/user/signup',
-            {name, state:stateLoc, email, password}
-        );
-        return json;
-    },
-
     //Listar Usuários
     getListUser: async () => {
         const json = await apiFetchGet(
@@ -107,6 +99,16 @@ const BikeApi = {
 
         return json;
     },
+
+    //cadastro usuário
+    createUser:async (name, email, password, uf, city, cellphone, cpf, birthday, sexy) => {
+    const json = await apiFetchPost(
+        '/user/create',
+        {name, email, password, uf, city, cellphone, cpf, birthday, sexy}
+    );
+    return json;
+},
+    // fim das rotas de usuário 
 
     //rotas de clientes
     
