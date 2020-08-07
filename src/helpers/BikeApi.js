@@ -145,6 +145,18 @@ const BikeApi = {
         return json;
     },
 
+    //cadastro bike
+    createBike:async (serialNumber, biketype, brand, model, color, photoBike, forwardExchange, 
+        rearDerailleur, brakeType, typeSuspension, wheelType, forkType, frametype) => {
+        const json = await apiFetchPost(
+            '/bike/create',
+            {serialNumber, biketype, brand, model, color, photoBike, forwardExchange, 
+                rearDerailleur, brakeType, typeSuspension, wheelType, forkType, frametype}
+            );
+            return json;
+    },
+
+    //fim rotas de bike
 
     //rotas de etiqueta
     
@@ -157,15 +169,35 @@ const BikeApi = {
         return json;
     },
 
+    //cadastro etiqueta
+    createTag:async (name, qrCode) => {
+        const json = await apiFetchPost(
+            '/tag/create',
+            {name, qrCode}
+            );
+            return json;
+    },
+
+    //fim rotas de etiqueta
+
 
     //rotas de planos
     
-    //listar bikes
+    //listar planos
     getListPlan: async () => {
         const json = await apiFetchGet(
             '/plan'
         );
 
+        return json;
+    },
+
+    //cadastro planos
+    createPlan:async (name) => {
+    const json = await apiFetchPost(
+        '/plan/create',
+        {name}
+        );
         return json;
     },
     

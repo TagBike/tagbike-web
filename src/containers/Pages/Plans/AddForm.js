@@ -1,114 +1,77 @@
 import React, {useState} from 'react';
 import Input from '@iso/components/uielements/input';
-import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
-import IntlMessages from '@iso/components/utility/intlMessages';
+import {Button} from '@iso/components/utility/Buttons';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { direction } from '@iso/lib/helpers/rtl';
+import {useHistory} from 'react-router-dom';
+import {ToastContainer, toast, Zoom} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UseApi from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
 
 export default function() {
+
+  const api = UseApi();
+  const history = useHistory();
+
+  const margin = {
+    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
+  };
+
   const handleOnChange = checkedValues => {};
-  const [disabled, setDisabled] = useState(false);
+    const [disabled, setDisabled] = useState(false);
+    const [error, setError] = useState('');
 
     const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [login, setLogin] = useState('');
-    const [senha, setSenha] = useState('');
 
     const handleSubmit = async (e) =>  {
         e.preventDefault();
         setDisabled(true);
+
+        let errors = [];
+
+        if (errors.length === 0) {
+
+          if (name == '') {
+            errors.push(toast.error('Por favor preenchar o campo nome!'));
+          }
+
+          const json = await api.createPlan(name);
+
+           if (json.error == '' ) {
+              console.log('ERROR'+json)
+              return;
+          } else {
+            toast.success('Plano adicionador com sucesso!');
+
+            setTimeout(() => {
+              window.location.href = './';
+              }, 3000)
+           }
+          
+        } else {
+            setError(errors.join("\n"));
+        }
+
+        setDisabled(false);
  }
 
 
   return (
     <BillingFormWrapper className="isoBillingForm">
-       <form onSubmit={handleSubmit}>
+      <ToastContainer draggable={false} transition={Zoom} autoClose={5000} />
+       <form onSubmit={handleSubmit} >
         <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
             <label>Nome</label>
-            <Input type="text" name="name" size="large" placeholder="Informe o nome Completo." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Email</label>
-            <Input type="email" name="email" size="large" placeholder="Informe o Email." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>CPF</label>
-            <Input type="text" name="cpf" size="large" placeholder="Informe o CPF." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>RG</label>
-            <Input type="text" name="rg" size="large" placeholder="Informe o RG." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Telefone</label>
-            <Input type="text" name="telefone" size="large" placeholder="Informe o Telefone." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>WhatsApp</label>
-            <Input type="text" name="whatsapp" size="large" placeholder="Informe o WhatsApp." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Logradouro</label>
-            <Input type="text" name="logradouro" size="large" placeholder="Informe o Logradouro." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Número</label>
-            <Input type="text" name="numero" size="large" placeholder="Informe o Número." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Bairro</label>
-            <Input type="text" name="bairro" size="large" placeholder="Informe o Bairro." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>CEP</label>
-            <Input type="text" name="cep" size="large" placeholder="Informe o CEP." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Cidade</label>
-            <Input type="text" name="cidade" size="large" placeholder="Informe a Cidade." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset"> 
-          <InputBoxWrapper className="isoInputBox">
-            <label>Login</label>
-            <Input type="text" name="login" size="large" placeholder="Informe o Login." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Senha</label>
-            <Input type="password" name="senha" size="large" placeholder="Informe a Senha." />
+            <Input  type="text" value={name} onChange={(e)=>setName(e.target.value)} size="large" placeholder="Informe o nome Completo." />
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">
-          {/* <Button disabled={disabled} style={{ marginRight: 20 }} class="ui primary button">Salvar</Button> */}
-          <button disabled={disabled}>Salvar</button>
+            <Button  style={margin} type="submit" primary>Salvar</Button>
+            <Button type="reset">Cancelar</Button>
         </div>
       </form> 
     </BillingFormWrapper>

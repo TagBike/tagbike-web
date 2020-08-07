@@ -4,28 +4,74 @@ import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { direction } from '@iso/lib/helpers/rtl';
+import {useHistory} from 'react-router-dom';
+import {ToastContainer, toast, Zoom} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import UseApi from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
 
 export default function() {
+  const api = UseApi();
+  const history = useHistory();
+
+  const margin = {
+    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
+  };
+ 
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
+    const [error, setError] = useState('');
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
+    const [serialNumber, setSerialNumber] = useState('');
+    const [biketype, setBiketype] = useState('');
+    const [brand, setBrand] = useState('');
+    const [model, setModel] = useState('');
+    const [color, setColor] = useState('');
+    const [photoBike, setPhotoBike] = useState('');
+    const [forwardExchange, setForwardExchange] = useState('');
+    const [rearDerailleur, seRearDerailleur] = useState('');
+    const [brakeType, setBrakeType] = useState('');
+    const [typeSuspension, setTypeSuspension] = useState('');
+    const [wheelType, setWheelType] = useState('');
+    const [forkType, setForkType] = useState('');
+    const [frametype, setFrametype] = useState('');
 
     const handleSubmit = async (e) =>  {
         e.preventDefault();
         setDisabled(true);
+
+        let errors = [];
+
+        if (errors.length === 0) {
+
+          if (serialNumber == '') {
+            errors.push(toast.error('Por favor preenchar o campo Serial!'));
+          }
+          if (biketype == '') {
+            errors.push(toast.error('Por favor informe o tipo da bike!'));
+          }
+
+          const json = await api.createBike(serialNumber, biketype, brand, model, color, photoBike, forwardExchange, 
+            rearDerailleur, brakeType, typeSuspension, wheelType, forkType, frametype);
+
+           if (json.error == '' ) {
+              console.log('ERROR'+json)
+              return;
+          } else {
+            toast.success('Bike adicionador com sucesso!');
+
+            setTimeout(() => {
+              window.location.href = './';
+              }, 2000)
+           }
+          
+        } else {
+            setError(errors.join("\n"));
+        }
+
+        setDisabled(false);
  }
 
 

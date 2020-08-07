@@ -72,7 +72,7 @@ const routes = [
     exact:true
   },
   {
-    path: 'add/bikes',
+    path: 'bikes/add',
     component: lazy(() =>
       import('@iso/containers/Pages/Bike/Add')
     ),

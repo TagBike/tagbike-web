@@ -117,34 +117,34 @@ export default function() {
           <InputBoxWrapper className="isoInputBox">
             <label>Estado</label>
             <Select value={uf}  onChange={e=>setUf(e.target.value)} size="large" placeholder="Selecione o Tipo do freio">
-            <option value="AC">Acre</option>
-            <option value="AL">Alagoas</option>
-            <option value="AP">Amapá</option>
-            <option value="AM">Amazonas</option>
-            <option value="BA">Bahia</option>
-            <option value="CE">Ceará</option>
-            <option value="DF">Distrito Federal</option>
-            <option value="ES">Espírito Santo</option>
-            <option value="GO">Goiás</option>
-            <option value="MA">Maranhão</option>
-            <option value="MT">Mato Grosso</option>
-            <option value="MS">Mato Grosso do Sul</option>
-            <option value="MG">Minas Gerais</option>
-            <option value="PA">Pará</option>
-            <option value="PB">Paraíba</option>
-            <option value="PR">Paraná</option>
-            <option value="PE">Pernambuco</option>
-            <option value="PI">Piauí</option>
-            <option value="RJ">Rio de Janeiro</option>
-            <option value="RN">Rio Grande do Norte</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="RO">Rondônia</option>
-            <option value="RR">Roraima</option>
-            <option value="SC">Santa Catarina</option>
-            <option value="SP">São Paulo</option>
-            <option value="SE">Sergipe</option>
-            <option value="TO">Tocantins</option>
-            <option value="EX">Estrangeiro</option>
+            <Option value="AC">Acre</Option>
+            <Option value="AL">Alagoas</Option>
+            <Option value="AP">Amapá</Option>
+            <Option value="AM">Amazonas</Option>
+            <Option value="BA">Bahia</Option>
+            <Option value="CE">Ceará</Option>
+            <Option value="DF">Distrito Federal</Option>
+            <Option value="ES">Espírito Santo</Option>
+            <Option value="GO">Goiás</Option>
+            <Option value="MA">Maranhão</Option>
+            <Option value="MT">Mato Grosso</Option>
+            <Option value="MS">Mato Grosso do Sul</Option>
+            <Option value="MG">Minas Gerais</Option>
+            <Option value="PA">Pará</Option>
+            <Option value="PB">Paraíba</Option>
+            <Option value="PR">Paraná</Option>
+            <Option value="PE">Pernambuco</Option>
+            <Option value="PI">Piauí</Option>
+            <Option value="RJ">Rio de Janeiro</Option>
+            <Option value="RN">Rio Grande do Norte</Option>
+            <Option value="RS">Rio Grande do Sul</Option>
+            <Option value="RO">Rondônia</Option>
+            <Option value="RR">Roraima</Option>
+            <Option value="SC">Santa Catarina</Option>
+            <Option value="SP">São Paulo</Option>
+            <Option value="SE">Sergipe</Option>
+            <Option value="TO">Tocantins</Option>
+            <Option value="EX">Estrangeiro</Option>
             </Select>
           </InputBoxWrapper>
         </div>
@@ -174,8 +174,8 @@ export default function() {
           <InputBoxWrapper className="isoInputBox">
             <label>Sexo</label>
             <Select value={sexy} onChange={(e)=>setSexy(e.target.value)} size="large" placeholder="Selecione o sexo">
-            <option value="0">Masculino</option>
-            <option value="1">Feminino</option>
+            <Option value="0">Masculino</Option>
+            <Option value="1">Feminino</Option>
           </Select>
           </InputBoxWrapper>
         </div>
