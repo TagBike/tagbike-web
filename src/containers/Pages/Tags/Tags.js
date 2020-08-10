@@ -84,12 +84,19 @@ useEffect(() => {
 
 const dataSource = stateList.map( (item) => (  
     {
+      id : item.id,
       name : item.name,
       qrCode : item.qr_code,
     }
   ));
 
-
+  const handleDelete = async (id) => {
+    stateList.filter( (item) => (  
+      id =   item.id
+    )); 
+    const json = await api.deleteTag(id);
+    window.location.href = './tags';
+  }
 
   const columns = [
     {
@@ -154,9 +161,9 @@ const dataSource = stateList.map( (item) => (
               okText="Sim"
               cancelText="Não"
               placement="topRight"
-              onConfirm={() => handleRecord('delete', row)}
+              onConfirm={() => handleDelete()}
             >
-              <a className="deleteBtn" href="#">
+              <a className="deleteBtn">
                 <i className="ion-android-delete" />
               </a>
             </Popconfirms>

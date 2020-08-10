@@ -77,6 +77,36 @@ const apiFetchGet = async (endPoint, body = []) =>  {
     return json;
 }
 
+const apiFetchDelete = async (endPoint, body) =>  {
+    
+    if (!body.token) {
+        let token = Cookies.get('token');
+        if (token) {
+            body.token = token;
+        }
+    }
+
+    const res = await fetch(BASEAPI+endPoint, {
+        method:'DELETE',
+        headers:{
+            'Accept': 'application/json',
+            'content-Type': 'application/json'
+        },
+        body:JSON.stringify(body)
+    });
+
+    const json = await res.json();
+
+    if (json.notallowed) {
+        window.location.href = 'signin';
+        return;
+    }
+
+    return json;
+}
+
+
+
 
 const BikeApi = {
 
@@ -107,7 +137,17 @@ const BikeApi = {
         {name, email, password, uf, city, cellphone, cpf, birthday, sexy}
     );
     return json;
-},
+    },
+
+    //deleta usuário
+    deleteUser:async (id) => {
+        const json = await apiFetchDelete(
+            '/user/delete/'+id,
+            {}
+        );
+        return json;
+    },
+
     // fim das rotas de usuário 
 
     //rotas de clientes
@@ -129,6 +169,15 @@ const BikeApi = {
             '/client/create',
             {name, cpf, email, password, cep, uf, city, neighborhood, 
                 address, number, complement, phone, cellphone, birthday}
+        );
+        return json;
+    },
+
+    //deleta cliente
+    deleteClient:async (id) => {
+        const json = await apiFetchDelete(
+            '/client/delete/'+id,
+            {}
         );
         return json;
     },
@@ -156,11 +205,20 @@ const BikeApi = {
             return json;
     },
 
+    //deleta bike
+    deleteBike:async (id) => {
+        const json = await apiFetchDelete(
+            '/bike/delete/'+id,
+            {}
+        );
+        return json;
+    },
+
     //fim rotas de bike
 
     //rotas de etiqueta
     
-    //listar bikes
+    //listar eitquetas
     getListTag: async () => {
         const json = await apiFetchGet(
             '/tag'
@@ -176,6 +234,15 @@ const BikeApi = {
             {name, qrCode}
             );
             return json;
+    },
+
+    //deleta etiqueta
+    deleteTag:async (id) => {
+        const json = await apiFetchDelete(
+            '/tag/delete/'+id,
+            {}
+        );
+        return json;
     },
 
     //fim rotas de etiqueta
@@ -197,6 +264,15 @@ const BikeApi = {
     const json = await apiFetchPost(
         '/plan/create',
         {name}
+        );
+        return json;
+    },
+
+    //deleta plano
+    deletePlan:async (id) => {
+        const json = await apiFetchDelete(
+            '/plan/delete/'+id,
+            {}
         );
         return json;
     },
