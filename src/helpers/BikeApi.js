@@ -271,7 +271,7 @@ const BikeApi = {
     //deleta plano
     deletePlan:async (id) => {
         const json = await apiFetchDelete(
-            '/plan/delete/'+id,
+            '/plan/delete/'+parseInt(id),
             {}
         );
         return json;

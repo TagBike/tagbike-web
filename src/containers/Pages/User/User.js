@@ -93,9 +93,6 @@ const dataSource = stateList.map( (item) => (
   ));
 
   const handleDelete = async (id) => {
-    id = stateList.map((item) => (  
-      item.id
-    )); 
     const json = await api.deleteUser(id);
     window.location.href = './users';
   }
@@ -186,7 +183,7 @@ const dataSource = stateList.map( (item) => (
               okText="Sim"
               cancelText="Não"
               placement="topRight"
-              onConfirm={() => handleDelete()}
+              onConfirm={() => handleDelete(row.id)}
             >
               <a className="deleteBtn">
                 <i className="ion-android-delete" />
