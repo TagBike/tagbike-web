@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import qs from 'qs';
+import siteConfig from '@iso/config/site.config';
 
-
-const BASEAPI = 'http://127.0.0.1:8000/api';
+const BASEAPI = siteConfig.apiUrl;
 
 const apiFetchFile = async (endPoint, body) =>  {
     
