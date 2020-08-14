@@ -10,7 +10,7 @@ export const PUBLIC_ROUTE = {
 };
 
 export const PRIVATE_ROUTE = {
-  DASHBOARD: '/',
+  DASHBOARD: '/dashboard',
   MAIL: '/inbox',
   SCRUM_BOARD: '/scrum-board',
   CALENDAR: '/calendar',

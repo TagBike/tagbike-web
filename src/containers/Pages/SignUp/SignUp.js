@@ -33,7 +33,7 @@ export default function SignUp() {
       <div className="isoSignUpContentWrapper">
         <div className="isoSignUpContent">
           <div className="isoLogoWrapper">
-            <Link to="/dashboard">
+            <Link to="/">
               <IntlMessages id="page.signUpTitle" />
             </Link>
           </div>

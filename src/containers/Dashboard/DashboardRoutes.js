@@ -114,8 +114,8 @@ export default function AppRouter() {
   return (
     <Suspense fallback={<Loader />}>
       <Switch>
-      {routes.map((route, idx) => (
-          <Route exact={route.exact} key={idx} path={`${url}/${route.path}`}>
+        {routes.map((route, idx) => (
+          <Route exact={route.exact} key={idx} path={`${url}${route.path}`}>
             <route.component />
           </Route>
         ))}

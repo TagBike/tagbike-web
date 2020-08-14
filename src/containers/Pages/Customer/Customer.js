@@ -29,11 +29,21 @@ const {
   update,
 } = articleActions;
 
-const Actions = props => (
+const Toolbar = props => (
   <ButtonGroup>
-    <Link to="././Add">
+    <Link to="/customers/add">
       <Button shape="circle">
         <i className="ion-android-add" />
+      </Button>
+    </Link>
+  </ButtonGroup>
+);
+
+const Actions = props => (
+  <ButtonGroup>
+    <Link to="/customers/edit">
+      <Button shape="circle">
+        <i className="ion-android-create" />
       </Button>
     </Link>
   </ButtonGroup>
@@ -174,6 +184,7 @@ const dataSource = stateList.map( (item) => (
       render: (text, row) => {
         return (
           <ActionWrapper>
+            <Actions />
             <a onClick={() => handleModal(row)} href="./customer/Edit">
               <i className="ion-android-create" />
             </a>
@@ -200,7 +211,7 @@ const dataSource = stateList.map( (item) => (
       <PageHeader>
         <IntlMessages id="Clientes" />
       </PageHeader>
-      <Box extra={<Actions />} >
+      <Box extra={<Toolbar />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"

@@ -91,7 +91,7 @@ export default function Routes() {
                 <route.component />
               </Route>
             ))}
-            <PrivateRoute path="/dashboard">
+            <PrivateRoute path="">
               <Dashboard />
             </PrivateRoute>
             <Redirect to="/404" />
