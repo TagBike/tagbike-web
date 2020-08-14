@@ -30,12 +30,17 @@ const SidebarWrapper = styled.div`
 
     .isoLogoWrapper {
       height: 70px;
-      background: rgba(0, 0, 0, 0.3);
+      /*background: rgba(0, 0, 0, 0.3);*/
       margin: 0;
       padding: 0 10px;
       text-align: center;
       overflow: hidden;
       ${borderRadius()};
+
+      img {
+        max-width: 70px;
+        max-height: 60px;
+      }
 
       h3 {
         a {
@@ -90,15 +95,15 @@ const SidebarWrapper = styled.div`
         align-items: center;
 
         i {
-          font-size: 19px;
-          color: inherit;
+          font-size: 24px;
+          color: ${palette('primary', 0)};;
           margin: ${props =>
             props['data-rtl'] === 'rtl' ? '0 0 0 30px' : '0 30px 0 0'};
           width: 18px;
           ${transition()};
         }
       }
-
+      
       .anticon {
         font-size: 18px;
         margin-right: 30px;

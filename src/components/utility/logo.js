@@ -2,22 +2,22 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import siteConfig from '@iso/config/site.config';
 
-export default ({ collapsed }) => {
+import logoIcon from '@iso/assets/images/icons/icon-96x96.png';
+import logo from '@iso/assets/images/logo_header.png';
+
+export default ({ collapsed, title }) => {
   return (
-    <div className="isoLogoWrapper">
+    <div className={`isoLogoWrapper ${collapsed ? 'collapsed' : ''}`} >
       {collapsed ? (
-        <div>
-          <h3>
-            <Link to="/dashboard">
-              <i className={siteConfig.siteIcon} />
-            </Link>
-          </h3>
-        </div>
+        <Link to="/dashboard">
+          <img src={logoIcon} alt={title} />
+        </Link>
       ) : (
-        <h3>
-          <Link to="/dashboard">{siteConfig.siteName}</Link>
-        </h3>
+        <Link to="/dashboard">
+          <img src={logoIcon} alt={title} />
+        </Link>
       )}
     </div>
   );
 };
+

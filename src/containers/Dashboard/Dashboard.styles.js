@@ -57,6 +57,16 @@ html ul {
   border-radius: 0 !important;
   background: rgba(0, 0, 0, 0.5) !important;
 }
+.ant-tooltip {
+  .ant-tooltip-content 
+    .ant-tooltip-arrow:before {
+      background-color: ${palette('primary', 0)};
+    }
+    .ant-tooltip-inner {
+      background-color: ${palette('primary', 0)};
+    }
+  }  
+}
 
 .ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow:after,
 .ant-popover-placement-bottomLeft

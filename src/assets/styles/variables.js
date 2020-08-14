@@ -1,7 +1,7 @@
 export const variables = {
   WHITE_COLOR: '#ffffff',
   LIGHT_GRAY_COLOR: '#efefef',
-  PRIMARY_COLOR: '#1f2431',
+  PRIMARY_COLOR: '#faaa31',
   SECONDARY_COLOR: '#9aa1b0',
   HEARDER_COLOR: '#788195',
   PRIMARY_BG_COLOR: '#f8f9fe',

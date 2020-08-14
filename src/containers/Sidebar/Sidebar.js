@@ -105,7 +105,7 @@ export default function Sidebar() {
         theme="light"
         style={styling}
       >
-        <Logo collapsed={isCollapsed} />
+        <Logo collapsed={isCollapsed} src="/public/images/icons/icon-96x96.png"/>
         <Scrollbars style={{ height: height - 70 }}>
           <Menu
             onClick={handleClick}
