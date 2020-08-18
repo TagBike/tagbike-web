@@ -13,7 +13,7 @@ import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { direction } from '@iso/lib/helpers/rtl';
-import BillingForm from './AddForm';
+import AddForm from './AddForm';
 
 const Option = SelectOption;
 
@@ -61,7 +61,7 @@ export default function() {
           <Box>
             <ContentHolder>
             <div className="isoBillingSection">
-              <BillingForm />
+              <AddForm />
             </div>
             </ContentHolder>
           </Box>

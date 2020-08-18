@@ -41,11 +41,7 @@ const Toolbar = props => (
 
 const Actions = props => (
   <ButtonGroup>
-    <Link to="/customers/edit">
-      <Button shape="circle">
-        <i className="ion-android-create" />
-      </Button>
-    </Link>
+    {props.children}
   </ButtonGroup>
 );
 
@@ -184,22 +180,24 @@ const dataSource = stateList.map( (item) => (
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <Actions />
-            <a onClick={() => handleModal(row)} href="./customer/Edit">
-              <i className="ion-android-create" />
-            </a>
-
-            <Popconfirms
-              title="Deseja Excluir esse Usuário？"
-              okText="Sim"
-              cancelText="Não"
-              placement="topRight"
-              onConfirm={() => handleDelete(row.id)}
-            >
-              <a className="deleteBtn" >
-                <i className="ion-android-delete" />
-              </a>
-            </Popconfirms>
+            <Actions >
+              <Link to={`/customers/edit/${row.id}`}>
+                <Button shape="circle">
+                  <i className="ion-android-create" />
+                </Button>
+              </Link>
+              <Popconfirms
+                title="Deseja Excluir esse cliente?"
+                okText="Sim"
+                cancelText="Não"
+                placement="topRight"
+                onConfirm={() => handleDelete(row.id)}
+              >
+                <Button shape="circle">
+                  <i className="ion-android-delete" />
+                </Button>          
+              </Popconfirms>
+            </Actions>
           </ActionWrapper>
         );
       },

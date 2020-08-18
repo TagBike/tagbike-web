@@ -29,13 +29,19 @@ const {
   update,
 } = articleActions;
 
-const Actions = props => (
+const Toolbar = props => (
   <ButtonGroup>
-    <Link to="././Add">
+    <Link to="/users/add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
     </Link>
+  </ButtonGroup>
+);
+
+const Actions = props => (
+  <ButtonGroup>
+    {props.children}
   </ButtonGroup>
 );
 
@@ -174,21 +180,24 @@ const dataSource = stateList.map( (item) => (
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="edit">
-              <i className="ion-android-create" />
-            </a>
-
-            <Popconfirms
-              title="Deseja Excluir esse Usuário？"
-              okText="Sim"
-              cancelText="Não"
-              placement="topRight"
-              onConfirm={() => handleDelete(row.id)}
-            >
-              <a className="deleteBtn">
-                <i className="ion-android-delete" />
-              </a>
-            </Popconfirms>
+            <Actions >
+              <Link to={`/users/edit/${row.id}`}>
+                <Button shape="circle">
+                  <i className="ion-android-create" />
+                </Button>
+              </Link>
+              <Popconfirms
+                title="Deseja excluir esse usuário?"
+                okText="Sim"
+                cancelText="Não"
+                placement="topRight"
+                onConfirm={() => handleDelete(row.id)}
+              >
+                <Button shape="circle">
+                  <i className="ion-android-delete" />
+                </Button>          
+              </Popconfirms>
+            </Actions>
           </ActionWrapper>
         );
       },
@@ -200,7 +209,7 @@ const dataSource = stateList.map( (item) => (
       <PageHeader>
         <IntlMessages id="Usuários" />
       </PageHeader>
-      <Box extra={<Actions />} >
+      <Box extra={<Toolbar />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"

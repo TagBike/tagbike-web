@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Input from '@iso/components/uielements/input';
 import Select, { SelectOption } from '@iso/components/uielements/select';
-import {Button} from '@iso/components/utility/Buttons';
+import { Button } from '@iso/components/utility/Buttons';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import { direction } from '@iso/lib/helpers/rtl';
-import {useHistory} from 'react-router-dom';
-import {ToastContainer, toast, Zoom} from 'react-toastify';
+import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import UseApi from '../../../helpers/BikeApi';
 
@@ -35,10 +35,10 @@ export default function() {
 
         if (errors.length === 0) {
 
-          if (name == '') {
+          if (name === '') {
             errors.push(toast.error('Por favor preenchar o campo nome!'));
           }
-          if (qrCode == '') {
+          if (qrCode === '') {
             errors.push(toast.error('Por favor preenchar o campo código!'));
           }
 
@@ -48,7 +48,7 @@ export default function() {
               console.log('ERROR'+json)
               return;
           } else {
-            toast.success('Etiqueta adicionador com sucesso!');
+            toast.success('Etiqueta adicionada com sucesso!');
 
             setTimeout(() => {
               window.location.href = './';

@@ -121,8 +121,8 @@ export default function() {
         </div>
         <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
-            <label>Câmbio diâmteiro</label>
-            <Select placeholder="Selecione o Câmbio diâmteiro">
+            <label>Câmbio dianteiro</label>
+            <Select placeholder="Selecione o Câmbio dianteiro">
             <option value="1">1 Velocidade</option>
             <option value="2">2 Velocidades</option>
             <option value="3">3 Velocidades</option>

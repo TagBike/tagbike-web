@@ -31,7 +31,7 @@ const {
 
 const Actions = props => (
   <ButtonGroup>
-    <Link to="./tags/Add">
+    <Link to="/tags/add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
