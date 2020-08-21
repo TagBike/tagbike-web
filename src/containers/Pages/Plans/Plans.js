@@ -46,9 +46,9 @@ const Actions = props => (
 );
 
 export default function Articles() {
-  const { articles, article, modalActive, isLoading } = useSelector(
+  /*const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
-  );
+  );*/
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadFromFireStore());
@@ -65,15 +65,15 @@ export default function Articles() {
     dispatch(toggleModal(article));
   };
 
-  const onRecordChange = (event, key) => {
+  /*const onRecordChange = (event, key) => {
     if (key) article[key] = event.target.value;
     dispatch(update(article));
-  };
+  };*/
 
-  const onSelectChange = (key, value) => {
+  /*const onSelectChange = (key, value) => {
     if (key) article[key] = value;
     dispatch(update(article));
-  };
+  };*/
 
 
 const [stateList, setStateList] = useState([]);
@@ -179,7 +179,7 @@ const dataSource = stateList.map( (item) => (
             columns={columns}
             bordered={true}
             dataSource={dataSource}
-            loading={isLoading}
+            //loading={isLoading}
             className="isoSimpleTable"
             pagination={{
               defaultPageSize: 10,

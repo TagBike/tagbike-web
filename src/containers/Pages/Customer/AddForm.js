@@ -44,8 +44,7 @@ export default function() {
       if(json.error == '') {
         console.log('ERROR'+json)
       } else {
-        window.location.href = './customers';
-          
+        window.location.href = '/customers';
       }
 
       setDisabled(false);
@@ -127,8 +126,8 @@ export default function() {
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">
-            <Button  style={margin} type="submit" primary>Salvar</Button>
-            <Button type="reset">Cancelar</Button>
+            <Button type="default">Cancelar</Button>
+            <Button  style={margin} type="primary" htmlType="submit">Salvar</Button>
         </div>
       </form> 
     </BillingFormWrapper>

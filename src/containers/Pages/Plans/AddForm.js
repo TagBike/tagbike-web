@@ -66,12 +66,15 @@ export default function() {
         <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
             <label>Nome</label>
-            <Input  type="text" value={name} onChange={(e)=>setName(e.target.value)} size="large" placeholder="Informe o nome Completo." />
+            <Input 
+              value={name} 
+              onChange={(e)=> setName(e.target.value)} 
+              size="large" placeholder="Nome Plano" />
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">
-            <Button  style={margin} type="submit" primary>Salvar</Button>
             <Button type="reset">Cancelar</Button>
+            <Button  style={margin} type="submit" primary>Salvar</Button>
         </div>
       </form> 
     </BillingFormWrapper>

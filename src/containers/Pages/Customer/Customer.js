@@ -21,13 +21,13 @@ import UseApi from '../../../helpers/BikeApi';
 
 const api = UseApi();
 
-const {
+/*const {
   loadFromFireStore,
   resetFireStoreDocuments,
   saveIntoFireStore,
   toggleModal,
   update,
-} = articleActions;
+} = articleActions;*/
 
 const Toolbar = props => (
   <ButtonGroup>
@@ -46,34 +46,34 @@ const Actions = props => (
 );
 
 export default function Articles() {
-  const { articles, article, modalActive, isLoading } = useSelector(
+  /*const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
-  );
-  const dispatch = useDispatch();
+  );*/
+  /*const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadFromFireStore());
-  }, [dispatch]);
-  const handleRecord = (actionName, article) => {
+  }, [dispatch]);*/
+  /*const handleRecord = (actionName, article) => {
     if (article.key && actionName !== 'delete') actionName = 'update';
     dispatch(saveIntoFireStore(article, actionName));
-  };
-  const resetRecords = () => {
+  };*/
+  /*const resetRecords = () => {
     dispatch(resetFireStoreDocuments());
-  };
+  };*/
 
-  const handleModal = (article = null) => {
+  /*const handleModal = (article = null) => {
     dispatch(toggleModal(article));
-  };
+  };*/
 
-  const onRecordChange = (event, key) => {
+  /*const onRecordChange = (event, key) => {
     if (key) article[key] = event.target.value;
     dispatch(update(article));
-  };
+  };*/
 
-  const onSelectChange = (key, value) => {
+  /*const onSelectChange = (key, value) => {
     if (key) article[key] = value;
     dispatch(update(article));
-  };
+  };*/
 
 
 const [stateList, setStateList] = useState([]);
@@ -216,7 +216,7 @@ const dataSource = stateList.map( (item) => (
             columns={columns}
             bordered={true}
             dataSource={dataSource}
-            loading={isLoading}
+            //loading={isLoading}
             className="isoSimpleTable"
             pagination={{
               defaultPageSize: 10,

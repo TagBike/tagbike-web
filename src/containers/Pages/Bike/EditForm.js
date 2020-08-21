@@ -11,22 +11,22 @@ export default function() {
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [rg, setRg] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [whatsApp, setWhatsApp] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [numero, setNumero] = useState('');
+  const [bairro, setBairro] = useState('');
+  const [cep, setCep] = useState('');
+  const [cidade, setCidade] = useState('');
 
-    const handleSubmit = async (e) =>  {
-        e.preventDefault();
-        setDisabled(true);
- }
+  const handleSubmit = async (e) =>  {
+      e.preventDefault();
+      setDisabled(true);
+  }
 
 
   return (

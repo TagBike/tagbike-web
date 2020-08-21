@@ -11509,6 +11509,15 @@ react-id-swiper@^2.3.2:
   dependencies:
     object-assign "^4.1.1"
 
+react-input-mask@^3.0.0-alpha.2:
+  version "3.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-3.0.0-alpha.2.tgz#113102942a557edc7a192e66020b8ce1ba699a5c"
+  integrity sha512-9U7qL+mvDMOJcbOFPdt6Vj+zzmCMNnBjhhjGDrL8BGQmymgvMVKhu/oOVfAkl+5VWOsLr+G3EhZOmae5fBcAkA==
+  dependencies:
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+    warning "^4.0.3"
+
 react-instantsearch@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/react-instantsearch/-/react-instantsearch-4.5.2.tgz#37c359eb0b1ab9d67690351970d6c59d0269f2c7"

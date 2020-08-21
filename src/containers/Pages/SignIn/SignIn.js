@@ -45,9 +45,7 @@ export default function() {
       <div className="isoLoginContentWrapper">
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
-            <Link>
-              <IntlMessages id="Bike Portal" />
-            </Link>
+            <IntlMessages id="Bike Portal" />
           </div>
           <div className="isoSignInForm">
                 {error &&

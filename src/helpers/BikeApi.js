@@ -130,6 +130,15 @@ const BikeApi = {
         return json;
     },
 
+    //Listar Usuários
+    getUserById: async (id) => {
+        const json = await apiFetchGet(
+            `/user/${id}`
+        );
+
+        return json;
+    },
+
     //cadastro usuário
     createUser:async (name, email, password, uf, city, cellphone, cpf, birthday, sexy) => {
     const json = await apiFetchPost(
@@ -159,6 +168,15 @@ const BikeApi = {
         );
 
         return json;
+    },
+
+    //get user by id
+    getClientById: async (id) => {
+        const json = await apiFetchGet(
+            `/client/${id}`
+        );
+
+        return json.data;
     },
 
     //cadastro cliente
