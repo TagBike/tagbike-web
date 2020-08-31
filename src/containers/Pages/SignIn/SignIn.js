@@ -4,7 +4,7 @@ import Input from '@iso/components/uielements/input';
 import Checkbox from '@iso/components/uielements/checkbox';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import SignInStyleWrapper from './SignIn.styles';
-import UseApi from '../../../helpers/BikeApi';
+import api from '../../../helpers/BikeApi';
 import {doLogin} from '../../../helpers/AuthHandler';
 import {Button} from '@iso/components/utility/Buttons';
 import {ErrorMessage} from '../../../components/MainComponents';
@@ -12,7 +12,7 @@ import {ErrorMessage} from '../../../components/MainComponents';
 export default function() {
   const history = useHistory();
 
-  const api = UseApi();
+  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

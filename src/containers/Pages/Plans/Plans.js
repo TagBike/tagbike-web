@@ -17,9 +17,9 @@ import {
   TableWrapper,
   StatusTag,
 } from './Article.styles';
-import UseApi from '../../../helpers/BikeApi';
+import api from '../../../helpers/BikeApi';
 
-const api = UseApi();
+
 
 const {
   loadFromFireStore,
@@ -45,7 +45,7 @@ const Actions = props => (
   </ButtonGroup>
 );
 
-export default function Articles() {
+export default function Plans() {
   /*const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
   );*/
@@ -186,9 +186,9 @@ const dataSource = stateList.map( (item) => (
               hideOnSinglePage: true,
               total: dataSource.length,
               showTotal: (total, range) => {
-                return `Showing ${range[0]}-${range[1]} of ${
+                return `Mostrando ${range[0]}-${range[1]} de ${
                   dataSource.length
-                } Results`;
+                } Resultados`;
               },
             }}
           />

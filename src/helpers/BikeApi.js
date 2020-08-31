@@ -4,7 +4,7 @@ import siteConfig from '@iso/config/site.config';
 
 const BASEAPI = siteConfig.apiUrl;
 
-const apiFetchFile = async (endPoint, body) =>  {
+const fetchFile = async (endPoint, body) =>  {
     
     if (!body.token) {
         let token = Cookies.get('token');
@@ -28,7 +28,7 @@ const apiFetchFile = async (endPoint, body) =>  {
     return json;
 }
 
-const apiFetchPost = async (endPoint, body) =>  {
+const fetchPost = async (endPoint, body) =>  {
     
     if (!body.token) {
         let token = Cookies.get('token');
@@ -56,7 +56,35 @@ const apiFetchPost = async (endPoint, body) =>  {
     return json;
 }
 
-const apiFetchGet = async (endPoint, body = []) =>  {
+const fetchPut = async (endPoint, body) =>  {
+    
+    if (!body.token) {
+        let token = Cookies.get('token');
+        if (token) {
+            body.token = token;
+        }
+    }
+
+    const res = await fetch(BASEAPI+endPoint, {
+        method:'PUT',
+        headers:{
+            'Accept': 'application/json',
+            'content-Type': 'application/json'
+        },
+        body:JSON.stringify(body)
+    });
+
+    const json = await res.json();
+
+    if (json.notallowed) {
+        window.location.href = 'signin';
+        return;
+    }
+
+    return json;
+}
+
+const fetchGet = async (endPoint, body = []) =>  {
 
     if (!body.token) {
         let token = Cookies.get('token');
@@ -77,7 +105,7 @@ const apiFetchGet = async (endPoint, body = []) =>  {
     return json;
 }
 
-const apiFetchDelete = async (endPoint, body) =>  {
+const fetchDelete = async (endPoint, body) =>  {
     
     if (!body.token) {
         let token = Cookies.get('token');
@@ -113,7 +141,7 @@ const BikeApi = {
     // rotas de usuário
     // Login
     login:async (email, password) => {
-        const json = await apiFetchPost(
+        const json = await fetchPost(
             '/auth/login',
             {email, password}
         );
@@ -123,7 +151,7 @@ const BikeApi = {
 
     //Listar Usuários
     getListUser: async () => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             '/user'
         );
 
@@ -132,7 +160,7 @@ const BikeApi = {
 
     //Listar Usuários
     getUserById: async (id) => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             `/user/${id}`
         );
 
@@ -141,7 +169,7 @@ const BikeApi = {
 
     //cadastro usuário
     createUser:async (name, email, password, uf, city, cellphone, cpf, birthday, sexy) => {
-    const json = await apiFetchPost(
+    const json = await fetchPost(
         '/user/create',
         {name, email, password, uf, city, cellphone, cpf, birthday, sexy}
     );
@@ -150,7 +178,7 @@ const BikeApi = {
 
     //deleta usuário
     deleteUser:async (id) => {
-        const json = await apiFetchDelete(
+        const json = await fetchDelete(
             '/user/delete/'+id,
             {}
         );
@@ -163,7 +191,7 @@ const BikeApi = {
     
     //listar clientes
     getListClient: async () => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             '/client'
         );
 
@@ -172,7 +200,7 @@ const BikeApi = {
 
     //get user by id
     getClientById: async (id) => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             `/client/${id}`
         );
 
@@ -180,20 +208,26 @@ const BikeApi = {
     },
 
     //cadastro cliente
-    createClient:async (name, cpf,  email, password, cep, uf,
-            city, neighborhood, address, number, complement, phone,
-            cellphone, birthday) => {
-        const json = await apiFetchPost(
+    createClient:async (data) => {
+        const json = await fetchPost(
             '/client/create',
-            {name, cpf, email, password, cep, uf, city, neighborhood, 
-                address, number, complement, phone, cellphone, birthday}
+            data
+        );
+        return json;
+    },
+    //cadastro cliente
+    updateClient: async (data) => {
+        console.log('data', data);
+        const json = await fetchPut(
+            `/client/update/${data.id}`,
+            data
         );
         return json;
     },
 
     //deleta cliente
     deleteClient:async (id) => {
-        const json = await apiFetchDelete(
+        const json = await fetchDelete(
             '/client/delete/'+id,
             {}
         );
@@ -205,7 +239,7 @@ const BikeApi = {
     
     //listar bikes
     getListBike: async () => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             '/bike'
         );
 
@@ -213,19 +247,17 @@ const BikeApi = {
     },
 
     //cadastro bike
-    createBike:async (serialNumber, biketype, brand, model, color, photoBike, forwardExchange, 
-        rearDerailleur, brakeType, typeSuspension, wheelType, forkType, frametype) => {
-        const json = await apiFetchPost(
+    createBike:async (data) => {
+        const json = await fetchPost(
             '/bike/create',
-            {serialNumber, biketype, brand, model, color, photoBike, forwardExchange, 
-                rearDerailleur, brakeType, typeSuspension, wheelType, forkType, frametype}
+            data
             );
             return json;
     },
 
     //deleta bike
     deleteBike:async (id) => {
-        const json = await apiFetchDelete(
+        const json = await fetchDelete(
             '/bike/delete/'+id,
             {}
         );
@@ -238,7 +270,7 @@ const BikeApi = {
     
     //listar eitquetas
     getListTag: async () => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             '/tag'
         );
 
@@ -247,7 +279,7 @@ const BikeApi = {
 
     //cadastro etiqueta
     createTag:async (name, qrCode) => {
-        const json = await apiFetchPost(
+        const json = await fetchPost(
             '/tag/create',
             {name, qrCode}
             );
@@ -256,7 +288,7 @@ const BikeApi = {
 
     //deleta etiqueta
     deleteTag:async (id) => {
-        const json = await apiFetchDelete(
+        const json = await fetchDelete(
             '/tag/delete/'+id,
             {}
         );
@@ -270,25 +302,34 @@ const BikeApi = {
     
     //listar planos
     getListPlan: async () => {
-        const json = await apiFetchGet(
+        const json = await fetchGet(
             '/plan'
         );
 
         return json;
     },
 
+    //get plan by id
+    getPlanById: async (id) => {
+        const json = await fetchGet(
+            `/plan/${id}`
+        );
+
+        return json.data;
+    },
+
     //cadastro planos
-    createPlan:async (name) => {
-    const json = await apiFetchPost(
+    createPlan:async (data) => {
+    const json = await fetchPost(
         '/plan/create',
-        {name}
+        data
         );
         return json;
     },
 
     //deleta plano
     deletePlan:async (id) => {
-        const json = await apiFetchDelete(
+        const json = await fetchDelete(
             '/plan/delete/'+parseInt(id),
             {}
         );
@@ -297,4 +338,5 @@ const BikeApi = {
     
 };
 
-export default () => BikeApi;
+export default BikeApi;
+export { fetchGet, fetchPost, fetchPut, fetchDelete, fetchFile };

@@ -17,9 +17,9 @@ import {
   TableWrapper,
   StatusTag,
 } from './Article.styles';
-import UseApi from '../../../helpers/BikeApi';
+import api from '../../../helpers/BikeApi';
 
-const api = UseApi();
+
 
 const {
   loadFromFireStore,
@@ -31,7 +31,7 @@ const {
 
 const Actions = props => (
   <ButtonGroup>
-    <Link to="./bikes/Add">
+    <Link to="/bikes/add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
@@ -39,7 +39,7 @@ const Actions = props => (
   </ButtonGroup>
 );
 
-export default function Articles() {
+export default function Bikes() {
   /*const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
   );*/

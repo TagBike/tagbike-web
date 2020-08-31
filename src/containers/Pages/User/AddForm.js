@@ -7,13 +7,13 @@ import { direction } from '@iso/lib/helpers/rtl';
 import {useHistory} from 'react-router-dom';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import UseApi from '../../../helpers/BikeApi';
+import api from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
 
 export default function() {
 
-  const api = UseApi();
+  
   const history = useHistory();
 
   const margin = {

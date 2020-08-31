@@ -1,4 +1,4 @@
-import { Input } from 'antd';
+import { Input, InputNumber } from 'antd';
 import {
   InputWrapper,
   InputGroupWrapper,
@@ -6,10 +6,16 @@ import {
   TextAreaWrapper,
 } from './styles/input.style';
 import WithDirection from '@iso/lib/helpers/rtl';
-const { Search, TextArea, Group } = Input;
+const { Search, TextArea, Group, Password } = Input;
 
 const WDStyledInput = InputWrapper(Input);
 const StyledInput = WithDirection(WDStyledInput);
+
+const WDStyledPassword = InputWrapper(Password);
+const InputPassword = WithDirection(WDStyledPassword);
+
+const WDStyledNumber = InputWrapper(InputNumber);
+const Number = WithDirection(WDStyledNumber);
 
 const WDInputGroup = InputGroupWrapper(Group);
 const InputGroup = WithDirection(WDInputGroup);
@@ -21,4 +27,4 @@ const WDTextarea = TextAreaWrapper(TextArea);
 const Textarea = WithDirection(WDTextarea);
 
 export default StyledInput;
-export { InputSearch, InputGroup, Textarea };
+export { InputSearch, InputGroup, Textarea, InputPassword, Number };
