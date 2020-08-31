@@ -29,13 +29,19 @@ const {
   update,
 } = articleActions;
 
-const Actions = props => (
+const Toolbar = props => (
   <ButtonGroup>
-    <Link to="/bikes/add">
+    <Link to="/customers/add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
     </Link>
+  </ButtonGroup>
+);
+
+const Actions = props => (
+  <ButtonGroup>
+    {props.children}
   </ButtonGroup>
 );
 
@@ -205,7 +211,7 @@ const dataSource = stateList.map( (item) => (
       <PageHeader>
         <IntlMessages id="Bicicletas" />
       </PageHeader>
-      <Box extra={<Actions />} >
+      <Box extra={<Toolbar />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"
