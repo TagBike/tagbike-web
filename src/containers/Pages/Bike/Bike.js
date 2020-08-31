@@ -42,15 +42,15 @@ const Actions = props => (
 export default function Bikes() {
   /*const { articles, article, modalActive, isLoading } = useSelector(
     state => state.Articles
-  );*/
+  );
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(loadFromFireStore());
   }, [dispatch]);
-  /*const handleRecord = (actionName, article) => {
+  const handleRecord = (actionName, article) => {
     if (article.key && actionName !== 'delete') actionName = 'update';
     dispatch(saveIntoFireStore(article, actionName));
-  };*/
+  };
   const resetRecords = () => {
     dispatch(resetFireStoreDocuments());
   };
@@ -59,7 +59,7 @@ export default function Bikes() {
     dispatch(toggleModal(article));
   };
 
-  /*const onRecordChange = (event, key) => {
+  const onRecordChange = (event, key) => {
     if (key) article[key] = event.target.value;
     dispatch(update(article));
   };*/
@@ -73,6 +73,7 @@ export default function Bikes() {
 const [stateList, setStateList] = useState([]);
 
 useEffect(() => {
+  console.log("get bike");
   const getListBike = async () => {
       const bikes = await api.getListBike();
         setStateList(bikes);
@@ -84,28 +85,28 @@ useEffect(() => {
 
 const dataSource = stateList.map( (item) => ( 
   
-    {
-      id : item.id,
-      dono : item.user.name,
-      serialNumber : item.serialNumber,
-      model : item.model,
-      color : item.color
-    }
-  ));
+  {
+    id : item.id,
+    customer_id : item.customer_id,
+    serialNumber : item.serialNumber,
+    model : item.model,
+    color : item.color
+  }
+));
 
   const handleDelete = async (id) => { 
     const json = await api.deleteBike(id);
-    window.location.href = './bikes';
+    window.location.href = '/bikes';
   }
 
   const columns = [
     {
       title: 'Proprietário',
-      dataIndex: 'dono',
+      dataIndex: 'customer_id',
       width: '170px',
-      key: 'dono',
+      key: 'customer_id',
       sorter: (a, b) => {
-        if (a.dono < b.dono) return -1;
+        if (a.customer_id < b.dono) return -1;
         if (a.dono > b.dono) return 1;
         return 0;
       },
@@ -175,21 +176,24 @@ const dataSource = stateList.map( (item) => (
       render: (text, row) => {
         return (
           <ActionWrapper>
-            <a onClick={() => handleModal(row)} href="edit">
-              <i className="ion-android-create" />
-            </a>
-
-            <Popconfirms
-              title="Deseja Excluir esse Usuário？"
-              okText="Sim"
-              cancelText="Não"
-              placement="topRight"
-              onConfirm={() => handleDelete(row.id)}
-            >
-              <a className="deleteBtn">
-                <i className="ion-android-delete" />
-              </a>
-            </Popconfirms>
+            <Actions >
+              <Link to={`/bikes/edit/${row.id}`}>
+                <Button shape="circle">
+                  <i className="ion-android-create" />
+                </Button>
+              </Link>
+              <Popconfirms
+                title="Deseja Excluir esse cliente?"
+                okText="Sim"
+                cancelText="Não"
+                placement="topRight"
+                onConfirm={() => handleDelete(row.id)}
+              >
+                <Button shape="circle">
+                  <i className="ion-android-delete" />
+                </Button>          
+              </Popconfirms>
+            </Actions>
           </ActionWrapper>
         );
       },

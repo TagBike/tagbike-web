@@ -266,7 +266,7 @@ export default function() {
           ]}
         >
           <AutoCompletes 
-            url="/search/client"
+            url="/search/customer"
             placeholder="Proprietário"
           />
         </Form.Item>

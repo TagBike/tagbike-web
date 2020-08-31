@@ -192,7 +192,7 @@ const BikeApi = {
     //listar clientes
     getListClient: async () => {
         const json = await fetchGet(
-            '/client'
+            '/customer'
         );
 
         return json;
@@ -201,7 +201,7 @@ const BikeApi = {
     //get user by id
     getClientById: async (id) => {
         const json = await fetchGet(
-            `/client/${id}`
+            `/customer/${id}`
         );
 
         return json.data;
@@ -210,7 +210,7 @@ const BikeApi = {
     //cadastro cliente
     createClient:async (data) => {
         const json = await fetchPost(
-            '/client/create',
+            '/customer/create',
             data
         );
         return json;
@@ -219,7 +219,7 @@ const BikeApi = {
     updateClient: async (data) => {
         console.log('data', data);
         const json = await fetchPut(
-            `/client/update/${data.id}`,
+            `/customer/update/${data.id}`,
             data
         );
         return json;
@@ -228,7 +228,7 @@ const BikeApi = {
     //deleta cliente
     deleteClient:async (id) => {
         const json = await fetchDelete(
-            '/client/delete/'+id,
+            '/customer/delete/'+id,
             {}
         );
         return json;
