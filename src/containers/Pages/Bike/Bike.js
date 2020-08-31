@@ -31,7 +31,7 @@ const {
 
 const Toolbar = props => (
   <ButtonGroup>
-    <Link to="/customers/add">
+    <Link to="/bikes/add">
       <Button shape="circle">
         <i className="ion-android-add" />
       </Button>
