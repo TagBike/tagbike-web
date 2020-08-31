@@ -19,20 +19,7 @@ export default function() {
   const [data, setData] = useState([]);
 
   let { id } = useParams();
-  
-  let [name, setName] = useState('');
-  let [email, setEmail] = useState('');
-  let [cpf, setCpf] = useState('');
-  let [rg, setRg] = useState('');
-  let [telefone, setTelefone] = useState('');
-  let [whatsApp, setWhatsApp] = useState('');
-  let [logradouro, setLogradouro] = useState('');
-  let [numero, setNumero] = useState('');
-  let [bairro, setBairro] = useState('');
-  let [cep, setCep] = useState('');
-  let [cidade, setCidade] = useState('');
-
-  
+    
 
   useEffect(() => {
     const getClientById = async () => {

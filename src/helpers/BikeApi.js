@@ -215,7 +215,7 @@ const BikeApi = {
         );
         return json;
     },
-    //cadastro cliente
+    //update customer
     updateClient: async (data) => {
         console.log('data', data);
         const json = await fetchPut(
@@ -246,6 +246,15 @@ const BikeApi = {
         return json;
     },
 
+    //get bike by id
+    getBikeById: async (id) => {
+        const json = await fetchGet(
+            `/bike/${id}`
+        );
+
+        return json;
+    },
+
     //cadastro bike
     createBike:async (data) => {
         const json = await fetchPost(
@@ -253,6 +262,16 @@ const BikeApi = {
             data
             );
             return json;
+    },
+
+    //update bike
+    updateBike: async (data) => {
+        console.log('data', data);
+        const json = await fetchPut(
+            `/bike/update/${data.id}`,
+            data
+        );
+        return json;
     },
 
     //deleta bike

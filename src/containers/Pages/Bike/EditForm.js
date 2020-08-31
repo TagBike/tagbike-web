@@ -1,183 +1,468 @@
-import React, {useState} from 'react';
-import Input from '@iso/components/uielements/input';
+import React, { useState, useEffect } from 'react';
+import { Input as AntInput } from 'antd';
+import { useParams } from 'react-router-dom';
+import Form from '@iso/components/uielements/form';
+import Input, { Number, InputSearch } from '@iso/components/uielements/input';
+import AutoComplete from '@iso/components/uielements/autocomplete';
 import Button from '@iso/components/uielements/button';
+import notification from '@iso/components/Notification';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { direction } from '@iso/lib/helpers/rtl';
+import { useHistory } from 'react-router-dom';
+import {ToastContainer, toast, Zoom} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import api, { fetchGet } from '../../../helpers/BikeApi';
 
 const Option = SelectOption;
+const { Search } = AntInput;
 
 export default function() {
+  
+  const [form] = Form.useForm();
+  const history = useHistory();
+
+  const margin = {
+    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
+  };
+ 
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+  const [data, setData] = useState([]);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState('');
-  const [rg, setRg] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [whatsApp, setWhatsApp] = useState('');
-  const [logradouro, setLogradouro] = useState('');
-  const [numero, setNumero] = useState('');
-  const [bairro, setBairro] = useState('');
-  const [cep, setCep] = useState('');
-  const [cidade, setCidade] = useState('');
+  let { id } = useParams();
 
-  const handleSubmit = async (e) =>  {
-      e.preventDefault();
-      setDisabled(true);
+  useEffect(() => {
+    const getBikeById = async () => {
+      let response = await api.getBikeById(id);
+      const customer = await api.getClientById(response.data.customer_id);
+      let bike = response.data;
+      bike.customer = customer;
+      console.log('Bike data: ',bike);
+      setData(bike);
+      form.setFieldsValue({customer_id: bike.customer.id});
+    }
+    getBikeById();
+  }, []);
+
+  const types = [
+    {
+      label: 'Bmx | Cross', 
+      value: 'Bmx Cross'
+    },
+    {
+
+      label: 'Dobrável', 
+      value: 'Dobrável'
+    },
+    {
+      label: 'Downhill',
+      value: 'Downhill'
+    },
+    {
+      label: 'Elétrica',
+      value: 'Elétrica',
+    },
+    {
+      label: 'Estrada | Speed | Road', 
+      value: 'Estrada Speed Road', 
+    },
+    {
+      label: 'Handbike', 
+      value: 'Handbike', 
+    },
+    {
+      label: 'Híbrida',
+      value: 'Híbrida' 
+
+    },
+    {
+      label: 'Infantil',
+      value: 'Infantil'  
+    },
+    {
+      label: 'Mountain Bike',
+      value: 'Mountain Bike'  
+    },
+    {
+      label: 'Scooter',
+      value: 'Scooter'  
+    },
+    {
+      label: 'Triatlo',
+      value: 'Triatlo' 
+    },
+    {
+      label: 'Triciclo',
+      value: 'Triciclo'  
+    },
+    {
+      label: 'Urbana',
+      value: 'Urbana'  
+    },
+    {
+      label: 'Outros',
+      value: 'Outros'  
+    },
+  ];
+
+  const brakeTypes = [
+    {
+ 			value: '1',
+			label: 'Freio a disco hidráulico'
+		},
+    {
+ 			value: '2',
+			label: 'Freio a disco mecânico'
+		},
+    {
+ 			value: '3',
+			label: 'Freio V break'
+		},
+    {
+ 			value: '4',
+			label: 'Outros'
+		}
+  ];
+
+  const suspensionTypes = [
+    {
+ 			value: '1',
+			label: 'Ar/Óleo'
+		},
+    {
+ 			value: '2',
+			label: 'Elastômero/Óleo'
+		},
+    {
+ 			value: '3',
+			label: 'Mola'
+		},
+    {
+ 			value: '4',
+			label: 'Outros'
+		},
+  ];
+
+  const wheelTypes = [
+    {
+ 			value: 20,
+			label: 'Aro 20'
+		},
+    {
+ 			value: 26,
+			label: 'Aro 26'
+		},
+    {
+ 			value: 27.5,
+			label: 'Aro 27,5'
+		},
+    {
+ 			value: 29,
+			label: 'Aro 29'
+		},
+    {
+ 			value: 700,
+			label: 'Aro 700'
+		},
+    {
+ 			value: 0,
+			label: 'Outro'
+		},
+  ];  
+
+  const forkTypes = [
+    {
+ 			value: 'Aço',
+			label: 'Aço'
+		},
+    {
+ 			value: 'Alumínio',
+			label: 'Alumínio'
+		},
+    {
+ 			value: 'Carbono',
+			label: 'Carbono'
+		},
+    {
+ 			value: 'Outro',
+			label: 'Outro'
+		},
+  ];
+
+  const frameTypes = [
+    {
+ 			value: 'Aço',
+			label: 'Aço'
+		},
+    {
+ 			value: 'Alumínio',
+			label: 'Alumínio'
+		},
+    {
+ 			value: 'Carbono',
+			label: 'Carbono'
+		},
+    {
+ 			value: 'Outro',
+			label: 'Outro'
+		},
+  ];
+
+
+  const onFinish = async (values) =>  {
+
+    const response = await api.updateBike(values);
+    if(response === "sucess") {
+      setRedirect(true);
+    } else {
+      console.log('Error: ', response);
+      notification('error', 'Erro ao adicionar o plano', response.toString());
+    }
+      
+    //setDisabled(true);
   }
 
+  const AutoCompletes = (props) => {
+    const [searching, setSearching] = useState(false);
+    const [options, setOptions] = useState([]);
 
-  return (
-    <BillingFormWrapper className="isoBillingForm">
-       <form onSubmit={handleSubmit}>
-       <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Número de série</label>
-            <Input type="text" name="cpf" size="large" placeholder="Informe o Número de série." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo da bike</label>
-            <Select placeholder="Informe o Tipo da bike.">
-            <option value="Bmx Cross">Bmx | Cross</option>
-            <option value="Dobravel">Dobrável</option>
-            <option value="Downhill">Downhill</option>
-            <option value="Eletrica">Elétrica</option>
-            <option value="Estrada Speed Road">Estrada | Speed | Road</option>
-            <option value="Handbike">Handbike</option>
-            <option value="Hibrida">Híbrida</option>
-            <option value="Infantil">Infantil</option>
-            <option value="Mountain Bike">Mountain Bike</option>
-            <option value="Scooter">Scooter</option>
-            <option value="Triatlo">Triatlo</option>
-            <option value="Triciclo">Triciclo</option>
-            <option value="Urbana">Urbana</option>
-            <option value="Outros">Outros</option>
-          </Select>
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Marca</label>
-            <Input type="text" name="marca" size="large" placeholder="Informe a Marca." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Modelo</label>
-            <Input type="text" name="telefone" size="large" placeholder="Informe o Modelo." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Cor</label>
-            <Input type="text" name="whatsapp" size="large" placeholder="Informe a Cor (Ex: preta/branca)." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Câmbio dianteiro</label>
-            <Select placeholder="Selecione o Câmbio dianteiro">
-            <option value="1">1 Velocidade</option>
-            <option value="2">2 Velocidades</option>
-            <option value="3">3 Velocidades</option>
-          </Select>
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Câmbio traseiro</label>
-            <Select placeholder="Selecione o Câmbio traseiro">
-            <option value="1">1 Velocidade</option>
-            <option value="2">2 Velocidades</option>
-            <option value="3">3 Velocidades</option>
-            <option value="4">4 Velocidades</option>
-            <option value="5">5 Velocidades</option>
-            <option value="6">6 Velocidades</option>
-            <option value="7">7 Velocidade</option>
-            <option value="8">8 Velocidades</option>
-            <option value="9">9 Velocidades</option>
-            <option value="10">10 Velocidades</option>
-            <option value="11">11 Velocidade</option>
-            <option value="12">12 Velocidades</option>
-            <option value="13">13 Velocidades</option>
-            <option value="14">14 Velocidade</option>
-            <option value="15">15 Velocidades</option>
-            <option value="16">16 Velocidades</option>
-            <option value="17">17 Velocidade</option>
-            <option value="18">18 Velocidades</option>
-            <option value="3">3 Velocidades</option>
-            <option value="19">19 Velocidades</option>
-            <option value="20">20 Velocidade</option>
-            <option value="21">21 Velocidades</option>
-            <option value="22">22 Velocidades</option>
-            <option value="23">23 Velocidade</option>
-            <option value="24">24 Velocidades</option>
-            <option value="25">25 Velocidades</option>
-            <option value="26">26 Velocidade</option>
-            <option value="27">27 Velocidades</option>
-            <option value="28">28 Velocidades</option>
-            <option value="29">29 Velocidades</option>
-            <option value="30">30 Velocidades</option>
-          </Select>
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo do freio</label>
-            <Select placeholder="Selecione o Tipo do freio">
-            <option value="1">Freio a disco hidráulico</option>
-            <option value="2">Freio a disco mecânico</option>
-            <option value="3">Freio V break</option>
-            <option value="4">Outros</option>
-          </Select>
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo de suspensão</label>
-            <Select placeholder="Selecione o Tipo de suspensão">
-            <option value="1">Ar/Óleo</option>
-            <option value="2">Elastômero/Óleo</option>
-            <option value="3">Mola</option>
-            <option value="4">Outros</option>
-          </Select>
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo da roda/aro</label>
-            <Select placeholder="Selecione o Tipo da roda/aro">
-            <option value="Aro 20">Aro 20</option>
-            <option value="Aro 26">Aro 26</option>
-            <option value="Aro 27,5">Aro 27,5</option>
-            <option value="Aro 29">Aro 29</option>
-            <option value="Aro 700">Aro 700</option>
-            <option value="Outro">Outro</option>
-          </Select>
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo do garfo</label>
-            <Select placeholder="Selecione o Tipo do garfo">
-            <option value="Aço">Aço</option>
-            <option value="Alumínio">Alumínio</option>
-            <option value="Carbono">Carbono</option>
-            <option value="Outro">Outro</option>
-          </Select>
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Tipo de quadro</label>
-            <Select placeholder="Selecione o Tipo do quadro">
-            <option value="Aço">Aço</option>
-            <option value="Alumínio">Alumínio</option>
-            <option value="Carbono">Carbono</option>
-            <option value="Outro">Outro</option>
-          </Select>
-          </InputBoxWrapper>
-        </div>
 
-        <div className="isoOrderTableFooter">
-          {/* <Button disabled={disabled} style={{ marginRight: 20 }} class="ui primary button">Salvar</Button> */}
-          <button disabled={disabled}>Salvar</button>
-        </div>
-      </form> 
-    </BillingFormWrapper>
-  );
+    const onSearch = async (searchText) => {
+        setSearching(true);
+        let list = [];
+        const response = await fetchGet(props.url, {data: searchText});
+        response.map((value, key) => {
+            list.push({value: `${response[key].id} - ${response[key].name}`});
+        });
+        setSearching(false);
+        setOptions(list);
+    };
+
+    const onSelect = data => {
+        const regex = /^[0-9]+/;
+        const id = regex.exec(data)[0];
+        form.setFieldsValue({customer_id: id});
+    };
+
+    return (
+        <>
+        <AutoComplete
+          options={options}
+          onSelect={onSelect}
+          onSearch={onSearch}
+          defaultValue={`${data.customer.id} - ${data.customer.name}`}
+        >
+            <Search loading={searching} />
+        </AutoComplete>
+        </>
+    );
+};
+
+  if(data.length === 0) {
+    return <BillingFormWrapper> Nenhum dado encontrado para o cliente.</BillingFormWrapper>;
+  } else {
+    return (
+      <BillingFormWrapper className="isoBillingForm">
+        <Form form={form}
+          layout="vertical"
+          initialValues={{
+            id: data.id,
+            customer_id: data.customer.id,
+            serialNumber: data.serialNumber,
+            biketype: data.biketype,
+            brand: data.brand,
+            model: data.model,
+            color: data.color,
+            forwardExchange: data.forwardExchange,
+            rearDerailleur: data.rearDerailleur,
+            brakeType: data.brakeType,
+            typeSuspension: data.typeSuspension,
+            wheelType: data.wheelType,
+            forkType: data.forkType,
+            frametype: data.frametype,
+
+          }}
+          onFinish={onFinish}
+        >
+          <Form.Item
+            name="id"
+            label="Código da Bike"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o código da bike!',
+              },
+            ]}
+          >
+            <Input disabled />
+          </Form.Item>
+          <Form.Item
+            name="customer_id"
+            label="Proprietário"        
+            rules={[
+              {
+                required: true,
+                message: 'Insira o proprietário da bike!',
+              },
+            ]}
+          >
+            <AutoCompletes 
+              url="/search/customer"
+              placeholder="Proprietário"
+            />
+          </Form.Item>
+          <Form.Item
+            name="serialNumber"
+            label="Número de Série"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o número de série da bike!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="biketype"
+            label="Tipo da Bike"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo da bike',
+              },
+            ]}
+          >
+            <Select options={types} />
+
+          </Form.Item>
+          <Form.Item
+            name="brand"
+            label="Marca"
+            rules={[
+              {
+                required: true,
+                message: 'Insira a marca da bike!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="model"
+            label="Modelo"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o modelo da bike!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="color"
+            label="Cor"
+            rules={[
+              {
+                required: true,
+                message: 'Insira a cor da bike!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="forwardExchange"
+            label="Cambio Dianteiro"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o tipo de cambio dianteiro da bike!',
+              },
+            ]}
+          >
+            <Input defaultValue={1} suffix="Velocidades"/>
+          </Form.Item>
+          <Form.Item
+            name="rearDerailleur"
+            label="Cambio Traseiro"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o tipo de cambio traseiro da bike!',
+              },
+            ]}
+          >
+            <Input defaultValue={18} suffix="Velocidades"/>
+          </Form.Item>
+          <Form.Item
+            name="brakeType"
+            label="Tipo de Freio"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo de freio da bike',
+              },
+            ]}
+          >
+            <Select options={brakeTypes} />
+          </Form.Item>
+          <Form.Item
+            name="typeSuspension"
+            label="Tipo de Suspensão"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo de suspensão da bike',
+              },
+            ]}
+          >
+            <Select options={suspensionTypes} />
+          </Form.Item>
+          <Form.Item
+            name="wheelType"
+            label="Tipo de Aro"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo de aro da bike',
+              },
+            ]}
+          >
+            <Select options={wheelTypes} />
+          </Form.Item>
+          <Form.Item
+            name="forkType"
+            label="Tipo de Garfo"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo de garfo da bike',
+              },
+            ]}
+          >
+            <Select options={forkTypes} />
+          </Form.Item>
+          <Form.Item
+            name="frametype"
+            label="Tipo de Quadro"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o tipo de quadro da bike',
+              },
+            ]}
+          >
+            <Select options={frameTypes} />
+          </Form.Item>
+
+          <Button disabled={disabled} htmlType="submit">Salvar</Button>
+        </Form> 
+      </BillingFormWrapper>
+    );
+  }
 }

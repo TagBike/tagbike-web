@@ -283,7 +283,7 @@ export default function() {
           <Input />
         </Form.Item>
         <Form.Item
-          name="biketype"
+          name="bikeType"
           label="Tipo da Bike"
           rules={[
             {
