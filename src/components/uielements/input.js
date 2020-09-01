@@ -1,4 +1,5 @@
 import { Input, InputNumber } from 'antd';
+import MaskedInput from 'antd-mask-input'
 import {
   InputWrapper,
   InputGroupWrapper,
@@ -26,5 +27,8 @@ const InputSearch = WithDirection(WDInputSearch);
 const WDTextarea = TextAreaWrapper(TextArea);
 const Textarea = WithDirection(WDTextarea);
 
+const WDInputMasked = InputWrapper(MaskedInput);
+const InputMasked = WithDirection(WDInputMasked)
+
 export default StyledInput;
-export { InputSearch, InputGroup, Textarea, InputPassword, Number };
+export { InputSearch, InputGroup, Textarea, InputPassword, Number, InputMasked};

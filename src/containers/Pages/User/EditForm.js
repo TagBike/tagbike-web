@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
-import Input from '@iso/components/uielements/input';
+import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
@@ -13,6 +13,7 @@ const Option = SelectOption;
 
 
 export default function() {
+  const [form] = Form.useForm();
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
 
@@ -25,6 +26,10 @@ export default function() {
     const getUserById = async () => {
       let response = await api.getUserById(id);
       setData(response.data);
+      form.setFieldsValue({
+        cellphone: response.data.cellphone,
+        cpf: response.data.cpf,
+      });
     }
     getUserById();
   }, []);
@@ -34,7 +39,12 @@ export default function() {
       
     setDisabled(true);
   }
-  const [form] = Form.useForm();
+  
+  const onChangeMasked = (e) => {
+    let obj = {};
+    obj[e.target.id] = e.target.value.replace(/[\D]/gi, '');
+    form.setFieldsValue(obj);
+  }
 
   const genders = [
     {
@@ -57,6 +67,7 @@ export default function() {
     return (
       <BillingFormWrapper>
         <Form 
+          form={form}
           layout="vertical"
           initialValues={{
             id: data.id,
@@ -121,10 +132,16 @@ export default function() {
               },
             ]}
           >
-            <Input />
+            <InputMasked 
+              mask="111.111.111-11" 
+              onChange={onChangeMasked}
+            />
           </Form.Item>
           <Form.Item name="cellphone" label="Celular">
-            <Input />
+            <InputMasked 
+              mask="(11) 11111 - 1111" 
+              onChange={onChangeMasked}
+            />
           </Form.Item>
           <Form.Item
             name="city"

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
-import Input, { InputPassword } from '@iso/components/uielements/input';
+import Input, { InputMasked, InputPassword } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
@@ -15,13 +15,19 @@ const Option = SelectOption;
 export default function() {
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
+  const [form] = Form.useForm();
 
   const onFinish = async (values) =>  {
     const response = await api.createUser(values);
       
     setDisabled(true);
   }
-  const [form] = Form.useForm();
+
+  const onChangeMasked = (e) => {
+    let obj = {};
+    obj[e.target.id] = e.target.value.replace(/[\D]/gi, '');
+    form.setFieldsValue(obj);
+  }
 
   const genders = [
     {
@@ -42,6 +48,7 @@ export default function() {
   return (
     <BillingFormWrapper>
       <Form 
+        form={form}
         layout="vertical"
         onFinish={onFinish}
       >
@@ -97,10 +104,12 @@ export default function() {
             },
           ]}
         >
-          <Input />
+          <InputMasked mask="111.111.111-11" onChange={onChangeMasked}/>
         </Form.Item>
         <Form.Item name="cellphone" label="Celular">
-          <Input />
+          <InputMasked mask="(11) 11111 - 1111" 
+            onChange={onChangeMasked}
+          />
         </Form.Item>
         <Form.Item
           name="city"
