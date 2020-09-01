@@ -220,11 +220,9 @@ export default function() {
         setSearching(true);
         let list = [];
         const response = await fetchGet(props.url, {data: searchText});
-        console.log(response);
         response.map((value, key) => {
             list.push({value: `${response[key].id} - ${response[key].name}`});
         });
-        console.log(list);
         setSearching(false);
         setOptions(list);
     };

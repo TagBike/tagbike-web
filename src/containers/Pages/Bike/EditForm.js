@@ -40,7 +40,6 @@ export default function() {
       const customer = await api.getClientById(response.data.customer_id);
       let bike = response.data;
       bike.customer = customer;
-      console.log('Bike data: ',bike);
       setData(bike);
       form.setFieldsValue({customer_id: bike.customer.id});
     }

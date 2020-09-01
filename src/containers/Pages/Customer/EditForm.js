@@ -28,14 +28,9 @@ export default function() {
     }
     getClientById();
   }, []);
-  
-  console.log(data);
 
   const onFinish = async (values) =>  {
-    console.log(values);
-
     const response = await api.updateClient(values);
-    console.log(response);
       
     setDisabled(true);
   }
