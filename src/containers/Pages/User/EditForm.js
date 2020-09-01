@@ -1,116 +1,158 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Form from '@iso/components/uielements/form';
 import Input from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import api from '../../../helpers/BikeApi';
 
-const Option = SelectOption;
+const Option = SelectOption; 
+
+
 
 export default function() {
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [cpf, setCpf] = useState('');
-    const [rg, setRg] = useState('');
-    const [telefone, setTelefone] = useState('');
-    const [whatsApp, setWhatsApp] = useState('');
-    const [logradouro, setLogradouro] = useState('');
-    const [numero, setNumero] = useState('');
-    const [bairro, setBairro] = useState('');
-    const [cep, setCep] = useState('');
-    const [cidade, setCidade] = useState('');
-    const [login, setLogin] = useState('');
-    const [senha, setSenha] = useState('');
+  const [data, setData] = useState([]);
 
-    const handleSubmit = async (e) =>  {
-        e.preventDefault();
-        setDisabled(true);
- }
+  let { id } = useParams();
+    
 
+  useEffect(() => {
+    const getUserById = async () => {
+      let response = await api.getUserById(id);
+      setData(response.data);
+    }
+    getUserById();
+  }, []);
 
-  return (
-    <BillingFormWrapper className="isoBillingForm">
-       <form onSubmit={handleSubmit}>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Nome</label>
-            <Input type="text" name="name" size="large" placeholder="Informe o nome Completo." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Email</label>
-            <Input type="email" name="email" size="large" placeholder="Informe o Email." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>CPF</label>
-            <Input type="text" name="cpf" size="large" placeholder="Informe o CPF." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>RG</label>
-            <Input type="text" name="rg" size="large" placeholder="Informe o RG." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Telefone</label>
-            <Input type="text" name="telefone" size="large" placeholder="Informe o Telefone." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>WhatsApp</label>
-            <Input type="text" name="whatsapp" size="large" placeholder="Informe o WhatsApp." />
-          </InputBoxWrapper>
-        </div>
+  const onFinish = async (values) =>  {
+    const response = await api.updateUser(values);
+      
+    setDisabled(true);
+  }
+  const [form] = Form.useForm();
 
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Logradouro</label>
-            <Input type="text" name="logradouro" size="large" placeholder="Informe o Logradouro." />
-          </InputBoxWrapper>
-        </div>
+  const genders = [
+    {
+      label: 'Feminino',
+      value: 'female'
+    },
+    {
+      label: 'Masculino',
+      value: 'male'
+    },
+    {
+      label: "Outro",
+      value: 'other'
+    }
+  ];
 
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Número</label>
-            <Input type="text" name="numero" size="large" placeholder="Informe o Número." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Bairro</label>
-            <Input type="text" name="bairro" size="large" placeholder="Informe o Bairro." />
-          </InputBoxWrapper>
-        </div>
+  if(data.length === 0) {
+    return <BillingFormWrapper> Nenhum dado encontrado para o usuário.</BillingFormWrapper>;
+  } else {
+    return (
+      <BillingFormWrapper>
+        <Form 
+          layout="vertical"
+          initialValues={{
+            id: data.id,
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            cpf: data.cpf,
+            phone: data.phone,
+            cellphone: data.cellphone,
+            city: data.city,
+            uf: data.uf,
+          }}
+          onFinish={onFinish}>
+        <Form.Item
+            name="id"
+            label="Código Usuário"
+            rules={[
+              {
+                required: true,
+                message: 'Insira Código do Usuário!',
+              },
+            ]}
+          >
+            <Input disabled/>
+          </Form.Item>
+          <Form.Item
+            name="name"
+            label="Nome Completo"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o Nome Completo!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            label="E-mail"
+            rules={[
+              {
+                type: 'email',
+                message: 'Este E-mail não é válido!',
+              },
+              {
+                required: true,
+                message: 'Insira o endereço de E-Mail!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
 
-        <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>CEP</label>
-            <Input type="text" name="cep" size="large" placeholder="Informe o CEP." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Cidade</label>
-            <Input type="text" name="cidade" size="large" placeholder="Informe a Cidade." />
-          </InputBoxWrapper>
-        </div>
-
-        <div className="isoInputFieldset"> 
-          <InputBoxWrapper className="isoInputBox">
-            <label>Login</label>
-            <Input type="text" name="login" size="large" placeholder="Informe o Login." />
-          </InputBoxWrapper>
-          <InputBoxWrapper className="isoInputBox">
-            <label>Senha</label>
-            <Input type="password" name="senha" size="large" placeholder="Informe a Senha." />
-          </InputBoxWrapper>
-        </div>
-        <div className="isoOrderTableFooter">
-          {/* <Button disabled={disabled} style={{ marginRight: 20 }} class="ui primary button">Salvar</Button> */}
-          <button disabled={disabled}>Salvar</button>
-        </div>
-      </form> 
-    </BillingFormWrapper>
-  );
+          <Form.Item
+            name="cpf"
+            label="CPF"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o CPF!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item name="cellphone" label="Celular">
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="city"
+            label="Cidade"
+            rules={[
+              {
+                required: true,
+                message: 'Insira a cidade!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="uf"
+            label="Estado"
+            rules={[
+              {
+                required: true,
+                message: 'Selecione o Estado!',
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Button htmlType="submit">Salvar</Button>
+        </Form> 
+      </BillingFormWrapper>
+    );  
+  }
 }

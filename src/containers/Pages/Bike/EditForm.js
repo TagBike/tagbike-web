@@ -261,7 +261,7 @@ export default function() {
 };
 
   if(data.length === 0) {
-    return <BillingFormWrapper> Nenhum dado encontrado para o cliente.</BillingFormWrapper>;
+    return <BillingFormWrapper> Nenhum dado encontrado para a  bike.</BillingFormWrapper>;
   } else {
     return (
       <BillingFormWrapper className="isoBillingForm">

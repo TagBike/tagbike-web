@@ -168,12 +168,22 @@ const BikeApi = {
     },
 
     //cadastro usuário
-    createUser:async (name, email, password, uf, city, cellphone, cpf, birthday, sexy) => {
-    const json = await fetchPost(
-        '/user/create',
-        {name, email, password, uf, city, cellphone, cpf, birthday, sexy}
-    );
-    return json;
+    createUser:async (data) => {
+        const json = await fetchPost(
+            '/user/create',
+            data
+        );
+        
+        return json;
+    },
+
+    //update user
+    updateUser: async (data) => {
+        const json = await fetchPut(
+            `/user/update/${data.id}`,
+            data
+        );
+        return json;
     },
 
     //deleta usuário
@@ -217,7 +227,6 @@ const BikeApi = {
     },
     //update customer
     updateClient: async (data) => {
-        console.log('data', data);
         const json = await fetchPut(
             `/customer/update/${data.id}`,
             data
@@ -266,7 +275,6 @@ const BikeApi = {
 
     //update bike
     updateBike: async (data) => {
-        console.log('data', data);
         const json = await fetchPut(
             `/bike/update/${data.id}`,
             data
