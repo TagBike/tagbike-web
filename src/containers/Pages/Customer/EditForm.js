@@ -7,6 +7,7 @@ import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers/BikeApi';
+import app from '../../../helpers/';
 
 const Option = SelectOption; 
 
@@ -43,6 +44,33 @@ export default function() {
     let obj = {};
     obj[e.target.id] = e.target.value.replace(/[\D]/gi, '');
     form.setFieldsValue(obj);
+  }
+
+  const searchZipcode = async (zip) => { 
+    
+    app.utils.zip.getAddressByZip(zip).then((res) => {
+      const response = res.data;
+      if(response) {
+        form.setFieldsValue({
+          address: response.logradouro,
+          neighborhood: response.bairro,
+          city: response.cidade,
+          uf: response.uf,
+        });
+      }
+    });
+  }
+
+  const onChangeZipcode = async (e) => {
+    let obj = {};
+    const value = e.target.value.replace(/[\D]/gi, '')
+    obj[e.target.id] = value;
+    form.setFieldsValue(obj);
+
+    if(value.length === 8) {
+      searchZipcode(value);
+    } 
+
   }
 
   const genders = [
@@ -167,6 +195,21 @@ export default function() {
             />
           </Form.Item>
           <Form.Item
+            name="cep"
+            label="CEP"
+            rules={[
+              {
+                required: true,
+                message: 'Insira seu CEP!',
+              },
+            ]}
+          >
+            <InputMasked 
+              mask="11111-111" 
+              onChange={onChangeZipcode}
+            />
+          </Form.Item>
+          <Form.Item
             name="address"
             label="Logradouro"
             rules={[
@@ -210,19 +253,6 @@ export default function() {
           >
             <Input />
           </Form.Item>
-
-          <Form.Item
-            name="city"
-            label="Cidade"
-            rules={[
-              {
-                required: true,
-                message: 'Insira sua cidade!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
           <Form.Item
             name="uf"
             label="Estado"
@@ -230,19 +260,6 @@ export default function() {
               {
                 required: true,
                 message: 'Selecione seu Estado!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="cep"
-            label="CEP"
-            rules={[
-              {
-                required: true,
-                message: 'Insira seu CEP!',
               },
             ]}
           >

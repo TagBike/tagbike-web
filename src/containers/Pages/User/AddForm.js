@@ -13,10 +13,10 @@ const Option = SelectOption;
 
 
 export default function() {
+  const [form] = Form.useForm();
   const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
-  const [form] = Form.useForm();
-
+  
   const onFinish = async (values) =>  {
     const response = await api.createUser(values);
       
@@ -104,10 +104,14 @@ export default function() {
             },
           ]}
         >
-          <InputMasked mask="111.111.111-11" onChange={onChangeMasked}/>
+          <InputMasked 
+            mask="111.111.111-11" 
+            onChange={onChangeMasked}
+          />
         </Form.Item>
         <Form.Item name="cellphone" label="Celular">
-          <InputMasked mask="(11) 11111 - 1111" 
+          <InputMasked 
+            mask="(11) 11111 - 1111" 
             onChange={onChangeMasked}
           />
         </Form.Item>

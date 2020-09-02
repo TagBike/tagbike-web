@@ -13,7 +13,7 @@ import { direction } from '@iso/lib/helpers/rtl';
 import { useHistory } from 'react-router-dom';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import api, { fetchGet } from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 const Option = SelectOption;
 const { Search } = AntInput;
@@ -36,8 +36,8 @@ export default function() {
 
   useEffect(() => {
     const getBikeById = async () => {
-      let response = await api.getBikeById(id);
-      const customer = await api.getClientById(response.data.customer_id);
+      let response = await api.bike.getBikeById(id);
+      const customer = await api.bike.getClientById(response.data.customer_id);
       let bike = response.data;
       bike.customer = customer;
       setData(bike);
@@ -213,7 +213,7 @@ export default function() {
 
   const onFinish = async (values) =>  {
 
-    const response = await api.updateBike(values);
+    const response = await api.bike.updateBike(values);
     if(response === "sucess") {
       setRedirect(true);
     } else {
@@ -232,7 +232,7 @@ export default function() {
     const onSearch = async (searchText) => {
         setSearching(true);
         let list = [];
-        const response = await fetchGet(props.url, {data: searchText});
+        const response = await api.bike.get(props.url, {data: searchText});
         response.map((value, key) => {
             list.push({value: `${response[key].id} - ${response[key].name}`});
         });

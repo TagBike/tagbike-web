@@ -1,362 +1,178 @@
+import axios from 'axios';
 import Cookies from 'js-cookie';
-import qs from 'qs';
 import siteConfig from '@iso/config/site.config';
 
-const BASEAPI = siteConfig.apiUrl;
+const token = Cookies.get('token');
 
-const fetchFile = async (endPoint, body) =>  {
-    
-    if (!body.token) {
-        let token = Cookies.get('token');
-        if (token) {
-            body.append('token', token);
-        }
-    }
+const api = axios.create({
+    baseURL: siteConfig.apiUrl,
+    timeout: 1000,
+    headers: {
+        'Accept': 'application/json',
+        'content-Type': 'application/json',
+        'Authentication': token
+     },
+});
 
-    const res = await fetch(BASEAPI+endPoint, {
-        method:'POST',
-        body
-    });
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-        window.location.href = 'signin';
-        return;
-    }
-
-    return json;
-}
-
-const fetchPost = async (endPoint, body) =>  {
-    
-    if (!body.token) {
-        let token = Cookies.get('token');
-        if (token) {
-            body.token = token;
-        }
-    }
-
-    const res = await fetch(BASEAPI+endPoint, {
-        method:'POST',
-        headers:{
-            'Accept': 'application/json',
-            'content-Type': 'application/json'
-        },
-        body:JSON.stringify(body)
-    });
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-        window.location.href = 'signin';
-        return;
-    }
-
-    return json;
-}
-
-const fetchPut = async (endPoint, body) =>  {
-    
-    if (!body.token) {
-        let token = Cookies.get('token');
-        if (token) {
-            body.token = token;
-        }
-    }
-
-    const res = await fetch(BASEAPI+endPoint, {
-        method:'PUT',
-        headers:{
-            'Accept': 'application/json',
-            'content-Type': 'application/json'
-        },
-        body:JSON.stringify(body)
-    });
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-        window.location.href = 'signin';
-        return;
-    }
-
-    return json;
-}
-
-const fetchGet = async (endPoint, body = []) =>  {
-
-    if (!body.token) {
-        let token = Cookies.get('token');
-        if (token) {
-            body.token = token;
-        }
-    }
-
-    const res = await fetch(`${BASEAPI+endPoint}?${qs.stringify(body)}`);
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-        window.location.href = 'signin';
-        return;
-    }
-
-    return json;
-}
-
-const fetchDelete = async (endPoint, body) =>  {
-    
-    if (!body.token) {
-        let token = Cookies.get('token');
-        if (token) {
-            body.token = token;
-        }
-    }
-
-    const res = await fetch(BASEAPI+endPoint, {
-        method:'DELETE',
-        headers:{
-            'Accept': 'application/json',
-            'content-Type': 'application/json'
-        },
-        body:JSON.stringify(body)
-    });
-
-    const json = await res.json();
-
-    if (json.notallowed) {
-        window.location.href = 'signin';
-        return;
-    }
-
-    return json;
-}
-
-
-
-
-const BikeApi = {
-
-    // rotas de usuário
-    // Login
+let BikeApi = {
     login:async (email, password) => {
-        const json = await fetchPost(
+        const json = await api.post(
             '/auth/login',
             {email, password}
         );
 
         return json;
     },
-
-    //Listar Usuários
     getListUser: async () => {
-        const json = await fetchGet(
+        const json = await api.get(
             '/user'
         );
 
         return json;
     },
-
-    //Listar Usuários
     getUserById: async (id) => {
-        const json = await fetchGet(
+        const json = await api.get(
             `/user/${id}`
         );
 
         return json;
     },
-
-    //cadastro usuário
     createUser:async (data) => {
-        const json = await fetchPost(
+        const json = await api.post(
             '/user/create',
             data
         );
         
         return json;
     },
-
-    //update user
     updateUser: async (data) => {
-        const json = await fetchPut(
+        const json = await api.put(
             `/user/update/${data.id}`,
             data
         );
         return json;
     },
-
-    //deleta usuário
     deleteUser:async (id) => {
-        const json = await fetchDelete(
+        const json = await api.delete(
             '/user/delete/'+id,
             {}
         );
         return json;
     },
-
-    // fim das rotas de usuário 
-
-    //rotas de clientes
-    
-    //listar clientes
     getListClient: async () => {
-        const json = await fetchGet(
+        const json = await api.get(
             '/customer'
         );
 
         return json;
     },
-
-    //get user by id
     getClientById: async (id) => {
-        const json = await fetchGet(
+        const json = await api.get(
             `/customer/${id}`
         );
 
         return json.data;
     },
-
-    //cadastro cliente
     createClient:async (data) => {
-        const json = await fetchPost(
+        const json = await api.post(
             '/customer/create',
             data
         );
         return json;
     },
-    //update customer
     updateClient: async (data) => {
-        const json = await fetchPut(
+        const json = await api.put(
             `/customer/update/${data.id}`,
             data
         );
         return json;
     },
-
-    //deleta cliente
     deleteClient:async (id) => {
-        const json = await fetchDelete(
+        const json = await api.delete(
             '/customer/delete/'+id,
             {}
         );
         return json;
     },
-
-
-    //rotas de bike
-    
-    //listar bikes
     getListBike: async () => {
-        const json = await fetchGet(
+        const json = await api.get(
             '/bike'
         );
 
         return json;
     },
-
-    //get bike by id
     getBikeById: async (id) => {
-        const json = await fetchGet(
+        const json = await api.get(
             `/bike/${id}`
         );
 
         return json;
     },
-
-    //cadastro bike
     createBike:async (data) => {
-        const json = await fetchPost(
+        const json = await api.post(
             '/bike/create',
             data
             );
             return json;
     },
-
-    //update bike
     updateBike: async (data) => {
-        const json = await fetchPut(
+        const json = await api.put(
             `/bike/update/${data.id}`,
             data
         );
         return json;
     },
-
-    //deleta bike
     deleteBike:async (id) => {
-        const json = await fetchDelete(
+        const json = await api.delete(
             '/bike/delete/'+id,
             {}
         );
         return json;
     },
-
-    //fim rotas de bike
-
-    //rotas de etiqueta
-    
-    //listar eitquetas
     getListTag: async () => {
-        const json = await fetchGet(
+        const json = await api.get(
             '/tag'
         );
 
         return json;
     },
-
-    //cadastro etiqueta
     createTag:async (name, qrCode) => {
-        const json = await fetchPost(
+        const json = await api.post(
             '/tag/create',
             {name, qrCode}
             );
             return json;
     },
-
-    //deleta etiqueta
     deleteTag:async (id) => {
-        const json = await fetchDelete(
+        const json = await api.delete(
             '/tag/delete/'+id,
             {}
         );
         return json;
     },
-
-    //fim rotas de etiqueta
-
-
-    //rotas de planos
-    
-    //listar planos
     getListPlan: async () => {
-        const json = await fetchGet(
+        const json = await api.get(
             '/plan'
         );
 
         return json;
     },
-
-    //get plan by id
     getPlanById: async (id) => {
-        const json = await fetchGet(
+        const json = await api.get(
             `/plan/${id}`
         );
 
         return json.data;
     },
-
-    //cadastro planos
     createPlan:async (data) => {
-    const json = await fetchPost(
+    const json = await api.post(
         '/plan/create',
         data
         );
         return json;
     },
-
-    //deleta plano
     deletePlan:async (id) => {
-        const json = await fetchDelete(
+        const json = await api.delete(
             '/plan/delete/'+parseInt(id),
             {}
         );
@@ -365,5 +181,6 @@ const BikeApi = {
     
 };
 
+BikeApi = Object.assign(api);
+
 export default BikeApi;
-export { fetchGet, fetchPost, fetchPut, fetchDelete, fetchFile };
