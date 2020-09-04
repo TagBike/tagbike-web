@@ -17,7 +17,7 @@ import {
   TableWrapper,
   StatusTag,
 } from './Customer.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 
 
@@ -80,13 +80,12 @@ const [stateList, setStateList] = useState([]);
 
 useEffect(() => {
   const getListClient = async () => {
-      const clients = await api.getListClient();
-        setStateList(clients);
+      const clients = await api.bike.getListClient();
+      setStateList(clients);
   }
 
   getListClient();
 }, []);
-
 
 const dataSource = stateList.map( (item) => (  
     {
@@ -99,7 +98,7 @@ const dataSource = stateList.map( (item) => (
   ));
 
   const handleDelete = async (id) => {
-    const json = await api.deleteClient(id);
+    const json = await api.bike.deleteClient(id);
     window.location.href = './customers';
   }
 

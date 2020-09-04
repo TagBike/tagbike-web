@@ -7,7 +7,7 @@ import { direction } from '@iso/lib/helpers/rtl';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 const Option = SelectOption;
 
@@ -42,7 +42,7 @@ export default function() {
             errors.push(toast.error('Por favor preenchar o campo código!'));
           }
 
-          const json = await api.createTag(name, qrCode);
+          const json = await api.bike.createTag(name, qrCode);
 
            if (json.error == '' ) {
               console.log('ERROR'+json)

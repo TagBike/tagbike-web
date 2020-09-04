@@ -17,7 +17,7 @@ import {
   TableWrapper,
   StatusTag,
 } from './Article.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 
 
@@ -74,7 +74,7 @@ const [stateList, setStateList] = useState([]);
 
 useEffect(() => {
   const getListTag = async () => {
-      const tags = await api.getListTag();
+      const tags = await api.bike.getListTag();
         setStateList(tags);
   }
 
@@ -91,7 +91,7 @@ const dataSource = stateList.map( (item) => (
   ));
 
   const handleDelete = async (id) => { 
-    const json = await api.deleteTag(id);
+    const json = await api.bike.deleteTag(id);
     window.location.href = './tags';
   }
 

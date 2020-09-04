@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import Input from '@iso/components/uielements/input';
 import Checkbox from '@iso/components/uielements/checkbox';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import SignInStyleWrapper from './SignIn.styles';
-import api from '../../../helpers/BikeApi';
-import {doLogin} from '../../../helpers/AuthHandler';
 import {Button} from '@iso/components/utility/Buttons';
 import {ErrorMessage} from '../../../components/MainComponents';
+import api  from '../../../helpers';
+
 
 export default function() {
-  const history = useHistory();
-
-  
+  const history = useHistory();  
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,15 +22,12 @@ export default function() {
     e.preventDefault();
     setDisabled(true);
     setError('');
-
-    const json = await api.login(email, password);
-
-    console.log(json);
-
+    
+    const json = await api.bike.login(email, password);
+    
     if(json.error === "") {
-      doLogin(json.token, remeberPassword);
+      api.auth.login(json.token, remeberPassword);
         history.push('/dashboard');
-        
     } else {
       setError(json.error);
     }

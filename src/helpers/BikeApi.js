@@ -4,38 +4,40 @@ import siteConfig from '@iso/config/site.config';
 
 const token = Cookies.get('token');
 
+console.log('Token', token);
+
 const api = axios.create({
     baseURL: siteConfig.apiUrl,
-    timeout: 1000,
+    //timeout: 1000,
     headers: {
         'Accept': 'application/json',
         'content-Type': 'application/json',
-        'Authentication': token
+        'Authorization': 'Bearer ' + token
      },
 });
 
-let BikeApi = {
+let BikeApi = () => { return  {
     login:async (email, password) => {
         const json = await api.post(
             '/auth/login',
             {email, password}
         );
 
-        return json;
+        return json.data;
     },
     getListUser: async () => {
         const json = await api.get(
             '/user'
         );
 
-        return json;
+        return json.data;
     },
     getUserById: async (id) => {
         const json = await api.get(
             `/user/${id}`
         );
 
-        return json;
+        return json.data;
     },
     createUser:async (data) => {
         const json = await api.post(
@@ -43,34 +45,34 @@ let BikeApi = {
             data
         );
         
-        return json;
+        return json.data;
     },
     updateUser: async (data) => {
         const json = await api.put(
             `/user/update/${data.id}`,
             data
         );
-        return json;
+        return json.data;
     },
     deleteUser:async (id) => {
         const json = await api.delete(
             '/user/delete/'+id,
             {}
         );
-        return json;
+        return json.data;
     },
     getListClient: async () => {
         const json = await api.get(
             '/customer'
         );
 
-        return json;
+        return json.data;
     },
     getClientById: async (id) => {
         const json = await api.get(
             `/customer/${id}`
         );
-
+        
         return json.data;
     },
     createClient:async (data) => {
@@ -78,84 +80,84 @@ let BikeApi = {
             '/customer/create',
             data
         );
-        return json;
+        return json.data;
     },
     updateClient: async (data) => {
         const json = await api.put(
             `/customer/update/${data.id}`,
             data
         );
-        return json;
+        return json.data;
     },
     deleteClient:async (id) => {
         const json = await api.delete(
             '/customer/delete/'+id,
             {}
         );
-        return json;
+        return json.data;
     },
     getListBike: async () => {
         const json = await api.get(
             '/bike'
         );
 
-        return json;
+        return json.data;
     },
     getBikeById: async (id) => {
         const json = await api.get(
             `/bike/${id}`
         );
 
-        return json;
+        return json.data;
     },
     createBike:async (data) => {
         const json = await api.post(
             '/bike/create',
             data
             );
-            return json;
+            return json.data;
     },
     updateBike: async (data) => {
         const json = await api.put(
             `/bike/update/${data.id}`,
             data
         );
-        return json;
+        return json.data;
     },
     deleteBike:async (id) => {
         const json = await api.delete(
             '/bike/delete/'+id,
             {}
         );
-        return json;
+        return json.data;
     },
     getListTag: async () => {
         const json = await api.get(
             '/tag'
         );
 
-        return json;
+        return json.data;
     },
     createTag:async (name, qrCode) => {
         const json = await api.post(
             '/tag/create',
             {name, qrCode}
             );
-            return json;
+            return json.data;
     },
     deleteTag:async (id) => {
         const json = await api.delete(
             '/tag/delete/'+id,
             {}
         );
-        return json;
+        return json.data;
     },
     getListPlan: async () => {
         const json = await api.get(
             '/plan'
         );
 
-        return json;
+        return json.data;
     },
     getPlanById: async (id) => {
         const json = await api.get(
@@ -169,18 +171,18 @@ let BikeApi = {
         '/plan/create',
         data
         );
-        return json;
+        return json.data;
     },
     deletePlan:async (id) => {
         const json = await api.delete(
             '/plan/delete/'+parseInt(id),
             {}
         );
-        return json;
+        return json.data;
     },
     
-};
+}};
 
-BikeApi = Object.assign(api);
+//BikeApi = Object.assign(api);
 
 export default BikeApi;

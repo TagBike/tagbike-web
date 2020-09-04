@@ -6,7 +6,7 @@ import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 import app from '../../../helpers/';
 
 const Option = SelectOption; 
@@ -24,18 +24,19 @@ export default function() {
 
   useEffect(() => {
     const getClientById = async () => {
-      let response = await api.getClientById(id);
-      setData(response);
+      let response = await api.bike.getClientById(id);
+      setData(response.data);
       form.setFieldsValue({
-        cellphone: response.cellphone,
-        cpf: response.cpf,
+        cellphone: response.data.cellphone,
+        cpf: response.data.cpf,
       });
     }
+    
     getClientById();
   }, []);
 
   const onFinish = async (values) =>  {
-    const response = await api.updateClient(values);
+    const response = await api.bike.updateClient(values);
       
     setDisabled(true);
   }

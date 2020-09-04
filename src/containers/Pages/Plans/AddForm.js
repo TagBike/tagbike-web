@@ -7,7 +7,7 @@ import notification from '@iso/components/Notification';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 const { Option }  = SelectOption; 
 
@@ -20,7 +20,7 @@ export default function() {
 
   const onFinish = async (values) =>  {
 
-    const response = await api.createPlan(values);
+    const response = await api.bike.createPlan(values);
     if(response === "sucess") {
       setRedirect(true);
     } else {

@@ -5,7 +5,7 @@ import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 const Option = SelectOption; 
 

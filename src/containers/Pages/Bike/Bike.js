@@ -17,7 +17,7 @@ import {
   TableWrapper,
   StatusTag,
 } from './Article.styles';
-import api from '../../../helpers/BikeApi';
+import api from '../../../helpers';
 
 
 
@@ -79,9 +79,8 @@ export default function Bikes() {
 const [stateList, setStateList] = useState([]);
 
 useEffect(() => {
-  console.log("get bike");
   const getListBike = async () => {
-      const bikes = await api.getListBike();
+      const bikes = await api.bike.getListBike();
         setStateList(bikes);
   }
 
@@ -101,7 +100,7 @@ const dataSource = stateList.map( (item) => (
 ));
 
   const handleDelete = async (id) => { 
-    const json = await api.deleteBike(id);
+    const json = await api.bike.deleteBike(id);
     window.location.href = '/bikes';
   }
 
