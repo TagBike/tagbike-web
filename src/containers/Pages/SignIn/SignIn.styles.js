@@ -11,10 +11,9 @@ const SignInStyleWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   position: relative;
-  background: url(${bgImage}) no-repeat center center;
   background-size: cover;
 
-  &:before {
+  /*&:before {
     content: '';
     width: 100%;
     height: 100%;
@@ -25,23 +24,35 @@ const SignInStyleWrapper = styled.div`
     top: 0;
     left: ${props => (props['data-rtl'] === 'rtl' ? 'inherit' : '0')};
     right: ${props => (props['data-rtl'] === 'rtl' ? '0' : 'inherit')};
-  }
+  }*/
 
   .isoLoginContentWrapper {
-    width: 500px;
-    height: 100%;
+    width: 100%;
+    display:flex;
     overflow-y: auto;
     z-index: 10;
     position: relative;
   }
 
+  .isoLoginCarousel {
+    width: 60%;
+    @media only screen and (max-width: 767px) {
+      display: none;
+    }
+  }
+
   .isoLoginContent {
-    min-height: 100%;
+    width: 40%;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 70px 50px;
     position: relative;
     background-color: #ffffff;
+
+    -webkit-box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
+    -moz-box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
+    box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
 
     @media only screen and (max-width: 767px) {
       width: 100%;
@@ -78,19 +89,28 @@ const SignInStyleWrapper = styled.div`
         }
 
         input {
+          background-color: ${palette('grayscale', 3)};
+          padding: 10px 15px;
+          font-size: 14px;
+          font-weight: 500;
+          
           &::-webkit-input-placeholder {
-            color: ${palette('grayscale', 0)};
+            font-weight: 500;
+            color: ${palette('grayscale', 1)};
           }
 
           &:-moz-placeholder {
-            color: ${palette('grayscale', 0)};
+            font-weight: 500;
+            color: ${palette('grayscale', 1)};
           }
 
           &::-moz-placeholder {
-            color: ${palette('grayscale', 0)};
+            font-weight: 500;
+            color: ${palette('grayscale', 1)};
           }
           &:-ms-input-placeholder {
-            color: ${palette('grayscale', 0)};
+            font-weight: 500;
+            color: ${palette('grayscale', 1)};
           }
         }
       }

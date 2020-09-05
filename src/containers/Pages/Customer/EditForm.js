@@ -7,7 +7,6 @@ import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
-import app from '../../../helpers/';
 
 const Option = SelectOption; 
 
@@ -48,8 +47,8 @@ export default function() {
   }
 
   const searchZipcode = async (zip) => { 
-    
-    app.utils.zip.getAddressByZip(zip).then((res) => {
+    console.log(api);
+    api.utils.zip.getAddressByZip(zip).then((res) => {
       const response = res.data;
       if(response) {
         form.setFieldsValue({

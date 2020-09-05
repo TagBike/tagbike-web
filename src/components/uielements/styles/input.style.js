@@ -24,6 +24,7 @@ const InputWrapper = ComponentName => styled(ComponentName)`
 
     &:focus {
       border-color: ${palette('primary', 0)};
+      box-shadow: none;
     }
 
     &.ant-input-lg {

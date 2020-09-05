@@ -11,7 +11,9 @@ let RootApi =  {
         logout: doLogout
     },
     bike: bike(),
-    utils: zip(),
+    utils: {
+        zip: zip(),
+    }
 }
 
 export default RootApi;

@@ -3,16 +3,17 @@ import { palette } from 'styled-theme';
 import { transition } from '@iso/lib/helpers/style_utils';
 
 const Buttons = ComponentName => styled(ComponentName)`
+  border: 1px solid red;
   &.ant-btn {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 500;
-    text-align: center;
+    text-align: center; 
     -ms-touch-action: manipulation;
     touch-action: manipulation;
     cursor: pointer;
     background-image: none;
-    border: 1px solid transparent;
+    
     white-space: nowrap;
     line-height: 1.5;
     padding: 0 25px;

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import Input from '@iso/components/uielements/input';
 import Checkbox from '@iso/components/uielements/checkbox';
+import Carousel from '@iso/components/uielements/carousel';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import SignInStyleWrapper from './SignIn.styles';
-import {Button} from '@iso/components/utility/Buttons';
+import Button from '@iso/components/uielements/button';
 import {ErrorMessage} from '../../../components/MainComponents';
 import api  from '../../../helpers';
 
@@ -17,6 +18,15 @@ export default function() {
   const [remeberPassword, setRememberPassword] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
+
+  
+  const contentStyle = {
+    height: '100vh',
+    color: '#fff',
+    lineHeight: '160px',
+    textAlign: 'center',
+    background: '#364d79',
+  };
 
   const handleSubmit = async (e) =>  {
     e.preventDefault();
@@ -33,18 +43,34 @@ export default function() {
     }
 
     setDisabled(false);
-}
+  }
 
   return (
     <SignInStyleWrapper className="isoSignInPage">
       <div className="isoLoginContentWrapper">
+        <div className="isoLoginCarousel">
+        <Carousel autoplay>
+          <div>
+            <h3 style={contentStyle}>1</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>2</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>3</h3>
+          </div>
+          <div>
+            <h3 style={contentStyle}>4</h3>
+          </div>
+        </Carousel>
+        </div>
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
             <IntlMessages id="Bike Portal" />
           </div>
           <div className="isoSignInForm">
                 {error &&
-                    <ErrorMessage>{error}</ErrorMessage>
+                  <ErrorMessage>{error}</ErrorMessage>
                 }
             <form onSubmit={handleSubmit}>
               <div className="isoInputWrapper">
@@ -80,7 +106,7 @@ export default function() {
                 >
                   <IntlMessages id="Lembrar Senha" />
                 </Checkbox >
-                <Button type="submit" primary>Entrar</Button>
+                <Button type="submit" htmlType="submit" >Entrar</Button>
               </div>
             </form>
   
