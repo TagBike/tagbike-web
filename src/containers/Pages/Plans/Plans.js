@@ -5,6 +5,7 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
+import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
@@ -14,18 +15,34 @@ import {
   ComponentTitle,
   TableWrapper,
   StatusTag,
+  ToolbarWrapper
 } from './Plan.styles';
 import api from '../../../helpers';
 
-const Toolbar = props => (
-  <ButtonGroup>
-    <Link to="/plans/add">
-      <Button shape="circle">
-        <i className="ion-android-add" />
-      </Button>
-    </Link>
-  </ButtonGroup>
-);
+const Toolbar = props => {
+  const [display, setDisplay] = useState(false);
+
+  const onClick = (e) => {
+    e.preventDefault();
+    setDisplay(display ? false : true);
+  }
+  
+  return (
+    <ToolbarWrapper>
+      <ButtonGroup>
+        <Input placeholder="Pesquisa" hidden={display} onChange={props.onSearch} />
+        <Button shape="circle" onClick={onClick}>
+            <i className="ion-android-search" />
+          </Button>
+        <Link to="/customers/add">
+          <Button shape="circle">
+            <i className="ion-android-add" />
+          </Button>
+        </Link>
+      </ButtonGroup>
+    </ToolbarWrapper>
+  );
+}
 
 const Actions = props => (
   <ButtonGroup>
@@ -35,24 +52,43 @@ const Actions = props => (
 
 export default function Plans() {
   const [stateList, setStateList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
   useEffect(() => {
     const getListPlan = async () => {
-        const tags = await api.bike.getListPlan();
-          setStateList(tags);
+      const tags = await api.bike.getListPlan();
+      setStateList(tags);
     }
 
     getListPlan();
   }, []);
 
+  useEffect(() => {
+    setFilteredList(stateList);
+  }, [stateList]);
 
-  const dataSource = stateList.map( (item) => (  
-      {
-        id : item.id,
-        name : item.name,
-        qrCode : item.qr_code,
-      }
-    ));
+
+  const dataSource = filteredList.map( (item) => ({
+    id : item.id,
+    name : item.name,
+    description : item.description,
+    price : item.price,
+  }));
+
+  const handleChange = (e) => {
+    const search = e.target.value;
+    
+    if(search) {
+      const filteredData = stateList.filter((data) => {
+        return data.name.toString().toLowerCase().includes(search);
+      });
+      
+      setFilteredList(filteredData);
+    } else {
+      setFilteredList(dataSource);
+    }
+    
+  }
 
   const handleDelete = async (id) => {
     const json = await api.bike.deletePlan(id);
@@ -130,7 +166,7 @@ export default function Plans() {
       <PageHeader>
         <IntlMessages id="Planos" />
       </PageHeader>
-      <Box extra={<Toolbar />} >
+      <Box extra={<Toolbar onSearch={handleChange} />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"
