@@ -4,8 +4,6 @@ import Form from '@iso/components/uielements/form';
 import Input, { InputPassword, Textarea, Number } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
-import Select, { SelectOption } from '@iso/components/uielements/select';
-import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
 
@@ -67,7 +65,7 @@ export default function() {
             formatter={value => `R$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           />
         </Form.Item>
-        <Button htmlType="submit">Salvar</Button>
+        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </BillingFormWrapper>
   );

@@ -1,63 +1,45 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
-import Input, { InputPassword, Textarea } from '@iso/components/uielements/input';
+import Input, { Textarea, Number } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
-import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
 
-const { Option }  = SelectOption; 
-
 
 
 export default function() {
-  const handleOnChange = checkedValues => {};
+  const history = useHistory();
   const [disabled, setDisabled] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const [data, setData] = useState([]);
 
   let { id } = useParams();
 
   const onFinish = async (values) =>  {
-
-    const response = await api.bike.createPlan(values);
-    if(response === "sucess") {
-      setRedirect(true);
+    setDisabled(true);
+    const response = await api.bike.updatePlan(values);
+    if(response === "success") {
+      notification('success', 'Plano atualizado!', 'Dados atualizados com sucesso.');
+      history.push('/plans');
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao salvar o plano', response);
+      setDisabled(false);
     }
-      
-    //setDisabled(true);
   }
 
   useEffect(() => {
     const getPlanById = async () => {
       let response = await api.bike.getPlanById(id);
+      response = response.data;
       setData(response);
     }
 
     getPlanById();
   }, []);
-  
-  console.log(data);
-
-  const [form] = Form.useForm();
-
-  
-  if(redirect) {
-    return <Redirect 
-              to={{
-                pathname: "/plans",
-                state: {response: "success" }
-              }}
-            />
-
-  }
 
   if(data.length === 0) {
     return <BillingFormWrapper> Nenhum dado encontrado para o plano.</BillingFormWrapper>;
@@ -68,13 +50,27 @@ export default function() {
       <Form 
         layout="vertical"
         initialValues={{
+          id: data.id,
           name: data.name,
           price: data.price,
           description: data.description
 
         }}
-        onFinish={onFinish}>
-      
+        onFinish={onFinish}
+      >
+        <Form.Item
+            name="id"
+            label="Código Plano"
+            rules={[
+              {
+                required: true,
+                message: 'Insira o código do plano!',
+              },
+            ]}
+            hidden
+          >
+            <Input disabled />
+          </Form.Item>  
         <Form.Item
           name="name"
           label="Nome Plano"
@@ -103,9 +99,12 @@ export default function() {
             },
           ]}
         >
-          <Input />
+          <Number
+            parser={value => value.replace(/R\$\s?|(,*)/g, '')}
+            formatter={value => `R$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+          />
         </Form.Item>
-        <Button htmlType="submit">Salvar</Button>
+        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </BillingFormWrapper>
   );
