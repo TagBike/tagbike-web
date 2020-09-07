@@ -15,21 +15,14 @@ import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../helpers';
 
-const Option = SelectOption;
 const { Search } = AntInput;
 
 export default function() {
-  
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const margin = {
-    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
-  };
- 
-  const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
-  const [redirect, setRedirect] = useState(false);
+
   const [data, setData] = useState([]);
 
   let { id } = useParams();
@@ -37,8 +30,10 @@ export default function() {
   useEffect(() => {
     const getBikeById = async () => {
       let response = await api.bike.getBikeById(id);
-      const customer = await api.bike.getClientById(response.data.customer_id);
-      let bike = response.data;
+      response = response.data;
+      let customer = await api.bike.getClientById(response.customer_id);
+      customer = customer.data;
+      let bike = response;
       bike.customer = customer;
       setData(bike);
       form.setFieldsValue({customer_id: bike.customer.id});
@@ -212,16 +207,16 @@ export default function() {
 
 
   const onFinish = async (values) =>  {
-
+    setDisabled(true);
     const response = await api.bike.updateBike(values);
-    if(response === "sucess") {
-      setRedirect(true);
+    if(response === "success") {
+      notification('success', 'Bike atualizada!', 'Dados alterados com sucesso.');
+      history.push('/bikes');
     } else {
       console.log('Error: ', response);
-      notification('error', 'Erro ao adicionar o plano', response.toString());
-    }
-      
-    //setDisabled(true);
+      notification('error', 'Erro ao atualizar a bike', response.toString());
+      setDisabled(false);
+    } 
   }
 
   const AutoCompletes = (props) => {
@@ -233,8 +228,9 @@ export default function() {
         setSearching(true);
         let list = [];
         const response = await api.bike.get(props.url, {data: searchText});
-        response.map((value, key) => {
-            list.push({value: `${response[key].id} - ${response[key].name}`});
+        console.log(response);
+        response.data.map((value, key) => {
+            list.push({value: `${value.id} - ${value.name}`});
         });
         setSearching(false);
         setOptions(list);

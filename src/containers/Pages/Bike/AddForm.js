@@ -196,7 +196,7 @@ export default function() {
       history.push('/bikes');
     } else {
       console.log('Error: ', response);
-      notification('error', 'Erro ao adicionar o plano', response.toString());
+      notification('error', 'Erro ao adicionar a bike', response.toString());
       setDisabled(false);
     }    
   }
