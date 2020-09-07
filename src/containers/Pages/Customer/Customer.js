@@ -5,7 +5,7 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
-import Input, { InputSearch } from '@iso/components/uielements/input';
+import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import { 

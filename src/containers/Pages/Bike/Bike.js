@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import articleActions from '@iso/redux/articles/actions';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
 import PageHeader from '@iso/components/utility/pageHeader';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
+import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
@@ -16,28 +15,34 @@ import {
   ComponentTitle,
   TableWrapper,
   StatusTag,
-} from './Article.styles';
+  ToolbarWrapper
+} from './Bike.styles';
 import api from '../../../helpers';
 
+const Toolbar = props => {
+  const [display, setDisplay] = useState(false);
 
-
-const {
-  loadFromFireStore,
-  resetFireStoreDocuments,
-  saveIntoFireStore,
-  toggleModal,
-  update,
-} = articleActions;
-
-const Toolbar = props => (
-  <ButtonGroup>
-    <Link to="/bikes/add">
-      <Button shape="circle">
-        <i className="ion-android-add" />
-      </Button>
-    </Link>
-  </ButtonGroup>
-);
+  const onClick = (e) => {
+    e.preventDefault();
+    setDisplay(display ? false : true);
+  }
+  
+  return (
+    <ToolbarWrapper>
+      <ButtonGroup>
+        <Input placeholder="Pesquisa" hidden={display} onChange={props.onSearch} />
+        <Button shape="circle" onClick={onClick}>
+            <i className="ion-android-search" />
+          </Button>
+        <Link to="/bikes/add">
+          <Button shape="circle">
+            <i className="ion-android-add" />
+          </Button>
+        </Link>
+      </ButtonGroup>
+    </ToolbarWrapper>
+  );
+}
 
 const Actions = props => (
   <ButtonGroup>
@@ -46,58 +51,45 @@ const Actions = props => (
 );
 
 export default function Bikes() {
-  /*const { articles, article, modalActive, isLoading } = useSelector(
-    state => state.Articles
-  );
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(loadFromFireStore());
-  }, [dispatch]);
-  const handleRecord = (actionName, article) => {
-    if (article.key && actionName !== 'delete') actionName = 'update';
-    dispatch(saveIntoFireStore(article, actionName));
-  };
-  const resetRecords = () => {
-    dispatch(resetFireStoreDocuments());
-  };
+  const [stateList, setStateList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
-  const handleModal = (article = null) => {
-    dispatch(toggleModal(article));
-  };
+  useEffect(() => {
+    const getListBike = async () => {
+        const bikes = await api.bike.getListBike();
+          setStateList(bikes);
+    }
 
-  const onRecordChange = (event, key) => {
-    if (key) article[key] = event.target.value;
-    dispatch(update(article));
-  };*/
+    getListBike();
+  }, []);
 
-  /*const onSelectChange = (key, value) => {
-    if (key) article[key] = value;
-    dispatch(update(article));
-  };*/
+  useEffect(() => {
+    setFilteredList(stateList);
+  }, [stateList]);
 
 
-const [stateList, setStateList] = useState([]);
+  const dataSource = filteredList.map( (item) => ({
+      id : item.id,
+      customer_id : item.customer_id,
+      serialNumber : item.serialNumber,
+      model : item.model,
+      color : item.color
+  }));
 
-useEffect(() => {
-  const getListBike = async () => {
-      const bikes = await api.bike.getListBike();
-        setStateList(bikes);
+  const handleChange = (e) => {
+    const search = e.target.value;
+    
+    if(search) {
+      const filteredData = stateList.filter((data) => {
+        return data.serialNumber.toString().toLowerCase().includes(search);
+      });
+      
+      setFilteredList(filteredData);
+    } else {
+      setFilteredList(dataSource);
+    }
+    
   }
-
-  getListBike();
-}, []);
-
-
-const dataSource = stateList.map( (item) => ( 
-  
-  {
-    id : item.id,
-    customer_id : item.customer_id,
-    serialNumber : item.serialNumber,
-    model : item.model,
-    color : item.color
-  }
-));
 
   const handleDelete = async (id) => { 
     const json = await api.bike.deleteBike(id);
@@ -210,7 +202,7 @@ const dataSource = stateList.map( (item) => (
       <PageHeader>
         <IntlMessages id="Bicicletas" />
       </PageHeader>
-      <Box extra={<Toolbar />} >
+      <Box extra={<Toolbar onSearch={handleChange} />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"
