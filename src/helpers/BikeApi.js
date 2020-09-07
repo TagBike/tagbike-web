@@ -4,8 +4,6 @@ import siteConfig from '@iso/config/site.config';
 
 const token = Cookies.get('token');
 
-console.log('Token', token);
-
 const api = axios.create({
     baseURL: siteConfig.apiUrl,
     //timeout: 1000,
@@ -17,6 +15,11 @@ const api = axios.create({
 });
 
 let BikeApi = () => { return  {
+    get: async (uri, data) => await api.get(uri, data),
+    post: async (uri, data) => await api.post(uri, data),
+    put: async (uri, data) => await api.put(uri, data),
+    delete: async (uri, data) => await api.delete(uri, data),
+
     login:async (email, password) => {
         const json = await api.post(
             '/auth/login',

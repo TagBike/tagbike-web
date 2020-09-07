@@ -220,8 +220,9 @@ export default function() {
         setSearching(true);
         let list = [];
         const response = await api.bike.get(props.url, {data: searchText});
-        response.map((value, key) => {
-            list.push({value: `${response[key].id} - ${response[key].name}`});
+
+        response.data.map((value, key) => {
+            list.push({value: `${value.id} - ${value.name}`});
         });
         setSearching(false);
         setOptions(list);
