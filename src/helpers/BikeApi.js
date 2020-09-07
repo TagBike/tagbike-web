@@ -170,9 +170,16 @@ let BikeApi = () => { return  {
         return json.data;
     },
     createPlan:async (data) => {
-    const json = await api.post(
-        '/plan/create',
-        data
+        const json = await api.post(
+            '/plan/create',
+            data
+        );
+        return json.data;
+    },
+    updatePlan: async (data) => {
+        const json = await api.put(
+            `/plan/update/${data.id}`,
+            data
         );
         return json.data;
     },
