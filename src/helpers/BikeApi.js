@@ -141,12 +141,12 @@ let BikeApi = () => { return  {
 
         return json.data;
     },
-    createTag:async (name, qrCode) => {
+    createTag:async (data) => {
         const json = await api.post(
             '/tag/create',
-            {name, qrCode}
-            );
-            return json.data;
+            data
+        );
+        return json.data;
     },
     deleteTag:async (id) => {
         const json = await api.delete(

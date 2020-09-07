@@ -26,6 +26,7 @@ export default function() {
     
     const [name, setName] = useState('');
     const [qrCode, setQrCode] = useState('');
+    const [qrCodeImg, setQrCodeImg] = useState('');
 
     const handleSubmit = async (e) =>  {
         e.preventDefault();
@@ -42,7 +43,7 @@ export default function() {
             errors.push(toast.error('Por favor preenchar o campo código!'));
           }
 
-          const json = await api.bike.createTag(name, qrCode);
+          const json = await api.bike.createTag(name, qrCode, qrCodeImg);
 
            if (json.error == '' ) {
               console.log('ERROR'+json)
@@ -76,7 +77,13 @@ export default function() {
         <div className="isoInputFieldset">
           <InputBoxWrapper className="isoInputBox">
             <label>Código</label>
-            <Input  type="text" value={qrCode} onChange={(e)=>setQrCode(e.target.value)} size="large" placeholder="Informe o nome Completo." />
+            <Input  type="text"  onChange={(e)=>setQrCode(e.target.value)} size="large" placeholder="Informe o nome Completo." />
+          </InputBoxWrapper>
+        </div>
+        <div className="isoInputFieldset">
+          <InputBoxWrapper className="isoInputBox">
+            <label>QRCODE</label>
+            <Input  type="text" onChange={(e)=>setQrCodeImg(e.target.value)} size="large" placeholder="Informe o nome Completo." />
           </InputBoxWrapper>
         </div>
         <div className="isoOrderTableFooter">
