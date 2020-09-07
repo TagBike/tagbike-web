@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Input as AntInput } from 'antd';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { Number, InputSearch } from '@iso/components/uielements/input';
 import AutoComplete from '@iso/components/uielements/autocomplete';
@@ -10,7 +10,6 @@ import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import { direction } from '@iso/lib/helpers/rtl';
-import { useHistory } from 'react-router-dom';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../helpers';
