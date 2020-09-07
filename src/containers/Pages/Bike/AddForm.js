@@ -14,24 +14,15 @@ import { useHistory } from 'react-router-dom';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import api from '../../../helpers';
-console.log(api);
-const Option = SelectOption;
+
 const { Search } = AntInput;
 
 export default function() {
-  
   const [form] = Form.useForm();
   const history = useHistory();
 
-  const margin = {
-    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
-  };
- 
-  const handleOnChange = checkedValues => {};
   const [disabled, setDisabled] = useState(false);
-  const [redirect, setRedirect] = useState(false);
-
-
+  
   const types = [
     {
       label: 'Bmx | Cross', 
@@ -198,23 +189,21 @@ export default function() {
 
 
   const onFinish = async (values) =>  {
-
+    setDisabled(true);
     const response = await api.bike.createBike(values);
-    if(response === "sucess") {
-      setRedirect(true);
+    if(response === "success") {
+      notification('success', 'Bike adicionada!', 'Bike adicionada com sucesso.');
+      history.push('/bikes');
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao adicionar o plano', response.toString());
-    }
-      
-    //setDisabled(true);
+      setDisabled(false);
+    }    
   }
 
   const AutoCompletes = (props) => {
     const [searching, setSearching] = useState(false);
-    const [value, setValue] = useState('');
     const [options, setOptions] = useState([]);
-
 
     const onSearch = async (searchText) => {
         setSearching(true);
