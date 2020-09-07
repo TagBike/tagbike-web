@@ -1,6 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import articleActions from '@iso/redux/articles/actions';
 import LayoutContentWrapper from '@iso/components/utility/layoutWrapper';
 import PageHeader from '@iso/components/utility/pageHeader';
 import IntlMessages from '@iso/components/utility/intlMessages';
@@ -19,16 +17,6 @@ import {
 } from './Plan.styles';
 import api from '../../../helpers';
 
-
-
-const {
-  loadFromFireStore,
-  resetFireStoreDocuments,
-  saveIntoFireStore,
-  toggleModal,
-  update,
-} = articleActions;
-
 const Toolbar = props => (
   <ButtonGroup>
     <Link to="/plans/add">
@@ -46,55 +34,25 @@ const Actions = props => (
 );
 
 export default function Plans() {
-  /*const { articles, article, modalActive, isLoading } = useSelector(
-    state => state.Articles
-  );*/
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(loadFromFireStore());
-  }, [dispatch]);
-  const handleRecord = (actionName, article) => {
-    if (article.key && actionName !== 'delete') actionName = 'update';
-    dispatch(saveIntoFireStore(article, actionName));
-  };
-  const resetRecords = () => {
-    dispatch(resetFireStoreDocuments());
-  };
+  const [stateList, setStateList] = useState([]);
 
-  const handleModal = (article = null) => {
-    dispatch(toggleModal(article));
-  };
-
-  /*const onRecordChange = (event, key) => {
-    if (key) article[key] = event.target.value;
-    dispatch(update(article));
-  };*/
-
-  /*const onSelectChange = (key, value) => {
-    if (key) article[key] = value;
-    dispatch(update(article));
-  };*/
-
-
-const [stateList, setStateList] = useState([]);
-
-useEffect(() => {
-  const getListPlan = async () => {
-      const tags = await api.bike.getListPlan();
-        setStateList(tags);
-  }
-
-  getListPlan();
-}, []);
-
-
-const dataSource = stateList.map( (item) => (  
-    {
-      id : item.id,
-      name : item.name,
-      qrCode : item.qr_code,
+  useEffect(() => {
+    const getListPlan = async () => {
+        const tags = await api.bike.getListPlan();
+          setStateList(tags);
     }
-  ));
+
+    getListPlan();
+  }, []);
+
+
+  const dataSource = stateList.map( (item) => (  
+      {
+        id : item.id,
+        name : item.name,
+        qrCode : item.qr_code,
+      }
+    ));
 
   const handleDelete = async (id) => {
     const json = await api.bike.deletePlan(id);
