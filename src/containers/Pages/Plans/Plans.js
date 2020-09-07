@@ -16,7 +16,7 @@ import {
   ComponentTitle,
   TableWrapper,
   StatusTag,
-} from './Article.styles';
+} from './Plan.styles';
 import api from '../../../helpers';
 
 
