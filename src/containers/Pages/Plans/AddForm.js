@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { InputPassword, Textarea, Number } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
@@ -9,40 +9,24 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
 
-const { Option }  = SelectOption; 
-
-
-
 export default function() {
-  const handleOnChange = checkedValues => {};
+  const history = useHistory();
   const [disabled, setDisabled] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const onFinish = async (values) =>  {
-
+    setDisabled(true);
     const response = await api.bike.createPlan(values);
-    if(response === "sucess") {
-      setRedirect(true);
+    if(response === "success") {
+      notification('success', 'Plano adicionado!', 'Dados adicionados com sucesso.');
+      history.push('/plans');
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao adicionar o plano', response);
+      setDisabled(false);
     }
       
-    //setDisabled(true);
   }
-  const [form] = Form.useForm();
 
-  
-  if(redirect) {
-    return <Redirect 
-              to={{
-                pathname: "/plans",
-                state: {response: "success" }
-              }}
-            />
-
-  }
-  
   return (
     <BillingFormWrapper>
       <Form 
