@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
+import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
@@ -13,7 +14,8 @@ const Option = SelectOption;
 
 export default function() {
   const [form] = Form.useForm();
-  const handleOnChange = checkedValues => {};
+  const history = useHistory();
+
   const [disabled, setDisabled] = useState(false);
 
   const [data, setData] = useState([]);
@@ -35,9 +37,16 @@ export default function() {
   }, []);
 
   const onFinish = async (values) =>  {
-    const response = await api.bike.updateClient(values);
-      
     setDisabled(true);
+    const response = await api.bike.updateClient(values);
+    if(response === "success") {
+      notification('success', 'Cliente atualizado!', 'Dados alterados com sucesso.');
+      history.push('/customers');
+    } else {
+      console.log('Error: ', response);
+      notification('error', 'Erro ao atualizar o cliente', response.toString());
+      setDisabled(false);
+    } 
   }
 
   const onChangeMasked = (e) => {
@@ -289,7 +298,7 @@ export default function() {
         >
           <Select options={genders} />
         </Form.Item>
-          <Button htmlType="submit">Salvar</Button>
+          <Button htmlType="submit" disabled={disabled}>Salvar</Button>
         </Form> 
       </BillingFormWrapper>
     );  
