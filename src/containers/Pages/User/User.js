@@ -202,7 +202,7 @@ export default function Users() {
       <PageHeader>
         <IntlMessages id="Usuários" />
       </PageHeader>
-      <Box extra={<Toolbar onSearch={handleChange}/>} >
+      <Box extra={<Toolbar onSearch={handleChange} />} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"
