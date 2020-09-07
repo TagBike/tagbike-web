@@ -7,6 +7,7 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
+import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import {
@@ -16,28 +17,34 @@ import {
   ComponentTitle,
   TableWrapper,
   StatusTag,
-} from './Article.styles';
+  ToolbarWrapper
+} from '../Page.styles';
 import api from '../../../helpers';
 
+const Toolbar = props => {
+  const [display, setDisplay] = useState(false);
 
-
-const {
-  loadFromFireStore,
-  resetFireStoreDocuments,
-  saveIntoFireStore,
-  toggleModal,
-  update,
-} = articleActions;
-
-const Toolbar = props => (
-  <ButtonGroup>
-    <Link to="/users/add">
-      <Button shape="circle">
-        <i className="ion-android-add" />
-      </Button>
-    </Link>
-  </ButtonGroup>
-);
+  const onClick = (e) => {
+    e.preventDefault();
+    setDisplay(display ? false : true);
+  }
+  
+  return (
+    <ToolbarWrapper>
+      <ButtonGroup>
+        <Input placeholder="Pesquisa" hidden={display} onChange={props.onSearch} />
+        <Button shape="circle" onClick={onClick}>
+            <i className="ion-android-search" />
+          </Button>
+        <Link to="/customers/add">
+          <Button shape="circle">
+            <i className="ion-android-add" />
+          </Button>
+        </Link>
+      </ButtonGroup>
+    </ToolbarWrapper>
+  );
+}
 
 const Actions = props => (
   <ButtonGroup>
@@ -46,57 +53,43 @@ const Actions = props => (
 );
 
 export default function Users() {
-  /*const { articles, article, modalActive, isLoading } = useSelector(
-    state => state.Articles
-  );*/
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(loadFromFireStore());
-  }, [dispatch]);
-  /*const handleRecord = (actionName, article) => {
-    if (article.key && actionName !== 'delete') actionName = 'update';
-    dispatch(saveIntoFireStore(article, actionName));
-  };*/
-  const resetRecords = () => {
-    dispatch(resetFireStoreDocuments());
-  };
+  const [stateList, setStateList] = useState([]);
+  const [filteredList, setFilteredList] = useState([]);
 
-  const handleModal = (article = null) => {
-    dispatch(toggleModal(article));
-  };
+  useEffect(() => {
+    const getListUser = async () => {
+        const users = await api.bike.getListUser();
+          setStateList(users);
+    }
 
-  /*const onRecordChange = (event, key) => {
-    if (key) article[key] = event.target.value;
-    dispatch(update(article));
-  };*/
+    getListUser();
+  }, []);
+  
+  useEffect(() => {
+    setFilteredList(stateList);
+  }, [stateList]);
 
-  /*const onSelectChange = (key, value) => {
-    if (key) article[key] = value;
-    dispatch(update(article));
-  };*/
-
-
-const [stateList, setStateList] = useState([]);
-
-useEffect(() => {
-  const getListUser = async () => {
-      const users = await api.bike.getListUser();
-        setStateList(users);
-  }
-
-  getListUser();
-}, []);
-
-
-const dataSource = stateList.map( (item) => (  
-    {
+  const dataSource = filteredList.map( (item) => ({
       id : item.id,
       name : item.name,
       email : item.email,
       cpf : item.cpf,
-      telefone : item.cellphone
+      phone : item.cellphone
+  }));
+
+  const handleChange = (e) => {
+    const search = e.target.value;
+    
+    if(search) {
+      const filteredData = stateList.filter((data) => {
+        return data.name.toString().toLowerCase().includes(search);
+      });
+      
+      setFilteredList(filteredData);
+    } else {
+      setFilteredList(dataSource);
     }
-  ));
+  }
 
   const handleDelete = async (id) => {
     const json = await api.bike.deleteUser(id);
@@ -209,7 +202,7 @@ const dataSource = stateList.map( (item) => (
       <PageHeader>
         <IntlMessages id="Usuários" />
       </PageHeader>
-      <Box extra={<Toolbar />} >
+      <Box extra={<Toolbar onSearch={handleChange}/>} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
           <TableWrapper
             rowKey="key"

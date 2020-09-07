@@ -3,13 +3,9 @@ import { useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
-import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
-
-const Option = SelectOption; 
-
 
 
 export default function() {

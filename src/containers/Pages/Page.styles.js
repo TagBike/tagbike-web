@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
 import Buttons from '@iso/components/uielements/button';
-import Table from '../../Tables/AntTables/AntTables.styles';
+import Table from '../Tables/AntTables/AntTables.styles';
 
 const TableWrapper = styled(Table)`
   .ant-table-bordered .ant-table-thead > tr > th,
@@ -130,6 +130,17 @@ const ActionWrapper = styled.div`
 
 const Form = styled.div``;
 
+const ToolbarWrapper = styled.div`
+  input{
+    border-right-width: 0 !important;
+    border-radius: 0 !important;
+    &:focus, &:hover, .ant-input-focused{
+      border-right-width: 0 !important;
+      border-color: #e9e9e9 !important;
+    }
+  }
+`;
+
 export {
   ActionBtn,
   Fieldset,
@@ -141,4 +152,5 @@ export {
   ComponentTitle,
   TableWrapper,
   StatusTag,
+  ToolbarWrapper
 };
