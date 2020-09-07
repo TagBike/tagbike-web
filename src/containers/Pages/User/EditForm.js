@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
+import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
 import api from '../../../helpers';
@@ -10,7 +11,8 @@ import api from '../../../helpers';
 
 export default function() {
   const [form] = Form.useForm();
-  const handleOnChange = checkedValues => {};
+  const history = useHistory();
+
   const [disabled, setDisabled] = useState(false);
 
   const [data, setData] = useState([]);
@@ -31,9 +33,17 @@ export default function() {
   }, []);
 
   const onFinish = async (values) =>  {
+    setDisabled(true);
     const response = await api.bike.updateUser(values);
       
-    setDisabled(true);
+    if(response === "success!") {
+      notification('success', 'Usuário atualizado!', 'Dados alterados com sucesso.');
+      history.push('/users');
+    } else {
+      console.log('Error: ', response);
+      notification('error', 'Erro ao atualizar o usuário', response.toString());
+      setDisabled(false);
+    } 
   }
   
   const onChangeMasked = (e) => {
@@ -163,7 +173,7 @@ export default function() {
           >
             <Input />
           </Form.Item>
-          <Button htmlType="submit">Salvar</Button>
+          <Button htmlType="submit" disabled={disabled}>Salvar</Button>
         </Form> 
       </BillingFormWrapper>
     );  
