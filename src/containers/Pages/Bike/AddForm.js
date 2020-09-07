@@ -392,7 +392,7 @@ export default function() {
           <Select options={forkTypes} />
         </Form.Item>
         <Form.Item
-          name="frameType"
+          name="frametype"
           label="Tipo de Quadro"
           rules={[
             {
