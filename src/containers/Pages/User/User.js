@@ -102,9 +102,7 @@ export default function Users() {
     {
       title: 'Nome',
       dataIndex: 'name',
-      width: '170px',
       key: 'name',
-      width: '25%',
       sorter: (a, b) => {
         if (a.name < b.name) return -1;
         if (a.name > b.name) return 1;
@@ -116,7 +114,6 @@ export default function Users() {
       dataIndex: 'email',
       width: '170px',
       key: 'email',
-      width: '25%',
       sorter: (a, b) => {
         if (a.email < b.email) return -1;
         if (a.email > b.email) return 1;
@@ -124,31 +121,9 @@ export default function Users() {
       },
     },
     {
-      title: 'Cpf',
-      dataIndex: 'cpf',
-      width: '170px',
-      key: 'cpf',
-      width: '20%',
-      sorter: (a, b) => {
-        if (a.cpf < b.cpf) return -1;
-        if (a.cpf > b.cpf) return 1;
-        return 0;
-      },
-    },
-    {
-      title: 'Telefone',
-      dataIndex: 'telefone',
-      width: '170px',
-      key: 'telefone',
-      sorter: (a, b) => {
-        if (a.telefone < b.telefone) return -1;
-        if (a.telefone > b.telefone) return 1;
-        return 0;
-      },
-    },
-    {
       title: 'Status',
       dataIndex: 'status',
+      width: '170px',
       className: 'noWrapCell',
       key: 'status',
       sorter: (a, b) => {
