@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import Loader from '@iso/components/utility/loader';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
@@ -98,7 +99,7 @@ export default function() {
   ];
 
   if(data.length === 0) {
-    return <BillingFormWrapper> Nenhum dado encontrado para o cliente.</BillingFormWrapper>;
+    return <Loader />
   } else {
     return (
       <BillingFormWrapper>
