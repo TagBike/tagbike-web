@@ -8,6 +8,8 @@ import ContentHolder from '@iso/components/utility/contentHolder';
 import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
+import Skeleton from '@iso/components/uielements/skeleton';
+
 import {
   TitleWrapper,
   ButtonHolders,
@@ -174,6 +176,13 @@ export default function Tags() {
     },
   ];
 
+  const Table = (props) => {
+    if(dataSource.length === 0 ) {
+      return <Skeleton/>
+    }
+    return <TableWrapper  {...props} />
+  };
+
   return (
     <LayoutContentWrapper>
       <PageHeader>
@@ -181,7 +190,7 @@ export default function Tags() {
       </PageHeader>
       <Box extra={<Toolbar onSearch={handleChange}/>} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
-          <TableWrapper
+          <Table
             rowKey="key"
             columns={columns}
             bordered={true}

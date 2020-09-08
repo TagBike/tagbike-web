@@ -164,7 +164,7 @@ export default function Plans() {
   ];
 
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(dataSource === 0 ) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />
