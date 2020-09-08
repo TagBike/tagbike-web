@@ -6,6 +6,8 @@ import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import Skeleton from '@iso/components/uielements/skeleton';
+import {Divider} from 'antd';
 import api from '../../../helpers';
 
 
@@ -68,114 +70,117 @@ export default function() {
   ];
 
   if(data.length === 0) {
-    return <BillingFormWrapper> Nenhum dado encontrado para o usuário.</BillingFormWrapper>;
-  } else {
-    return (
-      <BillingFormWrapper>
-        <Form 
-          form={form}
-          layout="vertical"
-          initialValues={{
-            id: data.id,
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            cpf: data.cpf,
-            phone: data.phone,
-            cellphone: data.cellphone,
-            city: data.city,
-            uf: data.uf,
-          }}
-          onFinish={onFinish}>
-        <Form.Item
-            name="id"
-            label="Código Usuário"
-            rules={[
-              {
-                required: true,
-                message: 'Insira Código do Usuário!',
-              },
-            ]}
-          >
-            <Input disabled/>
-          </Form.Item>
-          <Form.Item
-            name="name"
-            label="Nome Completo"
-            rules={[
-              {
-                required: true,
-                message: 'Insira o Nome Completo!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-              {
-                type: 'email',
-                message: 'Este E-mail não é válido!',
-              },
-              {
-                required: true,
-                message: 'Insira o endereço de E-Mail!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="cpf"
-            label="CPF"
-            rules={[
-              {
-                required: true,
-                message: 'Insira o CPF!',
-              },
-            ]}
-          >
-            <InputMasked 
-              mask="111.111.111-11" 
-              onChange={onChangeMasked}
-            />
-          </Form.Item>
-          <Form.Item name="cellphone" label="Celular">
-            <InputMasked 
-              mask="(11) 11111 - 1111" 
-              onChange={onChangeMasked}
-            />
-          </Form.Item>
-          <Form.Item
-            name="city"
-            label="Cidade"
-            rules={[
-              {
-                required: true,
-                message: 'Insira a cidade!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="uf"
-            label="Estado"
-            rules={[
-              {
-                required: true,
-                message: 'Selecione o Estado!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Button htmlType="submit" disabled={disabled}>Salvar</Button>
-        </Form> 
-      </BillingFormWrapper>
-    );  
+    return <>
+      <Skeleton active size="large"/>
+      <Divider />
+      <Skeleton.Button active size="large"/>  
+      </>
   }
+  return (
+    <BillingFormWrapper>
+      <Form 
+        form={form}
+        layout="vertical"
+        initialValues={{
+          id: data.id,
+          name: data.name,
+          email: data.email,
+          password: data.password,
+          cpf: data.cpf,
+          phone: data.phone,
+          cellphone: data.cellphone,
+          city: data.city,
+          uf: data.uf,
+        }}
+        onFinish={onFinish}>
+      <Form.Item
+          name="id"
+          label="Código Usuário"
+          rules={[
+            {
+              required: true,
+              message: 'Insira Código do Usuário!',
+            },
+          ]}
+        >
+          <Input disabled/>
+        </Form.Item>
+        <Form.Item
+          name="name"
+          label="Nome Completo"
+          rules={[
+            {
+              required: true,
+              message: 'Insira o Nome Completo!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="E-mail"
+          rules={[
+            {
+              type: 'email',
+              message: 'Este E-mail não é válido!',
+            },
+            {
+              required: true,
+              message: 'Insira o endereço de E-Mail!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="cpf"
+          label="CPF"
+          rules={[
+            {
+              required: true,
+              message: 'Insira o CPF!',
+            },
+          ]}
+        >
+          <InputMasked 
+            mask="111.111.111-11" 
+            onChange={onChangeMasked}
+          />
+        </Form.Item>
+        <Form.Item name="cellphone" label="Celular">
+          <InputMasked 
+            mask="(11) 11111 - 1111" 
+            onChange={onChangeMasked}
+          />
+        </Form.Item>
+        <Form.Item
+          name="city"
+          label="Cidade"
+          rules={[
+            {
+              required: true,
+              message: 'Insira a cidade!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="uf"
+          label="Estado"
+          rules={[
+            {
+              required: true,
+              message: 'Selecione o Estado!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
+      </Form> 
+    </BillingFormWrapper>
+  );  
 }
