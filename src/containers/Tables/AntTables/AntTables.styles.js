@@ -22,17 +22,25 @@ const TableWrapper = styled(Table)`
     font-size: 13px;
     background-color: ${palette('secondary', 1)};
     border-bottom: 0;
+    padding: 8px 16px !important;
 
     &.ant-table-column-sort {
       background: ${palette('secondary', 1)};
+      padding: 8px 16px;
       margin: ${props =>
         props['data-rtl'] === 'rtl' ? '0 4px 0 0' : '0 0 0 4px'};
     }
+
+    .ant-table-column-sorters {
+      padding: 0;
+    }
+  }
+  .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td {
+    padding: 0;
   }
 
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
-    padding: 16px 15px;
     white-space: nowrap;
     text-align: ${props => (props['data-rtl'] === 'rtl' ? 'right' : 'left')};
 
@@ -45,6 +53,7 @@ const TableWrapper = styled(Table)`
     font-size: 12px;
     color: ${palette('text', 3)};
     border-bottom: 1px solid ${palette('border', 0)};
+    padding: 8px 16px !important;
 
     a {
       color: ${palette('primary', 0)};

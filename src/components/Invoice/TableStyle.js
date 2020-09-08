@@ -23,7 +23,6 @@ const Table = styled(Tables)`
 
   .ant-table-thead > tr > th,
   .ant-table-tbody > tr > td {
-    padding: 16px 15px;
     white-space: nowrap;
     text-align: ${props => (props['data-rtl'] === 'rtl' ? 'right' : 'left')};
 
