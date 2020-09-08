@@ -6,6 +6,8 @@ import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import Skeleton from '@iso/components/uielements/skeleton';
+import {Divider} from 'antd';
 import api from '../../../helpers';
 
 
@@ -42,7 +44,11 @@ export default function() {
   }, []);
 
   if(data.length === 0) {
-    return <BillingFormWrapper> Nenhum dado encontrado para o plano.</BillingFormWrapper>;
+    return <>
+      <Skeleton active size="large"/>
+      <Divider />
+      <Skeleton.Button active size="large"/>  
+      </>
   }
 
   return (
@@ -104,6 +110,7 @@ export default function() {
             formatter={value => `R$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           />
         </Form.Item>
+        <Divider />
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </BillingFormWrapper>

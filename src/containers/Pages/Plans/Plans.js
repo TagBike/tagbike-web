@@ -10,8 +10,6 @@ import Skeleton from '@iso/components/uielements/skeleton';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 
-import Loader from '@iso/components/utility/loader';
-
 import {
   TitleWrapper,
   ButtonHolders,
