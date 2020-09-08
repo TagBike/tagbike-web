@@ -111,25 +111,16 @@ export default function Plans() {
       },
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      className: 'noWrapCell',
-      key: 'status',
+      title: 'Preço',
+      dataIndex: 'price',
+      key: 'price',
       sorter: (a, b) => {
-        if (a.status < b.status) return -1;
-        if (a.status > b.status) return 1;
+        if (a.price < b.price) return -1;
+        if (a.price > b.price) return 1;
         return 0;
-      },
-
-      render: (text, row) => {
-        let className;
-        if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
-          className = 'draft';
-        } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
-          className = 'publish';
-        }
-        return <StatusTag className={className}>{row.status}</StatusTag>;
-      },
+      }, render: (text, row) => {
+        return `R$ ${text}`;
+      }
     },
     {
       title: 'Ações',
