@@ -6,9 +6,9 @@ import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import Input from '@iso/components/uielements/input';
+import Skeleton from '@iso/components/uielements/skeleton';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
-import Loader from '@iso/components/utility/loader';
 
 import { 
   TitleWrapper,
@@ -191,9 +191,12 @@ export default function Customers() {
     },
   ];
 
-  if(isLoading || dataSource.length === 0 ) {
-    return <Loader />
-  }
+  const Table = (props) => {
+    if(dataSource.length === 0 ) {
+      return <Skeleton/>
+    }
+    return <TableWrapper  {...props} />
+  };
 
   return (
     <LayoutContentWrapper>
@@ -202,7 +205,7 @@ export default function Customers() {
       </PageHeader>
       <Box extra={<Toolbar onSearch={handleChange}/>} >
         <ContentHolder style={{ marginTop: 0, overflow: 'hidden' }}>
-          <TableWrapper
+          <Table
             rowKey="key"
             columns={columns}
             bordered={true}
