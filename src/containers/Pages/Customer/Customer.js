@@ -8,6 +8,8 @@ import ContentHolder from '@iso/components/utility/contentHolder';
 import Input from '@iso/components/uielements/input';
 import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
+import Loader from '@iso/components/utility/loader';
+
 import { 
   TitleWrapper,
   ButtonHolders,
@@ -51,16 +53,19 @@ const Actions = props => (
 );
 
 export default function Customers() {
+  const [isLoading, setLoading] = useState(false);
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
 
   useEffect(() => {
+    setLoading(true);
     const getListClient = async () => {
       const clients = await api.bike.getListClient();
       setStateList(clients);
     }
 
     getListClient();
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -96,6 +101,16 @@ export default function Customers() {
   }
 
   const columns = [
+    {
+      title: '#',
+      dataIndex: 'id',
+      key: 'id',
+      sorter: (a, b) => {
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+      },
+    },
     {
       title: 'Nome',
       dataIndex: 'name',
@@ -144,27 +159,6 @@ export default function Customers() {
       },
     },
     {
-      title: 'Status',
-      dataIndex: 'status',
-      className: 'noWrapCell',
-      key: 'status',
-      sorter: (a, b) => {
-        if (a.status < b.status) return -1;
-        if (a.status > b.status) return 1;
-        return 0;
-      },
-
-      render: (text, row) => {
-        let className;
-        if (row.status === ('draft' || 'Draft' || 'DRAFT')) {
-          className = 'draft';
-        } else if (row.status === ('publish' || 'Publish' || 'PUBLISH')) {
-          className = 'publish';
-        }
-        return <StatusTag className={className}>{row.status}</StatusTag>;
-      },
-    },
-    {
       title: 'Ações',
       key: 'action',
       width: '60px',
@@ -197,6 +191,10 @@ export default function Customers() {
     },
   ];
 
+  if(isLoading || dataSource.length === 0 ) {
+    return <Loader />
+  }
+
   return (
     <LayoutContentWrapper>
       <PageHeader>
@@ -209,7 +207,7 @@ export default function Customers() {
             columns={columns}
             bordered={true}
             dataSource={dataSource}
-            //loading={isLoading}
+            loading={isLoading}
             className="isoSimpleTable"
             pagination={{
               defaultPageSize: 10,
