@@ -7,7 +7,7 @@ import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
-import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { FormWrapper } from '../Page.styles';
 import Skeleton from '@iso/components/uielements/skeleton';
 import {Divider} from 'antd';
 import api from '../../../helpers';
@@ -108,7 +108,7 @@ export default function() {
       </>
   } 
   return (
-    <BillingFormWrapper>
+    <FormWrapper>
       <Form 
         form={form}
         layout="vertical"
@@ -307,6 +307,6 @@ export default function() {
       </Form.Item>
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
-    </BillingFormWrapper>
+    </FormWrapper>
   );  
 }

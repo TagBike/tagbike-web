@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Input from '@iso/components/uielements/input';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import { Button } from '@iso/components/utility/Buttons';
-import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { FormWrapper } from '../Page.styles';
 import { direction } from '@iso/lib/helpers/rtl';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
@@ -65,32 +65,26 @@ export default function() {
 
 
   return (
-    <BillingFormWrapper className="isoBillingForm">
+    <FormWrapper className="isoBillingForm">
       <ToastContainer draggable={false} transition={Zoom} autoClose={5000} />
        <form onSubmit={handleSubmit} >
         <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Nome</label>
-            <Input  type="text" value={name} onChange={(e)=>setName(e.target.value)} size="large" placeholder="Informe o nome Completo." />
-          </InputBoxWrapper>
+          <label>Nome</label>
+          <Input  type="text" value={name} onChange={(e)=>setName(e.target.value)} size="large" placeholder="Informe o nome Completo." />
         </div>
         <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>Código</label>
-            <Input  type="text"  onChange={(e)=>setQrCode(e.target.value)} size="large" placeholder="Informe o nome Completo." />
-          </InputBoxWrapper>
+          <label>Código</label>
+          <Input  type="text"  onChange={(e)=>setQrCode(e.target.value)} size="large" placeholder="Informe o nome Completo." />
         </div>
         <div className="isoInputFieldset">
-          <InputBoxWrapper className="isoInputBox">
-            <label>QRCODE</label>
-            <Input  type="text" onChange={(e)=>setQrCodeImg(e.target.value)} size="large" placeholder="Informe o nome Completo." />
-          </InputBoxWrapper>
+          <label>QRCODE</label>
+          <Input  type="text" onChange={(e)=>setQrCodeImg(e.target.value)} size="large" placeholder="Informe o nome Completo." />
         </div>
         <div className="isoOrderTableFooter">
             <Button  style={margin} type="submit" primary>Salvar</Button>
             <Button type="reset">Cancelar</Button>
         </div>
       </form> 
-    </BillingFormWrapper>
+    </FormWrapper>
   );
 }

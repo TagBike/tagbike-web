@@ -11,14 +11,10 @@ import Button, { ButtonGroup } from '@iso/components/uielements/button';
 import Popconfirms from '@iso/components/Feedback/Popconfirm';
 
 import { 
-  TitleWrapper,
-  ButtonHolders,
   ActionWrapper,
-  ComponentTitle,
   TableWrapper,
-  StatusTag,
   ToolbarWrapper
-} from './Customer.styles';
+} from '../Page.styles';
 import api from '../../../helpers';
  
 const Toolbar = props => {

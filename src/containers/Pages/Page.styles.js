@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
 import Buttons from '@iso/components/uielements/button';
+import { borderRadius } from '@iso/lib/helpers/style_utils';
 import Table from '../Tables/AntTables/AntTables.styles';
+import WithDirection from '@iso/lib/helpers/rtl';
 
 const TableWrapper = styled(Table)`
   .ant-table-bordered .ant-table-thead > tr > th,
@@ -130,6 +132,73 @@ const ActionWrapper = styled.div`
 
 const Form = styled.div``;
 
+const WDFormWrapper = styled.div`
+  width: 100%;
+  padding: ${props =>
+    props['data-rtl'] === 'rtl' ? '0 30px 0 20px' : '0 20px 0 30px'};
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 50px;
+  }
+
+  .isoInputFieldset {
+    width: 100%;
+    display: flex;
+    margin-bottom: 35px;
+
+    &.vertical {
+      flex-direction: column;
+    }
+
+    .isoInputBox {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin: ${props =>
+        props['data-rtl'] === 'rtl' ? '0 0 0 35px' : '0 35px 0 0'};
+
+      &:last-child {
+        margin: 0;
+      }
+
+      .ant-select {
+        .ant-select-selection {
+          &.ant-select-selection--single {
+            height: 42px;
+            ${borderRadius()};
+          }
+
+          .ant-select-selection__rendered {
+            line-height: 42px;
+            font-size: 13px;
+          }
+        }
+      }
+    }
+
+    input {
+      ${borderRadius()};
+    }
+  }
+
+  .ant-checkbox-wrapper {
+    span {
+      font-size: 13px;
+      font-weight: 500;
+      color: ${palette('text', 0)};
+      line-height: 1.2;
+      vertical-align: middle;
+    }
+  }
+`;
+
+
+const FormWrapper = WithDirection(WDFormWrapper);
+
 const ToolbarWrapper = styled.div`
   input{
     border-right-width: 0 !important;
@@ -152,5 +221,6 @@ export {
   ComponentTitle,
   TableWrapper,
   StatusTag,
+  FormWrapper,
   ToolbarWrapper
 };

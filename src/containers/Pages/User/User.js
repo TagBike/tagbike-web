@@ -13,10 +13,7 @@ import Popconfirms from '@iso/components/Feedback/Popconfirm';
 import Skeleton from '@iso/components/uielements/skeleton';
 
 import {
-  TitleWrapper,
-  ButtonHolders,
   ActionWrapper,
-  ComponentTitle,
   TableWrapper,
   StatusTag,
   ToolbarWrapper

@@ -4,7 +4,7 @@ import Select, { SelectOption } from '@iso/components/uielements/select';
 import Checkbox from '@iso/components/uielements/checkbox';
 import InputBox from './InputBox';
 import IntlMessages from '@iso/components/utility/intlMessages';
-import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { FormWrapper } from '../Page.styles';
 
 const Option = SelectOption;
 
@@ -12,7 +12,7 @@ export default function() {
   const handleOnChange = checkedValues => {};
 
   return (
-    <BillingFormWrapper className="isoBillingForm">
+    <FormWrapper className="isoBillingForm">
       <div className="isoInputFieldset">
         <InputBox
           label={<IntlMessages id="checkout.billingform.firstname" />}
@@ -70,6 +70,6 @@ export default function() {
       <Checkbox onChange={handleOnChange}>
         <IntlMessages id="checkout.billingform.checkbox" />
       </Checkbox>
-    </BillingFormWrapper>
+    </FormWrapper>
   );
 }

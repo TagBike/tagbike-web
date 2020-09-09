@@ -8,7 +8,7 @@ import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
-import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { FormWrapper } from '../Page.styles';
 import { direction } from '@iso/lib/helpers/rtl';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -237,7 +237,7 @@ export default function() {
 
 
   return (
-    <BillingFormWrapper className="isoBillingForm">
+    <FormWrapper className="isoBillingForm">
        <Form form={form}
         layout="vertical"
         onFinish={onFinish}
@@ -405,6 +405,6 @@ export default function() {
 
         <Button disabled={disabled} htmlType="submit">Salvar</Button>
       </Form> 
-    </BillingFormWrapper>
+    </FormWrapper>
   );
 }

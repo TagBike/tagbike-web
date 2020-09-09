@@ -4,7 +4,7 @@ import Form from '@iso/components/uielements/form';
 import Input, { InputPassword, Textarea, Number } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
-import { BillingFormWrapper, InputBoxWrapper } from './Checkout.styles';
+import { FormWrapper } from '../Page.styles';
 import api from '../../../helpers';
 
 export default function() {
@@ -26,7 +26,7 @@ export default function() {
   }
 
   return (
-    <BillingFormWrapper>
+    <FormWrapper>
       <Form 
         layout="vertical"
         onFinish={onFinish}>
@@ -67,6 +67,6 @@ export default function() {
         </Form.Item>
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
-    </BillingFormWrapper>
+    </FormWrapper>
   );
 }

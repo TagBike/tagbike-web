@@ -7,7 +7,7 @@ import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 
-import DefaultForm from './EditForm';
+import DefaultForm from './GeneralForm';
 
 export default function() {
   const rowStyle = {
