@@ -2,7 +2,6 @@ import axios from 'axios';
 import { isLogged, doLogin, doLogout } from './AuthHandler';
 import bike from './BikeApi';
 import zip from './ZipCodeApi';
-
 let RootApi =  {
     fetch: axios,
     auth: {

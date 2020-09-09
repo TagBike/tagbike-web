@@ -6,7 +6,7 @@ const token = Cookies.get('token');
 
 const api = axios.create({
     baseURL: siteConfig.apiUrl,
-    //timeout: 1000,
+    //timeout: 3000,
     headers: {
         'Accept': 'application/json',
         'content-Type': 'application/json',
