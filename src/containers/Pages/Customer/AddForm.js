@@ -21,7 +21,7 @@ export default function() {
 
   const onFinish = async (values) =>  {
     setDisabled(true);
-    const response = await api.createClient(values);
+    const response = await api.bike.createClient(values);
     if(response === "success") {
       notification('success', 'Cliente adicionado!', 'Dados adicionado com sucesso.');
       history.push('/customers');
