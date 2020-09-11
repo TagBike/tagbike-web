@@ -99,6 +99,27 @@ let BikeApi = () => { return  {
         );
         return json.data;
     },
+    getMedicalById: async (id) => {
+        const json = await api.get(
+            `/medical/${id}`
+        );
+        
+        return json;
+    },
+    updateMedical: async (data) => {
+        const json = await api.put(
+            `/medical/update/${data.customer_id}`,
+            data
+        );
+        return json.data;
+    },
+    createMedical: async (data) => {
+        const json = await api.post(
+            `/medical/create`,
+            data
+        );
+        return json.data;
+    },
     getListBike: async () => {
         const json = await api.get(
             '/bike'

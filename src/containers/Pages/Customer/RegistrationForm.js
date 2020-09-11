@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Loader from '@iso/components/utility/loader';
 import Form from '@iso/components/uielements/form';
-import Input, { InputMasked, InputPassword } from '@iso/components/uielements/input';
+import Input, { InputMasked } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import notification from '@iso/components/Notification';
@@ -21,65 +21,35 @@ export default function() {
 
   const [disabled, setDisabled] = useState(false);
 
-  const [pageMode, setPageMode] = useState('');
-
   const [data, setData] = useState([]);
 
-  const { id } = useParams();
-  
-  const location = useLocation();
-
-  useEffect(() => {
-    const { pathname } = location;
-    const regex = /^[/][\w]+[/](add|edit)/gm;
-    const res = regex.exec(pathname)[1].toLowerCase();
-    
-     if(res === 'edit') {
-      setPageMode('edit');
-    } else {
-      setPageMode('add');
-    }
-  }, [location]);
-
+  let { id } = useParams();
     
 
   useEffect(() => {
-    if(pageMode === 'edit') {
-      const getClientById = async () => {
-        let response = await api.bike.getClientById(id);
-        setData(response.data);
-        form.setFieldsValue({
-          cellphone: response.data.cellphone,
-          cpf: response.data.cpf,
-        });
-      }
-      getClientById();
+    const getClientById = async () => {
+      let response = await api.bike.getClientById(id);
+      setData(response.data);
+      form.setFieldsValue({
+        cellphone: response.data.cellphone,
+        cpf: response.data.cpf,
+      });
     }
-  }, [pageMode]);
+    
+    getClientById();
+  }, []);
 
-  const onUpdate = async (values) =>  {
+  const onFinish = async (values) =>  {
     setDisabled(true);
     const response = await api.bike.updateClient(values);
     if(response === "success") {
       notification('success', 'Cliente atualizado!', 'Dados alterados com sucesso.');
+      history.push('/customers');
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao atualizar o cliente', response.toString());
       setDisabled(false);
     } 
-  }
-
-  const onCreate = async (values) =>  {
-    setDisabled(true);
-    const response = await api.bike.createClient(values);
-    if(response === "success") {
-      notification('success', 'Cliente adicionado!', 'Dados adicionado com sucesso.');
-      history.push('/customers');
-    } else {
-      console.log('Error: ', response);
-      notification('error', 'Erro ao salvar cliente', response.toString());
-      setDisabled(false);
-    }
   }
 
   const onChangeMasked = (e) => {
@@ -130,7 +100,7 @@ export default function() {
     }
   ];
 
-  if(pageMode === 'edit' && data.length === 0) {
+  if(data.length === 0) {
     return <>
       <Skeleton active size="large"/>
       <Divider />
@@ -142,7 +112,7 @@ export default function() {
       <Form 
         form={form}
         layout="vertical"
-        initialValues={pageMode === 'edit' ? {
+        initialValues={{
           id: data.id,
           name: data.name,
           email: data.email,
@@ -158,18 +128,17 @@ export default function() {
           uf: data.uf,
           cep: data.cep,
           gender: data.gender
-        } : ''}
-        onFinish={pageMode === 'edit' ? onUpdate : onCreate }>
+        }}
+        onFinish={onFinish}>
       <Form.Item
           name="id"
           label="Código Cliente"
           rules={[
             {
-              required: pageMode === 'edit' ? true : false,
+              required: true,
               message: 'Insira Código Cliente!',
             },
           ]}
-          hidden={pageMode === 'edit' ? true : false}
         >
           <Input disabled/>
         </Form.Item>
@@ -200,19 +169,6 @@ export default function() {
           ]}
         >
           <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          label="Senha"
-          rules={[
-            {
-              required: true,
-              message: 'Insira uma senha',
-            },
-          ]}
-        >
-          <InputPassword />
         </Form.Item>
 
         <Form.Item

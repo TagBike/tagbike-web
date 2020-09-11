@@ -8,6 +8,8 @@ import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 
 import DefaultForm from './GeneralForm';
+import RegistrationForm from './RegistrationForm';
+import MedicalForm from './MedicalForm';
 
 export default function() {
   const rowStyle = {
@@ -32,9 +34,15 @@ export default function() {
           <Box>
             <ContentHolder>
               <Tabs defaultActiveKey="1" >
-                <TabPane tab="Dados Gerais" key="1">
+                <TabPane tab="Dados Pessoais" key="1">
                   <DefaultForm />
-                </TabPane>              
+                </TabPane>        
+                <TabPane tab="Dados Cadastrais" key="2">
+                  <RegistrationForm />
+                </TabPane>            
+                <TabPane tab="Dados Médicos" key="3">
+                  <MedicalForm />
+                </TabPane>            
               </Tabs>                                         
             </ContentHolder>
           </Box>

@@ -1,60 +1,21 @@
 import React from 'react';
 import { Col, Row, Icon } from 'antd';
-import Input, {
-  InputSearch,
-  InputGroup,
-  Textarea,
-} from '@iso/components/uielements/input';
-import Button, { ButtonGroup } from '@iso/components/uielements/button';
-import Select, { SelectOption } from '@iso/components/uielements/select';
+import Tabs, { TabPane } from '@iso/components/uielements/tabs';
 import PageHeader from '@iso/components/utility/pageHeader';
 import Box from '@iso/components/utility/box';
 import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
-import { direction } from '@iso/lib/helpers/rtl';
-import AddForm from './AddForm';
 
-const Option = SelectOption;
-
-const selectBefore = (
-  <Select defaultValue="Http://" style={{ width: 80 }}>
-    <Option value="Http://">Http://</Option>
-    <Option value="Https://">Https://</Option>
-  </Select>
-);
-const selectAfter = (
-  <Select defaultValue=".com" style={{ width: 70 }}>
-    <Option value=".com">.com</Option>
-    <Option value=".jp">.jp</Option>
-    <Option value=".cn">.cn</Option>
-    <Option value=".org">.org</Option>
-  </Select>
-);
-
-const actions = [
-  false,
-    <Button>
-      <i className="ion-android-add" /> 
-      Adicionar
-    </Button>
-];
-
-
+import DefaultForm from './GeneralForm';
 
 export default function() {
-  const [dataSource, setDataSource] = React.useState([]);
-
-
   const rowStyle = {
     width: '100%',
     display: 'flex',
     flexFlow: 'row wrap',
   };
 
-  const margin = {
-    margin: direction === 'rtl' ? '0 0 8px 8px' : '0 8px 8px 0',
-  };
   const colStyle = {
     marginBottom: '16px',
   };
@@ -69,10 +30,12 @@ export default function() {
       <Row style={rowStyle} gutter={gutter} justify="start">
         <Col md={24} sm={24} xs={24} style={colStyle}>
           <Box >
-            <ContentHolder>
-            <div className="isoBillingSection">
-              <AddForm />
-            </div>
+          <ContentHolder>
+              <Tabs defaultActiveKey="1" >
+                <TabPane tab="Dados Pessoais" key="1">
+                  <DefaultForm />
+                </TabPane>                  
+              </Tabs>                                         
             </ContentHolder>
           </Box>
         </Col>
