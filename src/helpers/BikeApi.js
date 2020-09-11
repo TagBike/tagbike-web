@@ -134,6 +134,13 @@ let BikeApi = () => { return  {
 
         return json.data;
     },
+    getBikeByCustomer: async (id) => {
+        const json = await api.get(
+            `/customer/${id}/bikes`
+        );
+        
+        return json.data;
+    },
     createBike:async (data) => {
         const json = await api.post(
             '/bike/create',
@@ -213,7 +220,5 @@ let BikeApi = () => { return  {
     },
     
 }};
-
-//BikeApi = Object.assign(api);
 
 export default BikeApi;

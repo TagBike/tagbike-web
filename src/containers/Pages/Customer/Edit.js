@@ -10,6 +10,7 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 import DefaultForm from './GeneralForm';
 import RegistrationForm from './RegistrationForm';
 import MedicalForm from './MedicalForm';
+import BikeTable from './BikeTable';
 
 export default function() {
   const rowStyle = {
@@ -42,7 +43,10 @@ export default function() {
                 </TabPane>            
                 <TabPane tab="Dados Médicos" key="3">
                   <MedicalForm />
-                </TabPane>            
+                </TabPane>   
+                <TabPane tab="Bikes" key="4">
+                  <BikeTable />
+                </TabPane>          
               </Tabs>                                         
             </ContentHolder>
           </Box>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Input as AntInput } from 'antd';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
+import queryString from 'query-string'
 import Form from '@iso/components/uielements/form';
 import Input, { Number, InputSearch } from '@iso/components/uielements/input';
 import AutoComplete from '@iso/components/uielements/autocomplete';
@@ -12,6 +13,8 @@ import { FormWrapper } from '../Page.styles';
 import { direction } from '@iso/lib/helpers/rtl';
 import {ToastContainer, toast, Zoom} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Skeleton from '@iso/components/uielements/skeleton';
+import {Divider} from 'antd';
 import api from '../../../helpers';
 
 const { Search } = AntInput;
@@ -19,8 +22,31 @@ const { Search } = AntInput;
 export default function() {
   const [form] = Form.useForm();
   const history = useHistory();
+  const location = useLocation();
+  const { customer } = queryString.parse(location.search);
+  //const { customer } = useParams();
 
+  const [data, setData] = useState([]);
   const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    const getCustomer = async (customer) => {
+      
+        try {
+          let response = await api.bike.getClientById(customer);
+  
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+    }
+
+    if(customer) getCustomer(customer);
+  },[]);
+
+  useEffect(() => {
+    if(data.id) form.setFieldsValue({customer_id: data.id});
+  },[data]);
   
   const types = [
     {
@@ -228,6 +254,7 @@ export default function() {
           options={options}
           onSelect={onSelect}
           onSearch={onSearch}
+          defaultValue={`${data.id} - ${data.name}`}
         >
             <Search loading={searching} />
         </AutoComplete>
@@ -235,7 +262,13 @@ export default function() {
     );
 };
 
-
+if(data.length === 0 && customer) {
+  return <>
+    <Skeleton active size="large"/>
+    <Divider />
+    <Skeleton.Button active size="large"/>  
+    </>
+}
   return (
     <FormWrapper className="isoBillingForm">
        <Form form={form}

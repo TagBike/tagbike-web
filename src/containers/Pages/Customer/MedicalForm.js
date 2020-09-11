@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams, useLocation } from 'react-router-dom';
-import Loader from '@iso/components/utility/loader';
+import { useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked, Textarea } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
@@ -17,7 +16,6 @@ const Option = SelectOption;
 
 export default function() {
   const [form] = Form.useForm();
-  const history = useHistory();
 
   const [disabled, setDisabled] = useState(false);
 
@@ -32,9 +30,7 @@ export default function() {
     const getMedicalById = async () => {
       try {
         let response = await api.bike.getMedicalById(id);
-
         const res = response.data[0];
-        console.log('code', response.status);
         res.doctor = JSON.parse(res.doctor);
         setData(res);
         if(response.status === 200){
@@ -48,16 +44,6 @@ export default function() {
     getMedicalById();
   }, []);
 
-  useEffect(() => {
-    
-    if(data.length > 0){
-      setRequestSuccess(true);
-      console.log('teste');
-    } else {
-      console.log('pitanga');
-    }
-  }, [data]);
-
   const onUpdate = async (values) =>  {
     const body = values;
     const doctor = {
@@ -65,12 +51,15 @@ export default function() {
       phone: values.doctor_phone,
       mobile: values.doctor_mobile
     };
+
     delete body['doctor_name'];
     delete body['doctor_phone'];
     delete body['doctor_mobile'];
+
     body['doctor'] =  doctor ;
-    console.log(body);
+
     const response = await api.bike.updateMedical(body);
+
     if(response === "success") {
       notification('success', 'Dados médicos atualizados!', 'Dados médicos foram alterados com sucesso.');
     } else {
@@ -80,10 +69,22 @@ export default function() {
   }
 
   const onCreate = async (values) =>  {
-    const response = await api.bike.createMedical(values);
+    const body = values;
+    const doctor = {
+      name: values.doctor_name,
+      phone: values.doctor_phone,
+      mobile: values.doctor_mobile
+    };
+
+    delete body['doctor_name'];
+    delete body['doctor_phone'];
+    delete body['doctor_mobile'];
+
+    body['doctor'] =  doctor ;
+
+    const response = await api.bike.createMedical(body);
     if(response === "success") {
       notification('success', 'Dados médicos adicionados!', 'Dados médicos foram adicionados com sucesso.');
-      //history.push('/customers');
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao adicionar dados médicos do cliente', response.toString());
@@ -137,9 +138,7 @@ export default function() {
       <Divider />
       <Skeleton.Button active size="large"/>  
       </>
-  } else {
-    console.log(data);
-  }
+  } 
   return (
     <FormWrapper>
       <Form 
