@@ -24,7 +24,6 @@ export default function() {
   const history = useHistory();
   const location = useLocation();
   const { customer } = queryString.parse(location.search);
-  //const { customer } = useParams();
 
   const [data, setData] = useState([]);
   const [disabled, setDisabled] = useState(false);

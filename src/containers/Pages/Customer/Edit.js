@@ -11,6 +11,7 @@ import DefaultForm from './GeneralForm';
 import RegistrationForm from './RegistrationForm';
 import MedicalForm from './MedicalForm';
 import BikeTable from './BikeTable';
+import EventList from './EventList';
 
 export default function() {
   const rowStyle = {
@@ -38,7 +39,7 @@ export default function() {
                 <TabPane tab="Dados Pessoais" key="1">
                   <DefaultForm />
                 </TabPane>        
-                <TabPane tab="Dados Cadastrais" key="2">
+                <TabPane tab="Dados Acesso" key="2">
                   <RegistrationForm />
                 </TabPane>            
                 <TabPane tab="Dados Médicos" key="3">
@@ -46,6 +47,9 @@ export default function() {
                 </TabPane>   
                 <TabPane tab="Bikes" key="4">
                   <BikeTable />
+                </TabPane>  
+                <TabPane tab="Bikes" key="4">
+                  <EventList />
                 </TabPane>          
               </Tabs>                                         
             </ContentHolder>
