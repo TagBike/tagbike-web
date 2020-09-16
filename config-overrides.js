@@ -15,6 +15,7 @@ module.exports = function(config, env) {
         '@iso/assets': path.resolve(__dirname, 'src/assets'),
         '@iso/components': path.resolve(__dirname, 'src/components'),
         '@iso/config': path.resolve(__dirname, 'src/config'),
+        '@iso/lang': path.resolve(__dirname, 'src/lang'),
         '@iso/containers': path.resolve(__dirname, 'src/containers'),
         '@iso/redux': path.resolve(__dirname, 'src/redux'),
         '@iso/lib': path.resolve(__dirname, 'src/library'),

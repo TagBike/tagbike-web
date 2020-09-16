@@ -1,5 +1,5 @@
 {
-  "name": "isomorphic",
+  "name": "tagbike",
   "version": "3.0.5",
   "private": true,
   "dependencies": {
@@ -67,7 +67,7 @@
     "react-id-swiper": "^2.3.2",
     "react-input-mask": "^3.0.0-alpha.2",
     "react-instantsearch": "^4.3.0",
-    "react-intl": "^2.9.0",
+    "react-intl": "^5.8.1",
     "react-loadable": "^5.5.0",
     "react-motion-drawer": "^3.1.0",
     "react-perfect-scrollbar": "^1.5.3",
@@ -101,6 +101,7 @@
     "swiper": "^5.0.4"
   },
   "devDependencies": {
+    "@formatjs/cli": "^2.11.2",
     "babel-plugin-import": "^1.12.2",
     "customize-cra": "^0.8.0",
     "enzyme": "^3.10.0",
@@ -114,7 +115,8 @@
     "build": "react-app-rewired build",
     "serve": "serve -s build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile": "formatjs compile"
   },
   "eslintConfig": {
     "extends": "react-app"
