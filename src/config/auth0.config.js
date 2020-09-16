@@ -16,7 +16,7 @@ export default {
           : "https://your_domain_name/auth0loginCallback"
     },
     languageDictionary: {
-      title: "Isomorphic",
+      title: "TagBike",
       emailInputPlaceholder: "demo@gmail.com",
       passwordInputPlaceholder: "demodemo"
     },
