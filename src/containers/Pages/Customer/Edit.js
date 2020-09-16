@@ -48,7 +48,7 @@ export default function() {
                 <TabPane tab="Bikes" key="4">
                   <BikeTable />
                 </TabPane>  
-                <TabPane tab="Bikes" key="4">
+                <TabPane tab="Eventos" key="5">
                   <EventList />
                 </TabPane>          
               </Tabs>                                         

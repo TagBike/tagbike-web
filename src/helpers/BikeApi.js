@@ -218,6 +218,49 @@ let BikeApi = () => { return  {
         );
         return json.data;
     },
+    getListEvent: async () => {
+        const json = await api.get(
+            '/event'
+        );
+    
+        return json.data;
+    },
+    getEventById: async (id) => {
+        const json = await api.get(
+            `/event/${id}`
+        );
+    
+        return json.data;
+    },
+    getEventByCustomer: async (id) => {
+        const json = await api.get(
+            `/customer/${id}/events`
+        );
+    
+        return json.data;
+    },
+    createEvent:async (data) => {
+        const json = await api.post(
+            '/event',
+            data
+        );
+        
+        return json.data;
+    },
+    updateEvent: async (data) => {
+        const json = await api.put(
+            `/event/${data.id}`,
+            data
+        );
+        return json.data;
+    },
+    deleteEvent:async (id) => {
+        const json = await api.delete(
+            '/event/'+id,
+            {}
+        );
+        return json.data;
+    },
     
 }};
 
