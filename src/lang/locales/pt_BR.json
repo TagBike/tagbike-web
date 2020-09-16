@@ -1,0 +1,8 @@
+{
+  "event.sos": "Emergência",
+  "event.sos.bike.wasstolen": "Bike %s foi roubada",
+  "event.sos.customer.accident": " %s sofreu um acidente",
+  "event.sos.customer.wasstolen": " %s teve bike %d roubada",
+  "event.system.administration.customer.blockedaccount": "%s bloqueou a conta de %c",
+  "event.system.customer.register": "%s criou a conta"
+}

@@ -1,6 +1,7 @@
 import language from '@iso/config/language.config';
 
 import englishLang from '@iso/assets/images/flag/uk.svg';
+import portugueseLang from '@iso/assets/images/flag/brazil.svg';
 import chineseLang from '@iso/assets/images/flag/china.svg';
 import spanishLang from '@iso/assets/images/flag/spain.svg';
 import frenchLang from '@iso/assets/images/flag/france.svg';
@@ -14,6 +15,12 @@ const config = {
       locale: 'en',
       text: 'English',
       icon: englishLang,
+    },
+    {
+      languageId: 'portuguese',
+      locale: 'br',
+      text: 'Portuguese',
+      icon: portugueseLang,
     },
     {
       languageId: 'chinese',
