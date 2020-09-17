@@ -4,7 +4,7 @@ import { transition } from '@iso/lib/helpers/style_utils';
 
 const Buttons = ComponentName => styled(ComponentName)`
   border: 1px solid red;
-  &.ant-btn {
+  &.ant-btn[type!="link"] {
     display: inline-block;
     margin-bottom: 0;
     font-weight: 500;
@@ -204,6 +204,10 @@ const Buttons = ComponentName => styled(ComponentName)`
         height: 42px;
       }
     }
+  } 
+
+  &.ant-btn-link {
+    padding: 0px;
   }
 
   + .ant-btn-group {
