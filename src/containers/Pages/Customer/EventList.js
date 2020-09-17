@@ -116,7 +116,23 @@ export default function Events() {
         return 0;
       },
       render: (text, row) => {
-      return <IntlMessages id={`event.${row.eventKey}`} />
+      return <IntlMessages 
+        id={`event.${row.eventKey}`} 
+        values={{
+          eventId: row.eventId,  
+          createdBy: { 
+            value: row.createdBy,
+          },
+          customerId: {
+            value: row.ownerId,
+            path: `/customers/edit/${row.ownerId}`
+          },
+          customerName: {
+            value: row.customerName,
+            path: `/customers/edit/${row.ownerId}`
+          }
+        }}
+      />
       }
     },
     {
@@ -141,7 +157,7 @@ export default function Events() {
         return 0;
       },
       render: (text, row) => {
-        return <Link to={`/customers/edit/${id}`}>
+        return <Link target="_blank" to={`/customers/edit/${id}`}>
                   <Button type="link">
                   { row.customerName }
                   </Button>
