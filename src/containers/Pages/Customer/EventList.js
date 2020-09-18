@@ -81,6 +81,9 @@ export default function Events() {
       createdAt : item.created_at,
       ownerId : item.ownerId,
       customerName : item.customerName,
+      userId : item.userId,
+      userName : item.userName,
+      bikeId : item.bikeId,
       data: item.data,
   }));
 
@@ -117,7 +120,7 @@ export default function Events() {
       },
       render: (text, row) => {
       return <IntlMessages 
-        id={`event.${row.eventKey}`} 
+        id={`${row.eventKey}`} 
         values={{
           eventId: row.eventId,  
           createdBy: { 
@@ -130,6 +133,14 @@ export default function Events() {
           customerName: {
             value: row.customerName,
             path: `/customers/edit/${row.ownerId}`
+          },
+          userName: {
+            value: row.userName,
+            path: `/users/edit/${row.userId}`
+          },
+          bikeId: {
+            value: `# ${row.bikeId}`,
+            path: `/bikes/edit/${row.bikeId}`
           }
         }}
       />
@@ -148,18 +159,18 @@ export default function Events() {
     },
     {
       title: 'Criado Por ',
-      dataIndex: 'ownerId',
+      dataIndex: 'createdBy',
       width: '20%',
-      key: 'ownerId',
+      key: 'createdBy',
       sorter: (a, b) => {
-        if (a.ownerId < b.ownerId) return -1;
-        if (a.ownerId > b.ownerId) return 1;
+        if (a.createdBy < b.createdBy) return -1;
+        if (a.createdBy > b.createdBy) return 1;
         return 0;
       },
       render: (text, row) => {
-        return <Link target="_blank" to={`/customers/edit/${id}`}>
+        return <Link target="_blank" to={`/users/edit/${id}`}>
                   <Button type="link">
-                  { row.customerName }
+                  { row.userName }
                   </Button>
                 </Link>
       }
