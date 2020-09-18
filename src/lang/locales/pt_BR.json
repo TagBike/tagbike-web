@@ -1,8 +1,39 @@
 {
-  "event.sos": "Emergência",
-  "event.sos.bike.wasstolen": "Bike %s foi roubada",
-  "event.sos.customer.accident": " %s sofreu um acidente",
-  "event.sos.customer.wasstolen": " %s teve bike %d roubada",
-  "event.system.administration.customer.blockedaccount": "%s bloqueou a conta de %c",
-  "event.system.customer.register": "%s criou a conta"
+  "event.action.administration.customer.account.created": "Conta criada por {userName}",
+  "event.action.administration.customer.blockedaccount": "{userName} bloqueou a conta de {customerName}",
+  "event.action.administration.customer.blockedaccount.reason": "{userName} bloqueou a conta de {customerName} {reason}",
+
+  "event.action.customer.account.new": "{customerName} criou a conta",
+  "event.action.customer.account.update": "{customerName} atualizou a conta",
+  "event.action.customer.bike.add": "{customerName} adicionou a bike {bikeId} em sua conta",
+  "event.action.customer.bike.archive": "{customerName} arquivou a bike {bikeId} em sua conta",
+  "event.action.customer.bike.update": "{customerName} atualizou dados da bike {bikeId}",
+  "event.action.customer.bike.search": "{customerName} pesquisou a bike {bikeId}",
+  "event.action.customer.bike.search.ownbike": "{customerName} pesquisou a própria bike {bikeId}",
+  "event.action.customer.bike.changeproperty": "{customerName1} transferiu a bike {bikeId} para {customerName2}",
+
+  "event.action.sos.customer.accident": " {customerName} sofreu um acidente",
+  "event.action.sos.customer.wasstolen": "{customerName} teve bike {bikeId} roubada",
+  "event.action.sos.bike.wasstolen": "Bike {bikeId} foi roubada",
+
+  "event.action.user.customer.account.new": "{userName} criou conta do cliente {customerName}",
+  "event.action.user.customer.account.update": "{userName} atualizou a conta do cliente {customerName}",
+  "event.action.user.customer.account.resetpassword": "{userName} resetou a senha do cliente {customerName}",
+
+  "event.action.user.customer.bike.add": "{userName} adicionou a bike {bikeId} para o cliente {customerName}",
+  "event.action.user.customer.bike.archive": "{userName} arquivou a bike {bikeId} do cliente {customerName}",
+  "event.action.user.customer.bike.update": "{userName} atualizou dados da bike {bikeId} do cliente {customerName}",
+  "event.action.user.customer.bike.changeproperty": "{userName} transferiu a bike {bikeId} de {customerName1} para {customerName2}",
+  
+  "event.action.user.account.new": "Conta criada por {userName}",
+  "event.action.user.account.update": "{userName} atualizou a conta",
+  "event.action.user.account.resetpassword": "{userName} resetou a senha",
+  
+  "event.system.administration.customer.blockedaccount": "Conta bloqueada automaticamente",
+  "event.system.administration.customer.blockedaccount.reason": "Conta bloqueada automaticamente {reason}",
+  
+  "event.log.customer.web.access": "{customerName} acessou sua conta via web",
+  "event.log.customer.web.app.android": "{customerName} acessou sua conta via app Android",
+  "event.log.customer.web.app.ios": "{customerName} acessou sua conta via app iOS"
+
 }
