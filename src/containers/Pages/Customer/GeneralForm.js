@@ -89,7 +89,6 @@ export default function() {
   }
 
   const searchZipcode = async (zip) => { 
-    console.log(api);
     api.utils.zip.getAddressByZip(zip).then((res) => {
       const response = res.data;
       if(response) {
