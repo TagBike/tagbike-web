@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import IntlMessages from '@iso/components/utility/intlMessages';
+import { useIntl } from 'react-intl';
 import Box from '@iso/components/utility/box';
 import { Link } from 'react-router-dom';
 import ContentHolder from '@iso/components/utility/contentHolder';
@@ -48,14 +49,33 @@ export default function Events() {
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
   const [status, setStatus] = useState(0);
+  const [isLoading, setLoading] = useState(false);
+  
 
   const { id } = useParams();
+  const intl = useIntl();
 
   useEffect(() => {
     const getListEvents = async () => {
       try {
         const response = await api.bike.getEventByCustomer(id);
-        setStateList(response.data);
+        let list = response.data;
+        const filter = list.map( (item) => ({
+          id : item.id,  
+          eventName : item.eventName,
+          eventKey : item.eventKey,
+          createdBy : item.createdBy,
+          createdAt : item.created_at,
+          ownerId : item.ownerId,
+          customerName : item.customerName,
+          userId : item.userId,
+          userName : item.userName,
+          bikeId : item.bikeId,
+          data: item.data,
+          message: intl.messages[item.eventKey]
+        }));
+        setStateList(filter);
+        
         if(response.status) {
           setStatus(response.status);
         }
@@ -84,19 +104,22 @@ export default function Events() {
       userName : item.userName,
       bikeId : item.bikeId,
       data: item.data,
+      message: item.message
   }));
 
   const handleChange = (e) => {
     const search = e.target.value;
-    
+    setLoading(true);
     if(search) {
       const filteredData = stateList.filter((data) => {
-        return data.serialNumber.toString().toLowerCase().includes(search);
+        return data.message.toString().toLowerCase().includes(search);
       });
       
       setFilteredList(filteredData);
+      setLoading(false);
     } else {
       setFilteredList(dataSource);
+      setLoading(false);
     }
     
   }
@@ -191,7 +214,7 @@ export default function Events() {
           columns={columns}
           bordered={true}
           dataSource={dataSource}
-          //loading={isLoading}
+          loading={isLoading}
           className="isoSimpleTable"
           pagination={{
             defaultPageSize: 10,
