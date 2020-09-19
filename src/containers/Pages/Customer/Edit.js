@@ -8,7 +8,6 @@ import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 
 import DefaultForm from './GeneralForm';
-import RegistrationForm from './RegistrationForm';
 import MedicalForm from './MedicalForm';
 import BikeTable from './BikeTable';
 import EventList from './EventList';
