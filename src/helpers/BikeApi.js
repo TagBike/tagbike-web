@@ -33,7 +33,7 @@ let BikeApi = () => { return  {
             '/user'
         );
 
-        return json.data;
+        return json;
     },
     getUserById: async (id) => {
         const json = await api.get(
@@ -125,7 +125,7 @@ let BikeApi = () => { return  {
             '/bike'
         );
 
-        return json.data;
+        return json;
     },
     getBikeById: async (id) => {
         const json = await api.get(
@@ -167,7 +167,7 @@ let BikeApi = () => { return  {
             '/tag'
         );
 
-        return json.data;
+        return json;
     },
     createTag:async (data) => {
         const json = await api.post(
@@ -188,7 +188,7 @@ let BikeApi = () => { return  {
             '/plan'
         );
 
-        return json.data;
+        return json;
     },
     getPlanById: async (id) => {
         const json = await api.get(

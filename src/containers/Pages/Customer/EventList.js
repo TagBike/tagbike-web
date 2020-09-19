@@ -57,7 +57,7 @@ export default function Events() {
   const { id } = useParams();
 
   useEffect(() => {
-    const getListBike = async () => {
+    const getListEvents = async () => {
       try {
         const response = await api.bike.getEventByCustomer(id);
         setStateList(response.data);
@@ -69,7 +69,7 @@ export default function Events() {
       }
     }
 
-    getListBike();
+    getListEvents();
   }, []);
 
   useEffect(() => {

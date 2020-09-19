@@ -52,11 +52,15 @@ const Actions = props => (
 export default function Tags() {
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [status, setStatus] = useState(0);
 
   useEffect(() => {
     const getListTag = async () => {
-      const tags = await api.bike.getListTag();
-       setStateList(tags);
+      const response = await api.bike.getListTag();
+      setStateList(response.data);
+      if(response.status) {
+        setStatus(response.status);
+      }
     }
 
     getListTag();
@@ -174,7 +178,7 @@ export default function Tags() {
   ];
 
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(!status) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />

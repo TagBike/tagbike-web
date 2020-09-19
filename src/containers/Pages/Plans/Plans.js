@@ -51,11 +51,15 @@ const Actions = props => (
 export default function Plans() {
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [status, setStatus] = useState(0);
 
   useEffect(() => {
     const getListPlan = async () => {
-      const tags = await api.bike.getListPlan();
-      setStateList(tags);
+      const response = await api.bike.getListPlan();
+      setStateList(response.data);
+      if(response.status) {
+        setStatus(response.status);
+      }
     }
 
     getListPlan();
@@ -151,7 +155,7 @@ export default function Plans() {
   ];
 
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(!status) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />
