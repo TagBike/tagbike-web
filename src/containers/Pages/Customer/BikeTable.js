@@ -52,16 +52,21 @@ const Actions = props => (
 export default function Bikes() {
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [status, setStatus] = useState(0);
 
   const { id } = useParams();
 
   useEffect(() => {
     const getListBike = async () => {
       try {
-        const bikes = await api.bike.getBikeByCustomer(id);
-        setStateList(bikes);
+        const response = await api.bike.getBikeByCustomer(id);
+        setStateList(response.data);
+        if(response.status) {
+          setStatus(response.status);
+        }
       } catch (error) {
         console.error(error);
+        setStatus(error);
       }
     }
 
@@ -187,9 +192,9 @@ export default function Bikes() {
       },
     },
   ];
-
+  
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(!status) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />

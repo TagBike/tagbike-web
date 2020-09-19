@@ -139,7 +139,7 @@ let BikeApi = () => { return  {
             `/customer/${id}/bikes`
         );
         
-        return json.data;
+        return json;
     },
     createBike:async (data) => {
         const json = await api.post(
