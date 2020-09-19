@@ -38,7 +38,7 @@ export default function() {
     setDisabled(true);
     const response = await api.bike.updateUser(values);
       
-    if(response === "success!") {
+    if(response === "success") {
       notification('success', 'Usuário atualizado!', 'Dados alterados com sucesso.');
       history.push('/users');
     } else {
