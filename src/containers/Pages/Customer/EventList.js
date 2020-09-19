@@ -52,6 +52,7 @@ const Actions = props => (
 export default function Events() {
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [status, setStatus] = useState(0);
 
   const { id } = useParams();
 
@@ -59,7 +60,10 @@ export default function Events() {
     const getListBike = async () => {
       try {
         const response = await api.bike.getEventByCustomer(id);
-        setStateList(response);
+        setStateList(response.data);
+        if(response.status) {
+          setStatus(response.status);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -178,7 +182,7 @@ export default function Events() {
   ];
 
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(!status) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />

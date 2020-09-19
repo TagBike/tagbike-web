@@ -237,7 +237,7 @@ let BikeApi = () => { return  {
             `/customer/${id}/events`
         );
     
-        return json.data;
+        return json;
     },
     createEvent:async (data) => {
         const json = await api.post(
