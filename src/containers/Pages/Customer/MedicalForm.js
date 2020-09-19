@@ -21,7 +21,7 @@ export default function() {
 
   const [data, setData] = useState([]);
 
-  const [requestSuccess, setRequestSuccess] = useState(false);
+  const [status, setStatus] = useState(0);
 
   const { id } = useParams();
 
@@ -33,12 +33,14 @@ export default function() {
         const res = response.data[0];
         res.doctor = JSON.parse(res.doctor);
         setData(res);
-        if(response.status === 200){
-          setRequestSuccess(true);
+        if(response.status) {
+          setStatus(response.status);
         }
+        
+
       } catch (error) {
         console.error(error);
-        setRequestSuccess(false);
+        setStatus(error);
       }
     }
     getMedicalById();
@@ -132,19 +134,20 @@ export default function() {
     },
   ];
 
-  if(data.length === 0) {
+  if(!status) {
     return <>
       <Skeleton active size="large"/>
       <Divider />
       <Skeleton.Button active size="large"/>  
       </>
   } 
+
   return (
     <FormWrapper>
       <Form 
         form={form}
         layout="vertical"
-        initialValues={{
+        initialValues={status === 200 ? {
           customer_id: id,
           referral_hospital: data.referral_hospital,
           observations: data.observations,
@@ -158,8 +161,10 @@ export default function() {
           additional_notes: data.additional_notes,
           insurance: data.insurance,
           insurance_number: data.insurance_number
+        }: {
+          customer_id: id,
         }}
-        onFinish={ requestSuccess ? onUpdate : onCreate  }
+        onFinish={ status === 200 ? onUpdate : onCreate  }
       >
         <Form.Item
           name="customer_id"
