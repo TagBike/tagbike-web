@@ -96,7 +96,7 @@ export default function() {
           label="Senha"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Insira uma senha',
             },
           ]}
@@ -150,7 +150,7 @@ export default function() {
           <Input />
         </Form.Item>
         <Divider />
-        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
+        <Button htmlType="submit" loading={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>
   );

@@ -436,7 +436,7 @@ if(data.length === 0 && customer) {
         </Form.Item>
 
         <Divider />
-        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
+        <Button htmlType="submit" loading={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>
   );

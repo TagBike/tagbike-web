@@ -62,6 +62,7 @@ export default function() {
     const response = await api.bike.updateClient(values);
     if(response === "success") {
       notification('success', 'Cliente atualizado!', 'Dados alterados com sucesso.');
+      setDisabled(false);
     } else {
       console.log('Error: ', response);
       notification('error', 'Erro ao atualizar o cliente', response.toString());
@@ -206,7 +207,7 @@ export default function() {
           label="Senha"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Insira uma senha',
             },
           ]}
@@ -349,7 +350,7 @@ export default function() {
         <Select options={genders} />
       </Form.Item>
         <Divider />
-        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
+        <Button htmlType="submit" loading={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>
   );  
