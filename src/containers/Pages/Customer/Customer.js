@@ -52,16 +52,22 @@ export default function Customers() {
   const [isLoading, setLoading] = useState(false);
   const [stateList, setStateList] = useState([]);
   const [filteredList, setFilteredList] = useState([]);
+  const [status, setStatus] = useState(0);
 
   useEffect(() => {
     setLoading(true);
     const getListClient = async () => {
-      const clients = await api.bike.getListClient();
-      setStateList(clients);
+      const response = await api.bike.getListClient();
+      setStateList(response.data);
+
+      if(response.status) {
+        setStatus(response.status);
+      }
+      setLoading(false);
     }
 
     getListClient();
-    setLoading(false);
+    
   }, []);
 
   useEffect(() => {
@@ -188,7 +194,7 @@ export default function Customers() {
   ];
 
   const Table = (props) => {
-    if(dataSource.length === 0 ) {
+    if(!status) {
       return <Skeleton/>
     }
     return <TableWrapper  {...props} />

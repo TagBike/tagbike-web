@@ -69,7 +69,7 @@ let BikeApi = () => { return  {
             '/customer'
         );
 
-        return json.data;
+        return json;
     },
     getClientById: async (id) => {
         const json = await api.get(
