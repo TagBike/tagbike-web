@@ -38,17 +38,14 @@ export default function() {
               <Tabs defaultActiveKey="1" >
                 <TabPane tab="Dados Pessoais" key="1">
                   <DefaultForm />
-                </TabPane>        
-                <TabPane tab="Dados Acesso" key="2">
-                  <RegistrationForm />
-                </TabPane>            
-                <TabPane tab="Dados Médicos" key="3">
+                </TabPane>                  
+                <TabPane tab="Dados Médicos" key="2">
                   <MedicalForm />
                 </TabPane>   
-                <TabPane tab="Bikes" key="4">
+                <TabPane tab="Bikes" key="3">
                   <BikeTable />
                 </TabPane>  
-                <TabPane tab="Eventos" key="5">
+                <TabPane tab="Eventos" key="4">
                   <EventList />
                 </TabPane>          
               </Tabs>                                         
