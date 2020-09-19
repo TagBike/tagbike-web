@@ -33,11 +33,6 @@ const Toolbar = props => {
         <Button shape="circle" onClick={onClick}>
             <i className="ion-android-search" />
           </Button>
-        <Link to={`/events/add?customer=${id}`}>
-          <Button shape="circle">
-            <i className="ion-android-add" />
-          </Button>
-        </Link>
       </ButtonGroup>
     </ToolbarWrapper>
   );
