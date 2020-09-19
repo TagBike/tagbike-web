@@ -5,6 +5,7 @@ import Input, { InputPassword, Textarea, Number } from '@iso/components/uielemen
 import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
 import { FormWrapper } from '../Page.styles';
+import {Divider} from 'antd';
 import api from '../../../helpers';
 
 export default function() {
@@ -65,6 +66,7 @@ export default function() {
             formatter={value => `R$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           />
         </Form.Item>
+        <Divider />
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>

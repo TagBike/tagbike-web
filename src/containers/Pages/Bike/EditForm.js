@@ -460,7 +460,8 @@ if(data.length === 0) {
           <Select options={frameTypes} />
         </Form.Item>
 
-        <Button disabled={disabled} htmlType="submit">Salvar</Button>
+        <Divider />
+        <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>
   );

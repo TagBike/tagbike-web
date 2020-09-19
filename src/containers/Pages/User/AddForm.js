@@ -7,6 +7,7 @@ import notification from '@iso/components/Notification';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { FormWrapper } from '../Page.styles';
+import {Divider} from 'antd';
 import api from '../../../helpers';
 
 const Option = SelectOption; 
@@ -148,6 +149,7 @@ export default function() {
         >
           <Input />
         </Form.Item>
+        <Divider />
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>

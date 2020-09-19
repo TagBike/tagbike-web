@@ -305,6 +305,7 @@ export default function() {
       >
         <Select options={genders} />
       </Form.Item>
+        <Divider />
         <Button htmlType="submit" disabled={disabled}>Salvar</Button>
       </Form> 
     </FormWrapper>
