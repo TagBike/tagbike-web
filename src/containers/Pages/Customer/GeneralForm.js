@@ -146,7 +146,7 @@ export default function() {
             options={options}
             onSelect={onSelect}
             onSearch={onSearch}
-            defaultValue={pageMode === 'edit' ? `${data.plan_id} - ${data.plan_name}` : ''}
+            defaultValue={pageMode === 'edit' && data.plan_id ? `${data.plan_id} - ${data.plan_name}` : ''}
           >
               <Search loading={searching} />
           </AutoComplete>
