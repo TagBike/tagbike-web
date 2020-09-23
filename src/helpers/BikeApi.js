@@ -272,7 +272,7 @@ let BikeApi = () => { return  {
         const filetype = data.export_type;
         const canvas = data.export;
         const id = data.id;
-        const color = data.color;
+        const color = data.color ? data.color : undefined;
 
         const request = api.get(
             `/export/tag/${canvas}/${filetype}`,
