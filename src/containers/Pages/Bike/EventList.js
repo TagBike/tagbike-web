@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react';
+import moment from 'moment';
+import 'moment/locale/pt-br';
 import { useParams } from 'react-router-dom';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { useIntl } from 'react-intl';
@@ -97,7 +99,7 @@ export default function Events() {
       eventName : item.eventName,
       eventKey : item.eventKey,
       createdBy : item.createdBy,
-      createdAt : item.created_at,
+      createdAt : item.createdAt,
       ownerId : item.ownerId,
       customerName : item.customerName,
       userId : item.userId,
@@ -177,7 +179,10 @@ export default function Events() {
         if (a.createdAt < b.createdAt) return -1;
         if (a.createdAt > b.createdAt) return 1;
         return 0;
-      },
+      }, 
+      render: (text, row) => {
+        return moment(text).calendar();
+      }
     },
     {
       title: 'Criado Por ',
