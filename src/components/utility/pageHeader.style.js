@@ -4,7 +4,7 @@ import WithDirection from '@iso/lib/helpers/rtl';
 const WDComponentTitleWrapper = styled.h1`
   font-size: 19px;
   font-weight: 500;
-  color: ${palette('secondary', 2)};
+  color: ${palette('primary', 0)};
   width: 100%;
   margin-right: 17px;
   margin-bottom: 30px;
