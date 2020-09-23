@@ -1,11 +1,6 @@
 import React from 'react';
 import { Col, Row, Icon } from 'antd';
-import Input, {
-  InputSearch,
-  InputGroup,
-  Textarea,
-} from '@iso/components/uielements/input';
-import Button, { ButtonGroup } from '@iso/components/uielements/button';
+import Tabs, { TabPane } from '@iso/components/uielements/tabs';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import PageHeader from '@iso/components/utility/pageHeader';
 import Box from '@iso/components/utility/box';
@@ -13,7 +8,10 @@ import LayoutWrapper from '@iso/components/utility/layoutWrapper.js';
 import ContentHolder from '@iso/components/utility/contentHolder';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import { direction } from '@iso/lib/helpers/rtl';
-import BillingForm from './EditForm';
+
+import DefaultForm from './DefaultForm';
+import EventList from './EventList';
+import TagTab from './TagTab';
 
 const Option = SelectOption;
 
@@ -59,10 +57,18 @@ export default function() {
       <Row style={rowStyle} gutter={gutter} justify="start">
         <Col md={24} sm={24} xs={24} style={colStyle}>
           <Box>
-            <ContentHolder>
-            <div className="isoBillingSection">
-              <BillingForm />
-            </div>
+          <ContentHolder>
+              <Tabs defaultActiveKey="1" >
+                <TabPane tab="Detalhes" key="1">
+                  <DefaultForm />
+                </TabPane>                  
+                <TabPane tab="Tag" key="2">
+                  <TagTab />
+                </TabPane>   
+                <TabPane tab="Eventos" key="3">
+                  <EventList />
+                </TabPane>          
+              </Tabs>                                         
             </ContentHolder>
           </Box>
         </Col>

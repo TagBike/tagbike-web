@@ -132,7 +132,7 @@ let BikeApi = () => { return  {
             `/bike/${id}`
         );
 
-        return json.data;
+        return json;
     },
     getBikeByCustomer: async (id) => {
         const json = await api.get(
@@ -239,6 +239,13 @@ let BikeApi = () => { return  {
     
         return json;
     },
+    getEventByBike: async (id) => {
+        const json = await api.get(
+            `/bike/${id}/events`
+        );
+    
+        return json;
+    },
     createEvent:async (data) => {
         const json = await api.post(
             '/event',
@@ -261,6 +268,24 @@ let BikeApi = () => { return  {
         );
         return json.data;
     },
+    download: async (data) => {
+        const filetype = data.export_type;
+        const canvas = data.export;
+        const id = data.id;
+
+        const request = api.get(
+            `/export/tag/${canvas}/${filetype}`,
+            {
+                onDownloadProgress(progress) {
+                    console.log('download progress:', progress);
+                },
+                params: {
+                    hash: id
+                }
+            });
+
+        return request;
+    }
     
 }};
 
