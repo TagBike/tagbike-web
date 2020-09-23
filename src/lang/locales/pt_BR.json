@@ -1,4 +1,7 @@
 {
+  "topbar.myprofile": "Minha Conta",
+  "topbar.logout": "Sair",
+
   "event.action.administration.customer.account.created": "Conta criada por {userName}",
   "event.action.administration.customer.blockedaccount": "{userName} bloqueou a conta de {customerName}",
   "event.action.administration.customer.blockedaccount.reason": "{userName} bloqueou a conta de {customerName} {reason}",
