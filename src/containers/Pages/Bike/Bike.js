@@ -74,6 +74,7 @@ export default function Bikes() {
   const dataSource = filteredList.map( (item) => ({
       id : item.id,
       customer_id : item.customer_id,
+      customerName : item.customerName,
       serialNumber : item.serialNumber,
       model : item.model,
       color : item.color
@@ -101,15 +102,34 @@ export default function Bikes() {
 
   const columns = [
     {
+      title: '#',
+      dataIndex: 'id',
+      width: '40px',
+      key: 'id',
+      sorter: (a, b) => {
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+      },
+    },
+    {
       title: 'Proprietário',
       dataIndex: 'customer_id',
       width: '170px',
       key: 'customer_id',
       sorter: (a, b) => {
-        if (a.customer_id < b.dono) return -1;
-        if (a.dono > b.dono) return 1;
+        if (a.customer_id < b.customer_id) return -1;
+        if (a.customer_id > b.customer_id) return 1;
         return 0;
       },
+      render: (text, row) => {
+        return (
+          <Link to={`/customers/edit/${row.customer_id}`} target="_blank">
+            <Button type="link">{`#${row.customer_id} - ${row.customerName}`}</Button>
+          </Link>
+          
+        );
+      }
     },
     {
       title: 'Número de série ',

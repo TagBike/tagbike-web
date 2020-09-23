@@ -108,9 +108,19 @@ export default function Bikes() {
 
   const columns = [
     {
+      title: '#',
+      dataIndex: 'id',
+      width: '40px',
+      key: 'id',
+      sorter: (a, b) => {
+        if (a.id < b.id) return -1;
+        if (a.id > b.id) return 1;
+        return 0;
+      },
+    },
+    {
       title: 'Número de série ',
       dataIndex: 'serialNumber',
-      width: '170px',
       key: 'serialNumber',
       sorter: (a, b) => {
         if (a.serialNumber < b.serialNumber) return -1;
@@ -143,6 +153,7 @@ export default function Bikes() {
     {
       title: 'Status',
       dataIndex: 'status',
+      width: '80px',
       className: 'noWrapCell',
       key: 'status',
       sorter: (a, b) => {
