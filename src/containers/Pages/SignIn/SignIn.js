@@ -37,7 +37,7 @@ export default function() {
     
     if(json.error === "") {
       api.auth.login(json.token, remeberPassword);
-        history.push('/dashboard');
+        history.push('/customers');
     } else {
       setError(json.error);
     }
