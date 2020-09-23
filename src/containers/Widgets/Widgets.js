@@ -19,7 +19,8 @@ import IntlMessages from '@iso/components/utility/intlMessages';
 const tableDataList = clone(dataList);
 tableDataList.size = 5;
 const styles = {
-  wisgetPageStyle: {
+  widgetPageStyle: {
+    width: '100%',
     display: 'flex',
     flexFlow: 'row wrap',
     alignItems: 'flex-start',
@@ -31,37 +32,27 @@ const styles = {
 const STICKER_WIDGET = [
   {
     number: '1000',
-    text: 'Usuários',
-    icon: 'ion-android-people',
-    fontColor: '#ffffff',
-    bgColor: '#7266BA',
-  },
-  {
-    number: '1000',
-    text: 'CLientes',
+    text: 'Clientes',
     icon: 'ion-ios-people',
-    fontColor: '#ffffff',
-    bgColor: '#FFD700',
+    bgColor: '#ffffff',
   },
   {
     number: '1000',
     text: 'Bicicletas ',
     icon: 'ion-android-bicycle',
-    fontColor: '#ffffff',
-    bgColor: '#7ED320',
+    bgColor: '#ffffff',
   },
   {
     number: '1000',
     text: 'Etiquetas',
     icon: 'ion-ios-pricetag',
-    fontColor: '#ffffff',
-    bgColor: '#F75D81',
+    bgColor: '#ffffff',
   },
 ];
 
 
 export default function() {
-  const { rowStyle, colStyle } = basicStyle;
+  //const { rowStyle, colStyle } = basicStyle;
 
   const chartEvents = [
     {
@@ -76,14 +67,14 @@ export default function() {
   };
   return (
     <LayoutWrapper>
-      <div style={styles.wisgetPageStyle}>
-        <Row style={rowStyle} gutter={0} justify="start">
+      <div style={styles.widgetPageStyle}>
+        <Row style={{width:'100%'}}>
           {STICKER_WIDGET.map((widget, idx) => (
-            <Col lg={6} md={12} sm={12} xs={24} style={colStyle} key={idx}>
+            <Col lg={8} md={12} sm={12} xs={12} key={idx}>
               <IsoWidgetsWrapper>
                 {/* Sticker Widget */}
                 <StickerWidget
-                  number={<IntlMessages id={widget.number} />}
+                  number={widget.number}
                   text={<IntlMessages id={widget.text} />}
                   icon={widget.icon}
                   fontColor={widget.fontColor}
