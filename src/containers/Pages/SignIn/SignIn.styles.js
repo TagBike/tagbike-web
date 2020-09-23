@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { palette } from 'styled-theme';
-import bgImage from '@iso/assets/images/sign.jpg';
 import WithDirection from '@iso/lib/helpers/rtl';
 
 const SignInStyleWrapper = styled.div`

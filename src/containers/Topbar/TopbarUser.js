@@ -24,11 +24,11 @@ export default function TopbarUser() {
 
   const content = (
     <TopbarDropdownWrapper className="isoUserDropdown">
-      <Link className="isoDropdownLink" to={'/dashboard/my-profile'}>
+      <Link className="isoDropdownLink" to={'/myprofile'}>
         <IntlMessages id="topbar.myprofile" />
       </Link>
       <div className="isoDropdownLink" onClick={handleLogout}>
-        <IntlMessages id="Sair" />
+        <IntlMessages id="topbar.logout" />
       </div>
     </TopbarDropdownWrapper>
   );
