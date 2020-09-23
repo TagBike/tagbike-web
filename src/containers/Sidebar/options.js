@@ -18,11 +18,6 @@ const options = [
     leftIcon: 'ion-android-bicycle',
   },
   {
-    key: 'tags',
-    label: 'Etiquetas',
-    leftIcon: 'ion-ios-barcode',
-  },
-  {
     key: 'users',
     label: 'Usuários',
     leftIcon: 'ion-android-people',
