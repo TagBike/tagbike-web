@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { palette } from 'styled-theme';
 
 const AntTab = ComponentName => styled(ComponentName)`
   &.ant-tabs {
@@ -13,6 +14,12 @@ const AntTab = ComponentName => styled(ComponentName)`
         margin: ${props =>
           props['data-rtl'] === 'rtl' ? '0 0 0 24px' : '0 24px 0 0'};
 
+        &.ant-tabs-tab-active{
+          .ant-tabs-tab-btn {
+            color: ${palette('primary', 0)};
+          }
+          
+        }
         .anticon:not(.anticon-close) {
           margin: ${props =>
             props['data-rtl'] === 'rtl' ? '0 0 0 8px' : '0 8px 0 0'};
@@ -24,6 +31,9 @@ const AntTab = ComponentName => styled(ComponentName)`
               props['data-rtl'] === 'rtl' ? '2px' : 'inherit'};;
           }
         }
+      }
+      .ant-tabs-ink-bar{
+        background-color: ${palette('primary', 0)};
       }
     }
 
