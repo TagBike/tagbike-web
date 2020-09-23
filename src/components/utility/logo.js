@@ -9,11 +9,11 @@ export default ({ collapsed, title }) => {
   return (
     <div className={`isoLogoWrapper ${collapsed ? 'collapsed' : ''}`} >
       {collapsed ? (
-        <Link to="/">
+        <Link to="/dashboard">
           <img src={logoIcon} alt={title} />
         </Link>
       ) : (
-        <Link to="/">
+        <Link to="/dashboard">
           <img src={logoIcon} alt={title} />
         </Link>
       )}

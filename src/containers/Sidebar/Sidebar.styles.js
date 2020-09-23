@@ -38,8 +38,9 @@ const SidebarWrapper = styled.div`
       ${borderRadius()};
 
       img {
+        margin: 10px 0;
         max-width: 70px;
-        max-height: 60px;
+        max-height: 40px;
       }
 
       h3 {
