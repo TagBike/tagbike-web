@@ -187,7 +187,7 @@ export default function Bikes() {
                 </Button>
               </Link>
               <Popconfirms
-                title="Deseja Excluir esse cliente?"
+                title="Deseja Excluir esta bike?"
                 okText="Sim"
                 cancelText="Não"
                 placement="topRight"

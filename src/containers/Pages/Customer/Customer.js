@@ -99,7 +99,7 @@ export default function Customers() {
 
   const handleDelete = async (id) => {
     const json = await api.bike.deleteClient(id);
-    window.location.href = './customers';
+    window.location.href = '/customers';
   }
 
   const columns = [
