@@ -3,6 +3,8 @@ import { useHistory, useParams, useLocation } from 'react-router-dom';
 import Loader from '@iso/components/utility/loader';
 import Form from '@iso/components/uielements/form';
 import Input, { InputMasked, InputPassword } from '@iso/components/uielements/input';
+import { Input as AntInput } from 'antd';
+import AutoComplete from '@iso/components/uielements/autocomplete';
 import Button from '@iso/components/uielements/button';
 import Select, { SelectOption } from '@iso/components/uielements/select';
 import notification from '@iso/components/Notification';
@@ -12,7 +14,7 @@ import Skeleton from '@iso/components/uielements/skeleton';
 import {Divider} from 'antd';
 import api from '../../../helpers';
 
-const Option = SelectOption; 
+const { Search } = AntInput;
 
 
 export default function() {
@@ -115,6 +117,43 @@ export default function() {
 
   }
 
+  const AutoCompletes = (props) => {
+    const [searching, setSearching] = useState(false);
+    const [options, setOptions] = useState([]);
+
+
+    const onSearch = async (searchText) => {
+        setSearching(true);
+        let list = [];
+        const response = await api.bike.get(props.url, {params: searchText});
+        
+        response.data.map((value, key) => {
+            list.push({value: `${value.id} - ${value.name}`});
+        });
+        setSearching(false);
+        setOptions(list);
+    };
+
+    const onSelect = data => {
+        const regex = /^[0-9]+/;
+        const id = regex.exec(data)[0];
+        form.setFieldsValue({plan_id: id});
+    };
+
+      return (
+          <>
+          <AutoComplete
+            options={options}
+            onSelect={onSelect}
+            onSearch={onSearch}
+            defaultValue={pageMode === 'edit' ? `${data.plan_id} - ${data.plan_name}` : ''}
+          >
+              <Search loading={searching} />
+          </AutoComplete>
+          </>
+      );
+  };
+
   const genders = [
     {
       label: 'Feminino',
@@ -145,6 +184,7 @@ export default function() {
         initialValues={pageMode === 'edit' ? {
           id: data.id,
           name: data.name,
+          plan_id: data.plan_id,
           email: data.email,
           cpf: data.cpf,
           rg: data.rg,
@@ -184,6 +224,15 @@ export default function() {
           ]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="plan_id"
+          label="Plano"
+        >
+          <AutoCompletes 
+            url="/search/plan"
+            placeholder="Plano"
+          />
         </Form.Item>
         <Form.Item
           name="email"

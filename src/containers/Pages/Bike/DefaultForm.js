@@ -229,7 +229,6 @@ export default function() {
         setSearching(true);
         let list = [];
         const response = await api.bike.get(props.url, {data: searchText});
-        console.log(response);
         response.data.map((value, key) => {
             list.push({value: `${value.id} - ${value.name}`});
         });

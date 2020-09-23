@@ -137,7 +137,8 @@ export default function() {
               initialValues={{
                 id: data.hash,
                 export: 'all',
-                export_type: 'svg'
+                export_type: 'svg',
+                color: true
               }}
               onFinish={onFinish}
             >
@@ -179,6 +180,13 @@ export default function() {
                 ]}
               >
                 <Select defaultValue="pdf" options={types} />
+              </Form.Item>
+              <Form.Item
+                name="color"
+                label="Colorida"
+                
+              >
+                <Select defaultValue="pdf" options={[{label:'Sim',value: true},{label: 'Não', value: false}]} />
               </Form.Item>
               <Divider />
               <Button htmlType="submit" loading={loading}>Exportar</Button>

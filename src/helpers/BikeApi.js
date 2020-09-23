@@ -272,6 +272,7 @@ let BikeApi = () => { return  {
         const filetype = data.export_type;
         const canvas = data.export;
         const id = data.id;
+        const color = data.color;
 
         const request = api.get(
             `/export/tag/${canvas}/${filetype}`,
@@ -280,7 +281,8 @@ let BikeApi = () => { return  {
                     console.log('download progress:', progress);
                 },
                 params: {
-                    hash: id
+                    hash: id,
+                    color:color
                 }
             });
 
