@@ -96,6 +96,7 @@
     "reselect": "^4.0.0",
     "rheostat": "^3.0.2",
     "rich-marker": "^0.0.1",
+    "streamsaver": "^2.0.4",
     "styled-components": "^4.4.0",
     "styled-theme": "^0.3.3",
     "swiper": "^5.0.4"
