@@ -6,6 +6,7 @@ import Carousel from '@iso/components/uielements/carousel';
 import IntlMessages from '@iso/components/utility/intlMessages';
 import SignInStyleWrapper from './SignIn.styles';
 import Button from '@iso/components/uielements/button';
+import logoIcon from '@iso/assets/images/icons/icon-144x144.png';
 import {ErrorMessage} from '../../../components/MainComponents';
 import api  from '../../../helpers';
 
@@ -66,7 +67,7 @@ export default function() {
         </div>
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
-            <IntlMessages id="Bike Portal" />
+            <img src={logoIcon}  />
           </div>
           <div className="isoSignInForm">
                 {error &&
