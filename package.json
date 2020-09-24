@@ -1,6 +1,6 @@
 {
   "name": "tagbike",
-  "version": "3.0.5",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@glidejs/glide": "^3.4.1",
