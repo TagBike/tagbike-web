@@ -1,19 +1,17 @@
-FROM mhart/alpine-node:11 AS builder
+# build environment
+FROM node:10 as build
 WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json /app/package.json
+COPY . /app
+RUN yarn install
+RUN yarn run build
 
-COPY package.json /app
-COPY lerna.json /app
-COPY babel.config.js /app
-
-COPY packages/isomorphic /app/packages/isomorphic
-COPY shared/package.json /app/shared/package.json
-COPY shared/isomorphic /app/shared/isomorphic
-COPY shared/Library /app/shared/Library
-
-RUN yarn && cd packages/isomorphic && yarn build
-
-FROM mhart/alpine-node
+# production environment
+FROM node:10
 RUN yarn global add serve
 WORKDIR /app
-COPY --from=builder /app/packages/isomorphic/build .
+COPY  --from=build /app/build .
+
+EXPOSE 80
 CMD ["serve", "-p", "80", "-s", "."]
