@@ -34,14 +34,15 @@ const SignInStyleWrapper = styled.div`
   }
 
   .isoLoginCarousel {
-    width: 60%;
+    width: 66%;
     @media only screen and (max-width: 767px) {
       display: none;
     }
   }
 
   .isoLoginContent {
-    width: 40%;
+    margin: 0 auto;
+    width: 33%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -49,9 +50,9 @@ const SignInStyleWrapper = styled.div`
     position: relative;
     background-color: #ffffff;
 
-    -webkit-box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
-    -moz-box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
-    box-shadow: -5px 1px 10px -5px rgba(51,51,51,1);
+    -webkit-box-shadow: 0px 1px 10px -5px rgba(51,51,51,1);
+    -moz-box-shadow: 0px 1px 10px -5px rgba(51,51,51,1);
+    box-shadow: 0px 1px 10px -5px rgba(51,51,51,1);
 
     @media only screen and (max-width: 767px) {
       width: 100%;

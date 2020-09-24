@@ -22,11 +22,8 @@ export default function() {
 
   
   const contentStyle = {
+    width: '100%',
     height: '100vh',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
   };
 
   const handleSubmit = async (e) =>  {
@@ -49,22 +46,7 @@ export default function() {
   return (
     <SignInStyleWrapper className="isoSignInPage">
       <div className="isoLoginContentWrapper">
-        <div className="isoLoginCarousel">
-        <Carousel autoplay>
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
-          </div>
-        </Carousel>
-        </div>
+        
         <div className="isoLoginContent">
           <div className="isoLogoWrapper">
             <img src={logoIcon}  />
@@ -111,11 +93,11 @@ export default function() {
               </div>
             </form>
   
-            <div className="isoCenterComponent isoHelperWrapper">
+           {/* <div className="isoCenterComponent isoHelperWrapper">
               <Link to="/forgotpassword" className="isoForgotPass">
                 <IntlMessages id="page.signInForgotPass" />
               </Link>
-            </div>
+              </div>*/}
           </div>
         </div>
       </div>
