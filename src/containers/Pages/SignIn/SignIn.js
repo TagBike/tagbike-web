@@ -31,13 +31,17 @@ export default function() {
     setDisabled(true);
     setError('');
     
-    const json = await api.bike.login(email, password);
+    const response = await api.bike.login(email, password);
     
-    if(json.error === "") {
-      api.auth.login(json.token, remeberPassword);
+    if(response.error === "") {
+        api.auth.login(response.token, remeberPassword);  
         history.push('/customers');
     } else {
-      setError(json.error);
+      if(response.error) {
+        setError(response.error.toString());  
+      } else {
+        setError(response.toString());  
+      }
     }
 
     setDisabled(false);
@@ -52,8 +56,8 @@ export default function() {
             <img src={logoIcon}  />
           </div>
           <div className="isoSignInForm">
-                {error &&
-                  <ErrorMessage>{error}</ErrorMessage>
+                {error ?
+                  <ErrorMessage>{error}</ErrorMessage> : ''
                 }
             <form onSubmit={handleSubmit}>
               <div className="isoInputWrapper">
