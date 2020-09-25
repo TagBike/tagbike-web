@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Form from '@iso/components/uielements/form';
-import Input, { InputMasked } from '@iso/components/uielements/input';
+import Input, { InputMasked, InputPassword } from '@iso/components/uielements/input';
 import Button from '@iso/components/uielements/button';
 import notification from '@iso/components/Notification';
 import IntlMessages from '@iso/components/utility/intlMessages';
@@ -132,6 +132,13 @@ export default function() {
           ]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          name="password"
+          label="Senha"
+        >
+          <InputPassword />
         </Form.Item>
 
         <Form.Item
